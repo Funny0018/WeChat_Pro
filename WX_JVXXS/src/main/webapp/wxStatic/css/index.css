@@ -1,0 +1,195 @@
+.bar-tab {
+    height: 2.6rem;
+}
+
+.tab-item {
+    height: 5rem;
+    width: 33%;
+}
+
+.tab-item img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.tab-label {
+    margin-top: 0.3rem;
+}
+
+.active {
+    color: #f60 !important;
+}
+
+#stock-text {
+    height: 1.4rem;
+    outline: none;
+    border: none;
+    border-radius: 0.8rem;
+    padding-left: 1.4rem;
+    padding-right: 0.5rem;
+    color: #fff;
+    background: #ff944d url("../../../wxStatic/images/index/search.png") no-repeat 0.5rem 0.45rem;
+    background-size: 0.8rem;
+    font-size: 0.7rem;
+    width: 98%;
+    /*margin-right: 2rem;*/
+}
+
+#address {
+    padding-left: 1rem;
+    margin-top: 0.2rem;
+}
+
+.type-list {
+    background-color: #fff;
+    height: 2rem;
+    /*border: 1px solid red;*/
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.type-list span {
+    bottom: 0;
+    /*margin-left: 1rem;*/
+    margin-top: 0.2rem;
+    display: inline-block;
+    font-size: 0.75rem;
+    text-align: center;
+    height: 2rem;
+    width: 5rem;
+}
+
+.type-active {
+    font-size: 0.85rem !important;
+    font-weight: 800;
+}
+
+.type-active::after {
+    content: '';
+    position: absolute;
+    display: block;
+    margin-top: 0;
+    margin-left: 2rem;
+    height: 1px;
+    width: 1rem;
+    background-color: #f60;
+}
+
+.productList {
+    top: 4rem !important;
+    background-color: #ddd;
+}
+
+.media-list {
+    margin: 0 auto;
+}
+
+.item-content img {
+    width: 5rem;
+    height: 5rem;
+    margin-top: 0.5rem;
+}
+
+.prodcut-Left {
+    height: 6rem;
+    width: 30%;
+}
+
+.product-Right {;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    height: 6rem;
+    width: 65%;
+    /*margin-left: -1rem;*/
+}
+
+.priduct-Info {
+    height:45%;
+    width: 100%;
+}
+
+.product-Other {
+    height: 55%;
+    width: 100%;
+}
+
+.product-Other-Left {
+    height: 3.5rem;
+    width: 50%;
+    float: left;
+}
+
+.product-Other-Right {
+    height: 3.5rem;
+    width: 50%;
+    float: left;
+}
+
+.product-Name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    height: 1.5rem;
+    margin-top: -0.5rem;
+}
+
+.product-Price {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    height: 1rem ;
+    color: #f60;
+}
+
+.product-Vipprice {
+    font-size: 0.85rem;
+    height: 1rem ;
+    color: #ffd700;
+}
+.product-Salled{
+    font-size: 0.65rem;
+    height: 1rem ;
+    color: #d3d3d3;
+}
+.product-Other-Dian{
+    margin-top: 1.75rem;
+    margin-left: 1.25rem;
+}
+.bindMinus{
+    color: #f60;
+    font-size: 1.25rem;
+    width: 1rem;
+    display: block;
+    float: left;
+}
+.count{
+    font-size: 1.25rem;
+    width: 2rem;
+    display: block;
+    float: left;
+}
+.bindPlus{
+    color: #f60;
+    font-size: 1.25rem;
+    width: 1rem;
+    display: block;
+    float: left;
+}
+.product-Other-Cart img{
+    height: 2rem;
+    width: 2rem;
+    padding: 0 0 0 0;
+    margin-top: 1.25rem;
+    margin-left: 2rem;
+}
+
+.line::after {
+    content: '';
+    position: absolute;
+    display: block;
+    margin-top: 0;
+    margin-left: 2.5%;
+    height: 1px;
+    width: 95%;
+    background-color: rgba(180, 180, 180, 0.3);
+}

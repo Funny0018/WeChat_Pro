@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.optionalCityDao">
+
+    <parameterMap id="parameterMap" type="com.entity.optionalCity"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.optionalCity">
+        <result property="fid" column="fid"/>
+        <result property="fcityname" column="fcityname"/>
+        <result property="fstate" column="fstate"/>
+
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fcityname,
+            fstate,
+        </trim>
+    </sql>
+
+    <select id="selectByNone" resultMap="resultMap" parameterType="int">
+        select
+        <include refid="columnSql"></include>
+        FROM t_optionalcity WHERE fstate>0
+    </select>
+
+    <update id="deleteIds" keyProperty="true" parameterType="map">
+        UPDATE t_optionalcity
+        SET fstate=0
+        WHERE fid in
+        <foreach collection="fids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="update" keyProperty="true" parameterType="map">
+        UPDATE t_optionalcity
+        SET fcityname=#{fcityname}
+        WHERE fid = #{fid}
+    </update>
+    <insert id="add" parameterType="com.entity.optionalCity" useGeneratedKeys="true" keyProperty="fid">
+        INSERT t_optionalcity
+        ( fid,
+            fcityname,
+            fstate)
+            VALUES
+            (
+             #{fid},
+            #{fcityname},
+            #{fstate}
+            )
+    </insert>
+</mapper>

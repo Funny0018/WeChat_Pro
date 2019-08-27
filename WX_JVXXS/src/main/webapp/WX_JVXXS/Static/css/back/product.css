@@ -1,0 +1,56 @@
+.panel-heading {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.panel-body {
+    line-height: 3rem;
+}
+
+.productTypeSelect {
+    width: 10rem;
+}
+
+.my-container {
+    float: left;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.myLabel-content, .myText-content, .myBtn-content {
+    float: left;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.myLabel-content, .myText-content input[type='text'], .myBtn-content .btn {
+    height: 30px;
+    font-size: 12px;
+}
+
+.myBtn-content .btn {
+    margin-bottom: 10px;
+}
+
+.pagination {
+    float: right;
+}
+
+.pageSize {
+    width: 2rem;
+}
+.productType {
+    /*background-color: #eee;*/
+    height: 80%;
+    text-align: center;
+}
+.product img{
+    width: 10rem;
+    height: 10rem;
+    float: left;
+}
+.btn-submit {
+    width: 50%;
+    margin-top: 1rem;
+    border-radius: 0.2rem;
+}

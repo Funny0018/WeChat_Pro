@@ -1,0 +1,352 @@
+<!--pages/product/product.wxml-->
+<!-- <view class='login-info'>
+  <view wx:if="{{!hasUserInfo && canIUse}}" class='login'>
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='loginbut'>点击此处登录</button>
+  </view>
+</view> -->
+<view class='newUserBox' wx:if='{{newcoupon}}' bindtap='getNewCoupon'>
+  <view class='newUser'></view>
+</view>
+<view class="good_box" wx:if="{{!hide_good_box}}" style="left: {{bus_x}}px; top: {{bus_y}}px;">
+  <!-- <image src='/static/image/product/cart.png'></image> -->
+</view>
+<view class='product-top'>
+  <view class='address' bindtap='toAddress'>
+    <image src='/static/image/product/onhour.png'></image>{{address}}</view>
+  <view class='search' placeholder='搜索' id="addressinput" bindtap='toSearch'>
+    <image src='/static/image/address/search.png'></image>搜索</view>
+</view>
+<view class='type-list'>
+  <scroll-view scroll-x class="scroll-header">
+    <block wx:for='{{producttypeList}}' wx:key='ftypeid'>
+      <block wx:if='{{productType==item.ftypeid}}'>
+        <view class='type active' id='{{item.ftypeid}}'>{{item.fName}}</view>
+      </block>
+      <block wx:else>
+        <view class='type' id='{{item.ftypeid}}' bindtap='chageType'>{{item.fName}}</view>
+      </block>
+    </block>
+  </scroll-view>
+</view>
+<view class='type-list-tow' wx:if="{{producttypeListTwoShow}}">
+  <scroll-view scroll-x class="scroll-header">
+    <block wx:for='{{producttypeListTwo}}' wx:key='ftypeid'>
+      <block wx:if='{{productTypeTwo==item.ftypeid}}'>
+        <view class='type active' id='{{item.ftypeid}}'>{{item.fName}}</view>
+      </block>
+      <block wx:else>
+        <view class='type' id='{{item.ftypeid}}' bindtap='chageTypeTwo'>{{item.fName}}</view>
+      </block>
+    </block>
+  </scroll-view>
+</view>
+<view style='display:{{productshow}};margin-top:{{top1}}px'>
+  <view wx:if='{{productType==0}}' class='vipView' bindtap='joinVip'>
+    <image class='vipcard' src='/static/image/me/vipcard.png'></image>
+    <view wx:if='{{isVip=="普通用户"}}' class='vipTxt'>
+      <view class='vipTxtTop'>超多权益任您拿</view>
+      <view class='vipTxtBottom'>预计可为您节省2820元/年</view>
+    </view>
+    <view wx:else class='vipTxt'>
+      <view class='vipTxtTop'>{{isVip}}</view>
+      <view class='vipTxtBottom'>{{vipdate}}</view>
+    </view>
+    <image class='vipToRightImg' src='/static/image/me/toright.png'></image>
+    <text class='vipToRightTxt'>{{joinVip}}</text>
+  </view>
+  <view wx:if='{{productType==0}}' class='onsalll' bindtap='joinVip'></view>
+  <view class='productList'>
+    <block wx:for="{{product}}" wx:key="fProductId">
+      <view class="productItem line">
+        <view class='productDetail'>
+          <view class='productImgView' id='{{item.fProductId}}' bindtap='toDetail'>
+            <image src='{{item.fImgUrl}}' class='productImg'></image>
+          </view>
+          <view class='productInfoView' id='{{item.fProductId}}' bindtap='toDetail'>
+            <view class='infoView'>
+              <text class='productName'>{{item.fName}}</text>
+              <text class='productDesc'>{{item.fDesc}}</text>
+            </view>
+            <view wx:if='{{item.fVipPrice>0}}' class='priceView'>
+              <view class='productPrice'>
+                <text>￥{{item.fPrice}}</text>
+                <block wx:for='{{item.ftoptag}}' wx:for-item='toptag' wx:key='toptag'>
+                  <text class='hot-toptag'>{{toptag}}</text>
+                </block>
+              </view>
+              <text class='productVipPrice'>￥{{item.fVipPrice}}</text>
+              <!-- <image class='vipimage' src='/static/image/product/vip.png'></image> -->
+              <image class='vippriceimage' src='https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/product/vipprice.png'></image>
+            </view>
+            <view wx:else class='priceViewnovip'>
+              <view class='productPrice' style='font-size:35rpx;'>￥{{item.fPrice}}
+                <block wx:for='{{item.ftoptag}}' wx:for-item='toptag'>
+                  <text class='hot-toptag'>{{toptag}}</text>
+                </block>
+              </view>
+
+            </view>
+            <view class='productSalled'>已售：{{item.fsalled}}份</view>
+          </view>
+          <view class="dian" id="product-{{item.fProductId}}" style='display:{{item.count=="0"?"none":"display"}}'>
+            <!-- <view class="cun page_row">购买数量:</view> -->
+            <view class="stepper">
+              <!-- 减号 -->
+              <view class='stepperBind' bindtap="bindMinus" id="bindMinus-{{item.fProductId}}">-</view>
+              <!-- 数值 -->
+
+              <!-- <input type="number" bindchange="pay_num" value="{{item.count}}" disabled='true' id="count-{{item.fProductId}}" /> -->
+              <view class='stepperCount'>{{item.count}}</view>
+              <!-- 加号 -->
+              <view class='stepperBind' bindtap="bindPlus" id="bindPlus-{{item.fProductId}}">+</view>
+            </view>
+
+          </view>
+          <view class='dian-cart' style='display:{{item.count=="0"?"display":"none"}};right:20rpx;'>
+            <image src='/static/image/product/cart.png' bindtap="bindPlus" id="cart-{{item.fProductId}}"></image>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class='isBottom' style='display:{{isbottom?"block":"none"}}'>-----------我是有底线的---------</view>
+</view>
+<view wx:if="{{showCon}}" class="modal-mask" bindtap="changeModalCancel">
+  <view class="modal-dialog">
+    <view class="modal-title">温馨提示</view>
+    <view class="modal-content">
+      获取定位失败，请前往设置打开定位权限
+    </view>
+    <view class="modal-footer">
+      <view class="btn-cancel" catchtap="changeModalCancel">取消</view>
+      <button open-type="openSetting" class="btn-confirm button-on-view" style="padding:0rpx;" catchtap="changeModalCancel">设置</button>
+    </view>
+  </view>
+</view>
+<view style='display:{{indexshow}}'>
+  <!-- <view class='new-product-top'>
+    <input type='text' class='new-search' placeholder='搜索' disabled='true' id="addressinput" bindtap='toSearch'>{{inputaddress}}</input>
+  </view> -->
+
+  <view class='tejia' wx:if='{{opentejia}}'>
+<view class='toType99999' bindtap='showType9999'></view>
+      <block wx:for="{{tejiaObj}}" wx:key="fProductId">
+        <view class='newProductItemTejia'>
+          <view class='newProductImgViewTejia' id='{{item.fProductId}}' bindtap='toDetail'>
+            <image src='{{item.fImgUrl}}' class='newProductImg'></image>
+          </view>
+          <view class='newProductPriceViewTejia'><view>{{item.fPrice}}</view></view>
+          <!-- <view class='newProductName' id='{{item.fProductId}}' bindtap='toDetail'>{{item.fName}}</view> -->
+          <!-- <view class='newProductPriceView' id='{{item.fProductId}}' bindtap='toDetail'>
+            <block wx:if='{{item.fVipPrice>0}}'>
+              <text class='newProductPrice'>￥{{item.fPrice}}</text >
+                  <text class='newProductVipPrice'>￥{{item.fVipPrice}}</text>
+            </block>
+            <block wx:else>
+              <text class='productPrice' style='font-size:35rpx;'>￥{{item.fPrice}}</text>
+            </block>
+          </view> -->
+          <!-- <view class='newDian-cart'>
+            <block wx:for='{{item.ftoptag}}' wx:for-item='toptag' wx:key='newDianCart'>
+              <view class='new-toptag'>{{toptag}}</view>
+            </block>
+            <image src='/static/image/product/cart.png' bindtap="bindPlus" id="cart1-{{item.fProductId}}"></image>
+          </view> -->
+        </view>
+      </block>
+      <!-- <view class='newProductItemTejia froMore' bindtap='showType9999'>
+        <view style='margin-top:40%;'>查看更多</view>
+        <view style='margin-top:10%;'>
+          <image class='' src='/static/image/product/toRight.png'></image>
+        </view>
+    </view> -->
+  </view>
+  <swiper class='new-swiper' indicator-dots='true' indicator-color='#f60' indicator-active-color='#ddd' autoplay='true' interval='3000' circular='true'>
+    <swiper-item>
+      <image src='https://xxs.xixiansheng.cn/Images/static/indexhead/head3.jpg' mode='widthFix' bindtap='TopToProductType1'></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='https://xxs.xixiansheng.cn/Images/static/indexhead/head4.jpg' mode='widthFix' bindtap='TopToProductType2'></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='https://xxs.xixiansheng.cn/Images/static/indexhead/head2.jpg' mode='widthFix' bindtap='ToptoDetail1'></image>
+    </swiper-item>
+  </swiper>
+  <!-- <view wx:if='{{isVip=="普通用户"}}' class='new-joinVIp' bindtap='joinVip'>
+  </view> -->
+  <view class='new-isjoinVIp' bindtap='joinVip'>
+    <view class='new-vipdate'>{{vipdate}}</view>
+  </view>
+  <view class='new-touch' bindtouchstart='handletouchstart' bindtouchmove="handletouchmove" bindtouchend="handletouchend" style='margin-top: {{top}}px;'>
+    <view class='menuBlock'>
+      <!-- <view class='showInfo'>
+        <image src='/static/image/product/horn.png'></image>
+        <view class='infoLeft'>公告</view>
+        <view class='infoRight'>
+          <scroll-view class="containerindex">
+            <view class="scrolltxt">
+              <view class="marquee_box">
+                <view class="marquee_text" style="transform: translateX(-{{marqueeDistance}}px)">
+                  <text>{{text}}</text>
+                  <text style="margin-right:{{marquee_margin}}px;"></text>
+                  <text style="margin-right:{{marquee_margin}}px;">{{text}}</text>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+
+      </view> -->
+      <view class='indextitle'>
+      </view>
+      <view class='indexshare' bindtap='toShare'>
+        <!-- <image  src='https://xxs.xixiansheng.cn/Images/static/indexhead/indexshare.png' mode='widthFix'></image> -->
+      </view>
+      <view class='menuTitle'>严选水果</view>
+      <view class='menu left menu1' bindtap='showproduct'></view>
+      <view class='menuList-out'>
+        <view class='menuList'>
+
+          <block wx:for="{{menu1Obj}}" wx:key="fProductId">
+            <view class='newProductItem'>
+              <view class='newProductImgView' id='{{item.fProductId}}' bindtap='toDetail'>
+                <image src='{{item.fImgUrl}}' class='newProductImg'></image>
+              </view>
+              <view class='newProductName' id='{{item.fProductId}}' bindtap='toDetail'>{{item.fName}}</view>
+              <view class='newProductPriceView' id='{{item.fProductId}}' bindtap='toDetail'>
+                <block wx:if='{{item.fVipPrice>0}}'>
+                  <text class='newProductPrice'>￥{{item.fPrice}}</text >
+                  <text class='newProductVipPrice'>￥{{item.fVipPrice}}</text>
+                </block>
+                <block wx:else>
+                  <text class='productPrice' style='font-size:35rpx;'>￥{{item.fPrice}}</text>
+                </block>
+              </view>
+              <view class='newDian-cart'>
+                <block wx:for='{{item.ftoptag}}' wx:for-item='toptag' wx:key='newDianCart'>
+                  <view class='new-toptag'>{{toptag}}</view>
+                </block>
+                <image src='/static/image/product/cart.png' bindtap="bindPlus" id="cart1-{{item.fProductId}}"></image>
+              </view>
+            </view>
+          </block>
+          <view class='newProductItem froMore' bindtap='showType12'>
+            <view style='margin-top:40%;'>更多请点击</view>
+            <view style='margin-top:10%;'>
+              <image class='' src='/static/image/product/toRight.png'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='menuTitle'>冰铺</view>
+      <view class='menu left menu2' bindtap='showproduct'></view>
+      <view class='menuList-out'>
+        <view class='menuList'>
+
+          <block wx:for="{{menu2Obj}}" wx:key="fProductId">
+            <view class='newProductItem'>
+              <view class='newProductImgView' id='{{item.fProductId}}' bindtap='toDetail'>
+                <image src='{{item.fImgUrl}}' class='newProductImg'></image>
+              </view>
+              <view class='newProductName'>{{item.fName}}</view>
+              <view class='newProductPriceView'>
+                <block wx:if='{{item.fVipPrice>0}}'>
+                  <text class='newProductPrice'>￥{{item.fPrice}}</text >
+                  <text class='newProductVipPrice'>￥{{item.fVipPrice}}</text>
+                </block>
+                <block wx:else>
+                  <text class='productPrice' style='font-size:35rpx;'>￥{{item.fPrice}}</text>
+                </block>
+              </view>
+              <view class='newDian-cart'>
+                <block wx:for='{{item.ftoptag}}' wx:for-item='toptag' wx:key='toptag'>
+                  <view class='new-toptag'>{{toptag}}</view>
+                </block>
+                <image src='/static/image/product/cart.png' bindtap="bindPlus" id="cart2-{{item.fProductId}}"></image>
+              </view>
+            </view>
+          </block>
+          <view class='newProductItem froMore' bindtap='showType13'>
+            <view style='margin-top:40%;'>更多请点击</view>
+            <view style='margin-top:10%;'>
+              <image class='' src='/static/image/product/toRight.png'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='hotInfo'>
+      <view class='hot'>
+        <image src='https://xxs.xixiansheng.cn/Images/static/indexhead/hot.png' class='hotImage' mode='widthFix'></image>
+      </view>
+      <view class='new-productList'>
+        <block wx:for="{{hotobj}}" wx:key="fProductId">
+          <view class="productItem line">
+            <view class='productDetail'>
+              <view class='productImgView' id='{{item.fProductId}}' bindtap='toDetail'>
+                <image src='{{item.fImgUrl}}' class='productImg'></image>
+              </view>
+              <view class='productInfoView' id='{{item.fProductId}}' bindtap='toDetail'>
+                <view class='infoView'>
+                  <view class='productName'>{{item.fName}}</view>
+                  <view class='productDesc'>{{item.fDesc}}</view>
+                </view>
+                <view wx:if='{{item.fVipPrice>0}}' class='priceView'>
+                  <view class='productPrice'>
+                    <text>￥{{item.fPrice}}</text>
+                    <block wx:for='{{item.ftoptag}}' wx:for-item='toptag' wx:key='toptag'>
+                      <text class='hot-toptag'>{{toptag}}</text>
+                    </block>
+                  </view>
+                  <text class='productVipPrice'>￥{{item.fVipPrice}}</text>
+                  <!-- <image class='vipimage' src='/static/image/product/vip.png'></image> -->
+                  <image class='vippriceimage' src='https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/product/vipprice.png'></image>
+                </view>
+                <view wx:else class='priceViewnovip'>
+                  <text class='productPrice' style='font-size:35rpx;'>￥{{item.fPrice}}</text >
+                  <block wx:for='{{item.ftoptag}}' wx:for-item='toptag'>
+                    <text class='hot-toptag'>{{toptag}}</text>
+        </block>
+        </view>
+        <view class='productSalled'>已售：{{item.fsalled}}份</view>
+        </view>
+        <view class="dian" id="product-{{item.fProductId}}" style='display:{{item.count=="0"?"none":"display"}}'>
+
+          <view class="stepper">
+            <!-- 减号 -->
+            <view class='stepperBind' bindtap="bindMinus" id="bindMinus-{{item.fProductId}}">-</view>
+            <!-- 数值 -->
+
+            <!-- <input type="number" bindchange="pay_num" value="{{item.count}}" disabled='true' id="count-{{item.fProductId}}"/> -->
+            <view class='stepperCount'>{{item.count}}</view>
+            <!-- 加号 -->
+            <view class='stepperBind' bindtap="bindPlus" id="bindPlus-{{item.fProductId}}">+</view>
+          </view>
+
+        </view>
+        <view class='dian-cart' style='display:{{item.count=="0"?"display":"none"}};right:20rpx;'>
+          <image src='/static/image/product/cart.png' bindtap="bindPlus" id="cart-{{item.fProductId}}"></image>
+        </view>
+        </view>
+        </view>
+        </block>
+      </view>
+    </view>
+  </view>
+  <view class='toshow' style='display:{{toshow}}' bindtap='cancelToSHow'>
+    <image src='https://xxs.xixiansheng.cn/Images/static/indexhead/toshow.jpg' class='toshowImage' mode='widthFix'></image>
+  </view>
+</view>
+<view class='dialog' style='display:{{dialogShow}}'>{{totalPrice}}
+  <view class='u-ril'>{{infoPrice}}
+  </view>
+</view>
+<view class='dialogTop' style='display:{{dialogTopShow}}'>
+  “添加到我的小程序”，快速买水果生鲜
+  <!-- 来自分享{{shareId}} -->
+  <view class='u-rilTop' bindtap='dialogTopClose'>X
+  </view>
+</view>
+<loading wx:if="{{!loading}}">
+  加载中...
+</loading>

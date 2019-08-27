@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Static/css/back/product.css">
+    <script src="../Static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../Static/js/bootstrap.js"></script>
+    <script src="../Static/js/tools.js"></script>
+</head>
+<body>
+<div class="panel-heading">
+    礼券信息列表
+</div>
+<div class="choseProduct" style="display: none;">
+    <div class="input-group">
+        <span class="input-group-addon">商品名称</span>
+        <input type="text" class="form-control" placeholder="" value="" id="productName">
+        <span class="input-group-addon productBack">返回</span>
+    </div>
+    <div class="showProductForCoupon">
+        <ul class="productListForCoupon">
+
+        </ul>
+    </div>
+</div>
+<div class="editCoupon" style="display: none;">
+    <div class="editCounponFront">
+        <div class="input-group">
+            <span class="input-group-addon">卡券编码</span>
+            <input type="text" class="form-control" placeholder="" value="0" disabled="true" id="couponID">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">卡券名称</span>
+            <input type="text" class="form-control" placeholder="" value="" id="couponName">
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">卡券类型</span>
+            <span class="form-control">
+                <ul>
+                    <li role="presentation" class='couponTypeIndex'>
+                        <a role="menuitem" class="active" tabindex="1" href="#">金额抵扣</a>
+                    </li>
+                    <li role="presentation" class='couponTypeIndex'>
+                        <a role="menuitem" tabindex="2" href="#">商品抵扣</a>
+                    </li>
+                </ul>
+            </span>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">抵扣商品</span>
+            <span class="form-control" id="couponProduct"></span>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">抵扣金额</span>
+            <input type="text" class="form-control" placeholder="" value="" id="couponPrice">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">最低消费</span>
+            <input type="text" class="form-control" placeholder="" value="" id="couponMinPrice">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">起始有效期</span>
+            <input type="text" class="form-control" placeholder="" value="" id="couponStartdate">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">终止有效期</span>
+            <input type="text" class="form-control" placeholder="" value="" id="couponEnddate">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">过期时间</span>
+            <input type="text" class="form-control" placeholder="" value="" id="couponOverdate">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">卡券状态</span>
+            <input type="text" class="form-control" placeholder="" value="0" disabled="true" id="couponState">
+        </div>
+
+        <button class="btn-primary btn-submit" id="submit">保存</button>
+        <button class="btn-primary btn-submit" id="cencel">取消</button>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="my-container">
+        <label class="myLabel-content">卡券类型：</label>
+        <ul>
+            <li role="presentation" class='typeIndex'>
+                <a role="menuitem" class="active" tabindex="0" href="#">全部</a>
+            </li>
+            <li role="presentation" class='typeIndex'>
+                <a role="menuitem" tabindex="1" href="#">金额抵扣</a>
+            </li>
+            <li role="presentation" class='typeIndex'>
+                <a role="menuitem" tabindex="2" href="#">商品抵扣</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="my-container">
+        <label class="myLabel-content">卡券状态：</label>
+        <ul>
+            <li role="presentation" class='stateIndex'>
+                <a role="menuitem" class="active" tabindex="-2" href="#">全部</a>
+            </li>
+            <li role="presentation" class='stateIndex'>
+                <a role="menuitem" tabindex="1" href="#">正常</a>
+            </li>
+            <li role="presentation" class='stateIndex'>
+                <a role="menuitem" tabindex="2" href="#">商品下架</a>
+            </li>
+            <li role="presentation" class='stateIndex'>
+                <a role="menuitem" tabindex="3" href="#">过期</a>
+            </li>
+            <li role="presentation" class='stateIndex'>
+                <a role="menuitem" tabindex="0" href="#">未启用</a>
+            </li>
+            <li role="presentation" class='stateIndex'>
+                <a role="menuitem" tabindex="-1" href="#">停用</a>
+            </li>
+        </ul>
+    </div>
+    <div class="my-container">
+        <label class="myLabel-content">卡券名称：</label>
+        <div class="myText-content">
+            <input id="searchCouponName" type="text" class="form-control" placeholder="输入用户编号">
+        </div>
+        <button id="search" type="button" class="btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-search" aria-hidden="true">搜索</span>
+        </button>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="list-op" id="list_op">
+        <button type="button" class="btn btn-default btn-sm add">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true">新增</span>
+        </button>
+        <button type="button" class="btn btn-default btn-sm edit">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true">编辑</span>
+        </button>
+        <button type="button" class="btn btn-default btn-sm setOn">
+            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true">启用</span>
+        </button>
+        <button type="button" class="btn btn-default btn-sm setOff">
+            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true">停用</span>
+        </button>
+    </div>
+</div>
+<div class="panel-body">
+    <table class="table  table-striped table-bordered">
+        <thead>
+        <tr>
+            <th><input type="checkbox" id="checkAll" name="checkAll"/></th>
+            <th>卡券名称</th>
+            <th>卡券类型</th>
+            <th>抵扣商品</th>
+            <th>抵扣金额</th>
+            <th>最低消费</th>
+            <th>起始有效期</th>
+            <th>终止有效期</th>
+            <th>过期时间</th>
+            <th>卡券状态</th>
+        </tr>
+        </thead>
+        <tbody id="couponList">
+        </tbody>
+    </table>
+</div>
+<div id="fstate" style="display: none">-2</div>
+<div id="ftype" style="display: none">0</div>
+<div id="couponType" style="display: none;"></div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        getCoupons($("#searchCouponName").val().trim(), $("#fstate").html().trim(), $("#ftype").html().trim())
+        $(".stateIndex").click(function () {
+            var obj = $(this).find("a");
+            $(".stateIndex").find('a').removeClass('active');
+            obj.addClass("active");
+            $("#fstate").html(obj.attr("tabindex"));
+            getCoupons($("#searchCouponName").val().trim(), $("#fstate").html().trim(), $("#ftype").html().trim())
+        })
+        $(".typeIndex").click(function () {
+            var obj = $(this).find("a");
+            $(".typeIndex").find('a').removeClass('active');
+            obj.addClass("active");
+            $("#ftype").html(obj.attr("tabindex"));
+            setDisabled(obj.attr("tabindex"));
+            getCoupons($("#searchCouponName").val().trim(), $("#fstate").html().trim(), $("#ftype").html().trim())
+        })
+        $("#search").click(function () {
+            getCoupons($("#searchCouponName").val().trim(), $("#fstate").html().trim(), $("#ftype").html().trim())
+        })
+        $(".setOn").click(function () {
+            var j = confirm("是否启用卡券？");
+            if (j) {
+                var productid = getIds();
+                if (productid == "") {
+                    alert("请选择需要启用的卡券");
+                } else {
+                    setFstate(productid, 1);
+                }
+            }
+        })
+        $(".setOff").click(function () {
+            var j = confirm("是否停用卡券？");
+            if (j) {
+                var productid = getIds();
+                if (productid == "") {
+                    alert("请选择需要停用的卡券");
+                } else {
+                    setFstate(productid, -1);
+                }
+            }
+        })
+
+        $(".productBack").click(function () {
+            $(".choseProduct").hide();
+        })
+        $("#productName").change(function () {
+            getProduct($("#productName").val().trim());
+        })
+        $(".couponTypeIndex").click(function () {
+            var obj = $(this).find("a");
+            $(".couponTypeIndex").find('a').removeClass('active');
+            obj.addClass("active");
+            $("#couponType").html(obj.attr("tabindex"));
+            setDisabled(obj.attr("tabindex"));
+        })
+        $(".add").click(function () {
+            var now = new Date();
+            $("#couponID").val("0");
+            $("#couponName").val("");
+            $("#couponType").html("1");
+            //
+            $(".couponTypeIndex").find('a').removeClass('active');
+            $(".couponTypeIndex").each(function () {
+                if ($(this).find("a").attr("tabindex") == "1") {
+                    $(this).find("a").addClass("active");
+                }
+            })
+            setDisabled(1);
+            //
+            $("#couponProduct").html("");
+            $("#couponPrice").val("");
+            $("#couponStartdate").val(getDateNow(now) + " 00:00:00");
+            $("#couponEnddate").val(getDateNow(DateAdd("M", 1, now)) + " 00:00:00");
+            $("#couponOverdate").val("0,1,0");
+            $(".editCoupon").show();
+        })
+        $(".edit").click(function () {
+            var pouponIDs = getIds();
+            if (pouponIDs != "") {
+                pouponIDs = pouponIDs.substring(0, pouponIDs.length - 1);
+            }
+            if (pouponIDs.split("|").length > 1) {
+                alert("只可以选择一个选项")
+            } else if (pouponIDs == "") {
+                alert("请选择需要修改的卡券")
+            } else {
+                var pouponID = pouponIDs;
+                var trs = $("#couponList").find("tr");
+                var tr = "";
+                trs.each(function () {
+                    if ($(this).attr("id") == pouponID) {
+                        tr = $(this);
+                    }
+                })
+                $("#couponID").val(tr.attr("id"));
+                $("#couponName").val(tr.find("th").eq(0).html());
+                var type = tr.find("th").eq(1).attr("id");
+                $("#couponType").html(type);
+                //
+                $(".couponTypeIndex").find('a').removeClass('active');
+                $(".couponTypeIndex").each(function () {
+                    if ($(this).find("a").attr("tabindex") == type) {
+                        $(this).find("a").addClass("active");
+                    }
+                })
+                setDisabled(type);
+                //
+                console.log(tr.find("th").eq(2))
+                $("#couponProduct").html(tr.find("th").eq(2).attr("id") + "\|" + tr.find("th").eq(2).html());
+                $("#couponPrice").val(tr.find("th").eq(3).html());
+                $("#couponMinPrice").val(tr.find("th").eq(4).html());
+                $("#couponStartdate").val(tr.find("th").eq(5).html());
+                $("#couponEnddate").val(tr.find("th").eq(6).html());
+                $("#couponOverdate").val(tr.find("th").eq(7).html());
+                $(".editCoupon").show();
+            }
+        })
+        $("#submit").click(function () {
+            var info = "{\"fid\":\"" + $("#couponID").val() + "\",\"fname\":\"" + $("#couponName").val() + "\",\"ftype\":\"" + $("#couponType").html() + "\",\"fproductid\":\"" + $("#couponProduct").html().split("\|")[0] + "\",\"fprice\":\"" + $("#couponPrice").val() + "\",\"fstartdate\":\"" + $("#couponStartdate").val() + "\",\"fenddate\":\"" + $("#couponEnddate").val() + "\",\"foverdate\":\"" + $("#couponOverdate").val() + "\",\"fstate\":\"0\",\"fminprice\":\""+$("#couponMinPrice").val()+"\"}";
+            console.log(info);
+            $.ajax({
+                type: 'POST',
+                // contentType: "application/json; charset=utf-8",
+                contentType: "application/x-www-form-urlencoded",
+               url: 'updateCoupon',
+                dataType: "json",
+                data: {"info": info},
+                success: function (data) {
+                    alert(data.massage);
+                    $(".editCoupon").hide();
+                    getCoupons($("#searchCouponName").val().trim(), $("#fstate").html().trim(), $("#ftype").html().trim());
+                }
+            })
+        })
+        $("#cencel").click(function () {
+            $(".editCoupon").hide();
+        })
+    })
+
+    function setDisabled(typeIndex) {
+        if (typeIndex + "" == "1") {
+            $("#couponProduct").unbind();
+            $("#couponProduct").css("background-color", "#EEE");
+            $("#couponPrice").attr("disabled", false);
+        } else if (typeIndex + "" == "2") {
+            $("#couponProduct").css("background-color", "#FFF");
+            $("#couponPrice").attr("disabled", true);
+            $("#couponProduct").click(function () {
+                $(".choseProduct").show();
+                $("#productName").val("");
+                $(".productListForCoupon").html("<li><span style='font-weight: 800'>商品名称</span><span style='font-weight: 800'>商品价格</span><span style='font-weight: 800'>会员价格</span></li>");
+            })
+        }
+    }
+
+    function DateAdd(interval, number, date) {
+        switch (interval) {
+            case "y": {
+                date.setFullYear(date.getFullYear() + number);
+                return date;
+                break;
+            }
+            case "q": {
+                date.setMonth(date.getMonth() + number * 3);
+                return date;
+                break;
+            }
+            case "M": {
+                date.setMonth(date.getMonth() + number);
+                return date;
+                break;
+            }
+            case "w": {
+                date.setDate(date.getDate() + number * 7);
+                return date;
+                break;
+            }
+            case "d": {
+                date.setDate(date.getDate() + number);
+                return date;
+                break;
+            }
+            case "h": {
+                date.setHours(date.getHours() + number);
+                return date;
+                break;
+            }
+            case "m": {
+                date.setMinutes(date.getMinutes() + number);
+                return date;
+                break;
+            }
+            case "s": {
+                date.setSeconds(date.getSeconds() + number);
+                return date;
+                break;
+            }
+            default: {
+                date.setDate(date.getDate() + number);
+                return date;
+                break;
+            }
+        }
+    }
+
+    function getDateNow(d) {
+        var year = d.getFullYear();
+        var month = d.getMonth() + 1;
+        var date = d.getDate();
+        var day = d.getDay();
+        var curDateTime = year;
+        if (month > 9)
+            curDateTime = curDateTime + "-" + month;
+        else
+            curDateTime = curDateTime + "-" + "0" + month;
+        if (date > 9)
+            curDateTime = curDateTime + "-" + date;
+        else
+            curDateTime = curDateTime + "-" + "0" + date;
+
+        return curDateTime;
+
+    }
+
+    function getProduct(fname) {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'getProductFname',
+            dataType: "json",
+            data: {"fname": fname},
+            success: function (data) {
+                var html = "<li><span style='font-weight: 800'>商品名称</span><span style='font-weight: 800'>商品价格</span><span style='font-weight: 800'>会员价格</span></li>";
+                var dataObj = eval("(" + data.massage + ")");
+                console.log(dataObj);
+                $.each(dataObj, function (index, obj) {
+                    html += "<li class='choseProductId' id='" + obj.fProductId + "|" + obj.fName + "'><span>" + obj.fName + "</span><span>" + obj.fPrice + "</span><span>" + obj.fVipPrice + "</span></li>";
+                })
+                $(".productListForCoupon").html(html);
+                $(".choseProductId").click(function () {
+                    $("#couponProduct").html($(this).attr("id"));
+                    $(".choseProduct").hide();
+                })
+            }
+        })
+
+    }
+
+    function setFstate(ids, fstate) {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'setCouponState',
+            dataType: "json",
+            data: {"fstate": fstate, "fids": ids},
+            success: function (data) {
+                alert(data.massage);
+                getCoupons($("#searchCouponName").val().trim(), $("#fstate").html().trim(), $("#ftype").html().trim())
+            }
+        })
+    }
+
+    function getIds() {
+        var id = "";
+        $('input[type="checkbox"][name="checkProduct"]:checked').each(
+            function () {
+                id += $(this).parent().parent().attr("id") + "|";
+            }
+        );
+        return id;
+    }
+
+    function getCoupons(fname, state, ftype) {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'getCoupon',
+            dataType: "json",
+            data: {"fstate": state, "fname": fname, "ftype": ftype},
+            success: function (data) {
+                var html = "";
+                var dataObj = eval("(" + data.massage + ")");
+                console.log(dataObj);
+                $.each(dataObj, function (index, obj) {
+                    var state = "";
+                    switch (obj.fstate) {
+                        case "-1":
+                            state = "停用";
+                            break;
+                        case "0":
+                            state = "未启用";
+                            break;
+                        case "1":
+                            state = "正常";
+                            break;
+                        case "2":
+                            state = "商品下架";
+                            break;
+                        case "3":
+                            state = "过期";
+                            break;
+                        default:
+                            state = "状态错误";
+                            break;
+                    }
+                    var ftype = "";
+                    switch (obj.ftype) {
+                        case "1":
+                            ftype = "金额抵扣";
+                            break;
+                        case "2":
+                            ftype = "商品抵扣";
+                            break;
+                        default:
+                            ftype = "类型错误";
+                            break;
+                    }
+                    html += "    <tr id='" + obj.fid + "'>\n" +
+                        "        <th>" + obj.fname + "</th>\n" +
+                        "        <th id='" + obj.ftype + "'>" + ftype + "</th>\n" +
+                        "        <th id='" + obj.fproductID + "'>" + obj.fproductName + "</th>\n" +
+                        "        <th>" + obj.fprice + "</th>\n" +
+                        "        <th>" + obj.fminprice + "</th>\n" +
+                        "        <th>" + obj.fstartdate + "</th>\n" +
+                        "        <th>" + obj.fenddate + "</th>\n" +
+                        "        <th>" + obj.foverdate + "</th>\n" +
+                        "        <th id='" + obj.fstate + "'>" + state + "</th>\n" +
+                        "    </tr>"
+                })
+
+                $("#couponList").html(html);
+                initTableCheckbox();
+            }
+        })
+    }
+
+</script>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="UTF-8">
+    <title>西鲜生后台管理系统</title>
+    <link rel="stylesheet" href="../Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Static/css/back/index.css">
+    <script src="../Static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../Static/js/bootstrap.js"></script>
+</head>
+<body>
+<div class="page-header head">西鲜生后台管理系统</div>
+<div class="col-sm-2">
+    <li>
+        <a href="#productSetting" class="nav-header collapsed" data-toggle="collapse">
+            <i class="glyphicon glyphicon-list"></i>
+            商品管理
+            <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+        </a>
+        <ul id="productSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
+            <li><a href="#" onclick="toPages('listProduct')"><i class="glyphicon glyphicon-user"></i>&nbsp;商品信息管理</a>
+            </li>
+
+            <li><a href="#" onclick="toPages('listProductTejia')"><i class="glyphicon glyphicon-user"></i>&nbsp;特价商品信息管理</a>
+            </li>
+            <li><a href="#" onclick="toPages('listProductType')"><i class="glyphicon glyphicon-th-list"></i>&nbsp;商品类型管理</a>
+            </li>
+            <!--<li><a href="#" onclick="toPages('listProductTag')"><i class="glyphicon glyphicon-th-list"></i>&nbsp;商品标签管理</a>-->
+            <!--</li>-->
+            <!--<li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>&nbsp;角色管理</a></li>-->
+            <!--<li><a href="#"><i class="glyphicon glyphicon-edit"></i>&nbsp;修改密码</a></li>-->
+            <!--<li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;日志查看</a></li>-->
+        </ul>
+    </li>
+    <li>
+        <a href="#orderSetting" class="nav-header collapsed" data-toggle="collapse">
+            <i class="glyphicon glyphicon-list-alt"></i>
+            订单管理
+            <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+        </a>
+        <ul id="orderSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
+            <li><a href="#" onclick="toPages('listOrder')"><i class="glyphicon glyphicon-user"></i>&nbsp;订单管理</a>
+            </li>
+            <!--<li><a href="#"><i class="glyphicon glyphicon-th-list"></i>&nbsp;菜单管理</a></li>-->
+            <!--<li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>&nbsp;角色管理</a></li>-->
+            <!--<li><a href="#"><i class="glyphicon glyphicon-edit"></i>&nbsp;修改密码</a></li>-->
+            <!--<li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;日志查看</a></li>-->
+        </ul>
+    </li>
+    <li>
+        <a href="#userSetting" class="nav-header collapsed" data-toggle="collapse">
+            <i class="glyphicon glyphicon-user"></i>
+            会员及礼券管理
+            <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+        </a>
+        <ul id="userSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
+            <li><a href="#" onclick="toPages('listVip')"><i class="glyphicon glyphicon-user"></i>&nbsp;会员管理</a>
+            </li>
+            <li><a href="#" onclick="toPages('listcoupon')"><i class="glyphicon glyphicon-user"></i>&nbsp;礼券管理</a>
+            </li>
+            <li><a href="#" onclick="toPages('listprize')"><i class="glyphicon glyphicon-user"></i>&nbsp;奖品管理</a>
+            </li>
+            <!--<li><a href="#"><i class="glyphicon glyphicon-th-list"></i>&nbsp;菜单管理</a></li>-->
+            <!--<li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>&nbsp;角色管理</a></li>-->
+            <!--<li><a href="#"><i class="glyphicon glyphicon-edit"></i>&nbsp;修改密码</a></li>-->
+            <!--<li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;日志查看</a></li>-->
+        </ul>
+    </li>
+    <li>
+        <a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse">
+            <i class="glyphicon glyphicon-cog"></i>
+            系统设置
+            <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+        </a>
+        <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
+            <li><a href="#" onclick="toPages('baseconfig')"><i class="glyphicon glyphicon-user"></i>&nbsp;基础设置</a>
+            </li>
+            <li><a href="#" onclick="toPages('optioncity')"><i class="glyphicon glyphicon-th-list"></i>&nbsp;地址列表</a>
+            </li>
+            <li><a href="#" onclick="toPages('prientDevice')"><i class="glyphicon glyphicon-print"></i>&nbsp;打印机管理</a>
+            </li>
+            <li><a href="#"><i class="glyphicon glyphicon-edit"></i>&nbsp;修改密码</a></li>
+            <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;日志查看</a></li>
+        </ul>
+    </li>
+</div>
+<div class="col-sm-10">
+    <iframe id="iframe" name="frame" src="" width="100%"
+             frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="auto"
+            allowtransparency="yes"></iframe>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // $("#iframe").attr("src", "/back/indexIframe");
+        $("#iframe").attr("src", "../back/listProduct");
+    })
+
+    function toPages(url) {
+        $("#iframe").attr("src", url);
+    }
+</script>

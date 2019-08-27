@@ -1,0 +1,71 @@
+/* pages/me/me.wxss */
+
+.me-top {
+  height: 5.5rem;
+  background-color: #f60;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin-top: 25rpx;
+  margin-left: 50rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #fff;
+  margin-left: 50rpx;
+  font-size: 1rem;
+}
+
+.me-menulsit {
+  width: 100%;
+}
+
+.me-menu {
+  width: 25%;
+  height: 200rpx;
+  float: left;
+  text-align: center;
+  border-right: 0.1rpx solid #aaa;
+  border-bottom: 0.1rpx solid #aaa;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box; /* Firefox */
+}
+
+.me-menu image {
+  width: 130rpx;
+  height: 130rpx;
+}
+
+.me-menu text {
+  float: left;
+  font-size: 0.7rem;
+  height: 1rem;
+  width: 100%;
+  text-align: center;
+}
+
+.imgGetuserInfo {
+  width: 128rpx;
+  height: 128rpx;
+  margin-top: 25rpx;
+  margin-left: 50rpx;
+  border-radius: 50%;
+  float: left;
+}
+
+.btnGetuserInfo {
+  color: #fff;
+  margin-left: 50rpx;
+  font-size:40rpx;
+  background-color: #f60;
+  border: none;
+  width: 300rpx;
+  float: left;
+  margin-top: 50rpx;
+}
+.btnGetuserInfo::after{
+  border: none;
+}

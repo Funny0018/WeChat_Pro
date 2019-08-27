@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.rechargeTypeDao">
+
+    <parameterMap id="parameterMap" type="com.entity.rechargeType"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.rechargeType">
+        <result property="fid" column="fid"/>
+        <result property="fprice" column="fprice"/>
+        <result property="fdec" column="fdec"/>
+        <result property="famount" column="famount"/>
+        <result property="fstate" column="fstate"/>
+        <result property="fviptext" column="fviptext"/>
+        <result property="fviptime" column="fviptime"/>
+        <result property="fimgurl" column="fimgurl"/>
+    </resultMap>
+
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fprice,
+            fdec,
+            famount,
+            fstate,
+            fviptext,
+            fviptime,
+            fimgurl,
+        </trim>
+    </sql>
+    <select id="selectByNone" resultType="com.entity.rechargeType">
+        select
+        <include refid="columnSql"></include>
+        FROM t_rechargetype
+        WHERE fstate>0 ORDER BY fid,fstate desc
+    </select>
+    <select id="selectByFid" resultType="com.entity.rechargeType" parameterType="int">
+        select
+        <include refid="columnSql"></include>
+        FROM t_rechargetype
+        WHERE fid=#{fid}
+    </select>
+</mapper>

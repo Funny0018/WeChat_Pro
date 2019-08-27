@@ -1,0 +1,47 @@
+<!--pages/me/me.wxml-->
+<view class='me-top'>
+  <block wx:if="{{(!hasUserInfo && canIUse)}}">
+    <view>
+      <image src='/static/image/me/touxiang.png' class='imgGetuserInfo'></image>
+      <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='btnGetuserInfo'>点击此处登陆</button>
+    </view>
+  </block>
+  <block wx:else>
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </block>
+</view>
+<view class='me-menulsit'>
+  <view class='me-menu' bindtap='toOrder'>
+    <image src='/static/image/me/order.png'></image>
+    <text>我的订单</text>
+  </view>
+  <view class='me-menu'>
+    <image src='/static/image/me/coupons.png'></image>
+    <text>红包卡券</text>
+  </view>
+  <view class='me-menu' bindtap='todelivery'>
+    <image src='/static/image/me/address.png'></image>
+    <text>地址管理</text>
+  </view>
+  <view class='me-menu' style='border-right:none'>
+    <image src='/static/image/me/wallet.png'></image>
+    <text>我的钱包</text>
+  </view>
+  <view class='me-menu'>
+    <image src='/static/image/me/return.png'></image>
+    <text>我的退款</text>
+  </view>
+  <view class='me-menu'>
+    <image src='/static/image/me/payrecord.png'></image>
+    <text>消费记录</text>
+  </view>
+  <view class='me-menu'>
+    <image src='/static/image/me/content.png'></image>
+    <text>我的推广</text>
+  </view>
+  <view class='me-menu' style='border-right:none'>
+    <image src='/static/image/me/help.png'></image>
+    <text>帮助中心</text>
+  </view>
+</view>

@@ -1,0 +1,21 @@
+<!--pages/deliveryAddress/deliveryAddress.wxml-->
+<!-- <text>pages/deliveryAddress/deliveryAddress.wxml</text> -->
+<block wx:for='{{deliveryaddress}}'>
+  <view class='list-info'>
+    <view class='left' bindtap='backAddress' id='left-{{item.fid}}'>
+      <view class='top'>
+        <text class='city'>{{item.fcity}}</text>
+        <text class='address'>{{item.faddress}}</text>
+        <text class='buildno'>{{item.fbuildno}}</text>
+      </view>
+      <view class='bottom'>
+        <text class='name'>{{item.fname}}</text>
+        <text class='phone'>{{item.fphone}}</text>
+      </view>
+    </view>
+    <view class='right' bindtap='editAddress' id='right-{{item.fid}}'>
+      <image src='/static/image/deliveryAddress/edit.png'></image>
+    </view>
+  </view>
+</block>
+<view bindtap='adddelivery' class='adddelivery'>新增收货地址</view>

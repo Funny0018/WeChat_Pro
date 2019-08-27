@@ -1,0 +1,74 @@
+{
+  "pages": [
+    "pages/product/product",
+    "pages/shareRank/shareRank",
+    "pages/share/share",
+    "pages/cartCoupon/cartCoupon",
+    "pages/award/award",
+    "pages/me/me",
+    "pages/product_new/product",
+    "pages/game/game",
+    "pages/vip/vip",
+    "pages/recharge/recharge",
+    "pages/joinvip/joinvip",
+    "pages/billProductInfo/billProductInfo",
+    "pages/productdetail/productdetail",
+    "pages/cart/cart",
+    "pages/productsearch/productsearch",
+    "pages/order/order",
+    "pages/orderDetail/orderDetail",
+    "pages/bills/bills",
+    "pages/deliveryAddress/deliveryAddress",
+    "pages/addDeliveryAddress/addDeliveryAddress",
+    "pages/choseDeliveryAddress/choseDeliveryAddress",
+    "pages/address/address",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/search/search",
+    "pages/userCoupon/userCoupon"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息将用于确认收货地址"
+    }
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#f60",
+    "backgroudColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/product/product",
+        "text": "首页",
+        "iconPath": "/static/image/tabBar/home-unchecked.png",
+        "selectedIconPath": "/static/image/tabBar/home-checked.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "/static/image/tabBar/cart-unchecked.png",
+        "selectedIconPath": "/static/image/tabBar/cart-checked.png"
+      },
+      {
+        "pagePath": "pages/vip/vip",
+        "text": "会员",
+        "iconPath": "/static/image/tabBar/vip-unchecked.png",
+        "selectedIconPath": "/static/image/tabBar/vip-checked.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "/static/image/tabBar/me-unchecked.png",
+        "selectedIconPath": "/static/image/tabBar/me-checked.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "西鲜生",
+    "navigationBarTextStyle": "black"
+  },
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
+}

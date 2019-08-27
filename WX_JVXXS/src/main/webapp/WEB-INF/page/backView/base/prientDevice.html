@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Static/css/back/product.css">
+    <link rel="stylesheet" href="../Static/css/file-input/fileinput.min.css">
+    <script type="text/javascript" src="../Static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../Static/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../Static/js/tools.js"></script>
+</head>
+<body>
+
+<div class="panel-heading">
+    打印机列表
+</div>
+<div class="col-md-6 col-md-offset-3 product">
+    <div class="panel-body">
+        <div class="list-op" id="list_op">
+            <button type="button" class="btn btn-default btn-sm add">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+            </button>
+            <button type="button" class="btn btn-default btn-sm edit">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+            </button>
+            <button type="button" class="btn btn-default btn-sm delete">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+            </button>
+        </div>
+    </div>
+    <table class="table  table-striped table-bordered">
+        <thead>
+        <tr>
+            <th><input type="checkbox" id="checkAll" name="checkAll"/></th>
+            <th>打印机名称</th>
+            <th>打印机编号</th>
+        </tr>
+        </thead>
+        <tbody id="productList">
+        </tbody>
+    </table>
+</div>
+<div class="optionCityInfoBox" style="display: none">
+    <div class="optionCityInfoBoxInner">
+        <div class="input-group">
+            <span class="input-group-addon">打印机编码</span>
+            <input type="text" class="form-control" placeholder="" value="0" disabled="true" id="id">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">打印机名称</span>
+            <input type="text" class="form-control" placeholder="输入名称" id="name">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">打印机编码</span>
+            <input type="text" class="form-control" placeholder="输入名称" id="uuid">
+        </div>
+        <button class="btn-primary btn-submit" id="submit">保存</button>
+        <button class="btn-primary btn-submit" id="cencel">取消</button>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        getCity();
+        $(".add").click(function () {
+            $("#id").val(0);
+            $("#name").val("");
+            $("#uuid").val("");
+            $(".optionCityInfoBox").show();
+        })
+        $(".edit").click(function () {
+            var productid = getIds();
+            if (productid != "") {
+                productid = productid.substring(0, productid.length - 1);
+            }
+            if (productid.split("|").length > 1) {
+                alert("只可以选择一个选项")
+            } else if (productid == "") {
+                alert("请选择需要修改的商品类型")
+            } else {
+                console.log(productid);
+                $("#id").val(productid.split(",")[0]);
+                $("#name").val(productid.split(",")[1]);
+                $("#uuid").val(productid.split(",")[2]);
+                $(".optionCityInfoBox").show();
+            }
+        })
+        $("#submit").click(function () {
+            var productid = getIds();
+            $.ajax({
+                type: 'POST',
+                // contentType: "application/json; charset=utf-8",
+                contentType: "application/x-www-form-urlencoded",
+               url: 'updatePrientDevice',
+                dataType: "json",
+                data: {"id": $("#id").val(), "name": $("#name").val(), "uuid": $("#uuid").val()},
+                success: function (data) {
+                    alert(data.massage);
+                    $(".optionCityInfoBox").hide();
+                    getCity();
+                }
+            })
+        })
+        $(".delete").click(function () {
+            var productid = getIds();
+            var j = confirm("是否确认删除打印机：" + productid.split(',')[1] + "?");
+            if (j) {
+                $.ajax({
+                    type: 'POST',
+                    // contentType: "application/json; charset=utf-8",
+                    contentType: "application/x-www-form-urlencoded",
+                   url: 'deletePrientDevice',
+                    dataType: "json",
+                    data: {"key": productid},
+                    success: function (data) {
+                        alert(data.massage);
+                        getCity();
+                    }
+                })
+            }
+        })
+        $("#cencel").click(function () {
+            $(".optionCityInfoBox").hide();
+        })
+        // $(".optionCityInfoBox").click(function () {
+        //     $(".optionCityInfoBox").hide();
+        // })
+    })
+
+    function getIds() {
+        var id = "";
+        $('input[type="checkbox"][name="checkProduct"]:checked').each(
+            function () {
+                id += $(this).parent().parent().attr("id") + "|";
+            }
+        );
+        return id;
+    }
+
+    function getCity() {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'getPrientDevice',
+            dataType: "json",
+            // data: {"key": key, "pageIndex": pageIndex, "fstate": type, "pageSize": pageSize},
+            success: function (data) {
+                var dataObj = eval("(" + data.massage + ")");
+                console.log(dataObj);
+
+                var html = "";
+                $.each(dataObj, function (index, obj) {
+                    html += "    <tr id='" + obj.fid + "," + obj.fname + "," + obj.fuuid + "'>\n" +
+                        "        <th>" + obj.fname + "</th>\n" +
+                        "        <th>" + obj.fuuid + "</th>\n";
+                })
+                $("#productList").html(html);
+                initTableCheckbox();
+            }
+        })
+    }
+</script>

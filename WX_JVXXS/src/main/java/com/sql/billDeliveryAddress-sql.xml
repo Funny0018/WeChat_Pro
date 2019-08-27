@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.billDeliveryAddressDao">
+
+    <parameterMap id="parameterMap" type="com.entity.billDeliveryAddress"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.billDeliveryAddress">
+        <result property="fbillDeliveryAddressid" column="fbillDeliveryAddressid"/>
+        <result property="fbillid" column="fbillid"/>
+        <result property="fName" column="fName"/>
+        <result property="fMobile" column="fMobile"/>
+        <result property="fCity" column="fCity"/>
+        <result property="fAddress" column="fAddress"/>
+        <result property="fBuildNo" column="fBuildNo"/>
+        <result property="fDeliveryAddressid" column="fDeliveryAddressid"/>
+
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fbillDeliveryAddressid,
+            fbillid,
+            fName,
+            fMobile,
+            fCity,
+            fAddress,
+            fBuildNo,
+            fDeliveryAddressid,
+        </trim>
+    </sql>
+    <insert id="add" parameterType="com.entity.billDeliveryAddress" useGeneratedKeys="true"
+            keyProperty="fbillDeliveryAddressid">
+       INSERT INTO t_billdeliveryaddress
+        (
+          fbillDeliveryAddressid,
+            fbillid,
+            fName,
+            fMobile,
+            fCity,
+            fAddress,
+            fBuildNo,
+            fDeliveryAddressid)
+        VALUES
+        (
+            #{fbillDeliveryAddressid},
+            #{fbillid},
+            #{fName},
+            #{fMobile},
+            #{fCity},
+            #{fAddress},
+            #{fBuildNo},
+            #{fDeliveryAddressid})
+    </insert>
+<select id="selectByFbillid" parameterType="int" resultMap="resultMap">
+    SELECT
+    <include refid="columnSql"></include>
+    FROM t_billdeliveryaddress
+    WHERE fbillid=#{fbillid}
+</select>
+</mapper>

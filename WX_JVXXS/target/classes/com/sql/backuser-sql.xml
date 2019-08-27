@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.backUserDao">
+
+    <parameterMap id="parameterMap" type="com.entity.backuser"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.backuser">
+        <result property="fid" column="fid"/>
+        <result property="fname" column="fname"/>
+        <result property="fpassword" column="fpassword"/>
+        <result property="flogintime" column="flogintime"/>
+        <result property="fstate" column="fstate"/>
+
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fname,
+            fpassword,
+            flogintime,
+            fstate,
+        </trim>
+    </sql>
+
+    <select id="selectByNameAndPsd" resultType="com.entity.backuser" parameterType="com.entity.backuser">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_backuser
+        WHERE fstate>0 AND fname=#{fname} AND fpassword=#{fpassword}
+    </select>
+    <update id="updateBakcUser" parameterType="com.entity.backuser" useGeneratedKeys="true">
+        UPDATE t_backuser
+        SET fstate=#{fstate},
+        flogintime=#{flogintime},
+        fpassword=#{fpassword}
+        WHERE fid=#{fid}
+    </update>
+
+</mapper>

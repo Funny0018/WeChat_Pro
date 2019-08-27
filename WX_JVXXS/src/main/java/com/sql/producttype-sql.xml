@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.producttypeDao">
+
+    <parameterMap id="parameterMap" type="com.entity.producttype"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.producttype">
+        <result property="ftypeid" column="ftypeid"/>
+        <result property="fname" column="fname"/>
+        <result property="fstate" column="fstate"/>
+        <result property="fparentid" column="fparentid"/>
+    </resultMap>
+
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            ftypeid,
+            fname,
+            fstate,fparentid,
+        </trim>
+    </sql>
+    <select id="selectByNoneAll" resultType="com.entity.producttype">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_producttype
+        WHERE fstate>0 ORDER BY fstate desc
+    </select>
+    <select id="selectByNone" resultType="com.entity.producttype">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_producttype
+        WHERE fstate>0 AND fparentid=0 ORDER BY fstate desc
+    </select>
+    <select id="selectById" resultMap="resultMap" parameterType="int">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_producttype
+        WHERE ftypeid=#{fid}
+    </select>
+    <select id="selectByParentId" resultMap="resultMap" parameterType="int">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_producttype
+        WHERE fparentid=#{fid} AND fstate>0
+    </select>
+    <update id="updateById" parameterType="com.entity.producttype" useGeneratedKeys="true">
+        UPDATE t_producttype
+        SET fname=#{fname},
+        fstate=#{fstate},
+        fparentid=#{fparentid}
+        WHERE ftypeid=#{ftypeid}
+    </update>
+    <insert id="add" parameterType="com.entity.producttype" useGeneratedKeys="true" keyProperty="ftypeid">
+        INSERT INTO t_producttype (
+        ftypeid,
+        fname,
+        fstate,
+        fparentid
+        )VALUES
+        (
+        #{ftypeid},
+        #{fname},
+        #{fstate},
+        #{fparentid}
+        )
+    </insert>
+</mapper>

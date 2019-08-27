@@ -1,0 +1,262 @@
+/* pages/productdetail/productdetail.wxss */
+
+.swiper {
+  width: 100%;
+  height: 780rpx;
+  text-align: center;
+}
+
+.swiper image {
+  width: 100%;
+  /* height: 500rpx; *//* height: 400rpx; *//* height: 80%; *//* margin-top: 5%; */
+}
+
+.swiper video {
+  width: 100%;
+  height: 100%;
+}
+
+.productInfo {
+  width: 100%;
+  height: 380rpx;
+  position: relative;
+}
+
+.productName {
+  width: 90%;
+  margin-top: 20rpx;
+  font-size: 40rpx;
+  font-weight: 800;
+  margin-left: 30rpx;
+  float: left;
+  position: absolute;
+  /* overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; */
+  word-wrap: break-word;
+}
+
+.productDesc {
+  width: 90%;
+  margin-top: 75rpx;
+  font-size: 30rpx;
+  margin-left: 30rpx;
+  float: left;
+  position: absolute;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.priceView {
+  width: 90%;
+  height: 140rpx;
+  float: left;
+  font-size: 30rpx;
+  margin-top: 160rpx;
+  margin-left: 30rpx;
+}
+
+.priceViewnovip {
+  width: 90%;
+  float: left;
+  font-size: 40rpx;
+  margin-left: 10rpx;
+  margin-top: 200rpx;
+}
+
+.productPrice {
+  font-size: 30rpx;
+  color: #f60;
+}
+
+.productVipPrice {
+  color: #fbe11c;
+  font-size: 40rpx;
+  float: left;
+}
+
+.vippriceimage {
+  width: 90rpx;
+  height: 45rpx;
+  margin-left: 10rpx;
+  float: left;
+}
+
+.vipimage {
+  width: 25rpx;
+  height: 25rpx;
+  margin-left: 20rpx;
+}
+
+.bottom {
+  width: 100%;
+  height: 120rpx;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+}
+
+.cart {
+  height: 120rpx;
+  width: 20%;
+  float: left;
+  position: relative;
+  background-color: #fff;
+}
+
+.cart image {
+  width: 80rpx;
+  height: 80rpx;
+  margin-top: 20rpx;
+  margin-left: 40rpx;
+}
+
+.intoCart {
+  width: 80%;
+  height: 120rpx;
+  line-height: 120rpx;
+  text-align: center;
+  background-color: #f60;
+  float: right;
+  color: #fff;
+}
+
+.subscript {
+  color: #fff;
+  height: 40rpx;
+  width: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  text-align: center;
+  border-radius: 30rpx;
+  line-height: 40rpx;
+  font-family: "黑体";
+  font-size: 30rpx;
+  background-color: red;
+}
+
+.subscript-move {
+  color: red;
+  height: 40rpx;
+  width: 40rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  text-align: center;
+  border-radius: 30rpx;
+  line-height: 40rpx;
+  font-family: "黑体";
+  font-size: 30rpx;
+  background-color: red;
+  z-index: 999;
+}
+
+.salled {
+  float: right;
+  font-size: 30rpx;
+  color: #ccc;
+}
+
+.tagView {
+  width: 90%;
+  height: 50rpx;
+  bottom: -20rpx;
+  left: 15rpx;
+  position: absolute;
+}
+
+.tag {
+  float: left;
+  font-size: 25rpx;
+  margin-left: 25rpx;
+  list-style: disc;
+}
+
+.detailImage {
+  width: 100%;
+  /* height: 2000rpx; */
+  margin-top: 20rpx;
+  background-color: #eee;
+  margin-bottom: 100rpx;
+}
+
+.detailImage image {
+  width: 100%;
+}
+
+.toJoin {
+  width: 90%;
+  height: 70rpx;
+  background: url('https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/product/joinvip.jpg') no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  bottom: 55rpx;
+  left: 5%;
+}
+
+.toJoinLeft {
+  float: left;
+  z-index: 20;
+  font-size: 27rpx;
+  margin-left: 80rpx;
+  margin-top: 19rpx;
+  font-weight: 500;
+  /* color: #8c4d24; */
+}
+
+.toJoinRight {
+  float: right;
+  z-index: 20;
+  font-size: 27rpx;
+  margin-right: 50rpx;
+  margin-top: 19rpx;
+}
+
+.toJoin image {
+  position: absolute;
+  z-index: -1;
+}
+
+.dialog {
+  position: fixed;
+  display: inline-block;
+  /* width: 350rpx; */
+  height: 60rpx;
+  line-height: 60rpx;
+  background: rgba(124, 124, 124, 0.75);
+  z-index: 2;
+  bottom: 140rpx;
+  left: 45rpx;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  text-align: center;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+}
+
+.u-ril {
+  display: inline-block;
+  font-size: 25rpx;
+}
+
+.dialog ::before {
+  position: absolute;
+  left: 35rpx;
+  top: 60rpx;
+  content: '';
+  display: inline-block;
+  border-top: 20rpx solid rgba(124, 124, 124, 0.75);
+  border-bottom: 20rpx solid transparent;
+  border-left: 20rpx solid transparent;
+  border-right: 20rpx solid transparent;
+}
+
+.toptag {
+  font-size: 25rpx;
+  border: #ccc 1rpx solid;
+  margin-left: 10rpx;
+  color: #f60;
+  text-align: center;
+}

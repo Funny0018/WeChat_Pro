@@ -1,0 +1,280 @@
+/* pages/productsearch/productsearch.wxss */
+
+page {
+  background-color: #eee;
+}
+
+.searchTop {
+  width: 100%;
+  height: 70rpx;
+  background-color: #f60;
+  line-height: 70rpx;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+
+.searchImg {
+  height: 40rpx;
+  width: 40rpx;
+  position: fixed;
+  top: 20rpx;
+  left: 10rpx;
+}
+
+.search {
+  height: 50rpx;
+  margin-top: 10rpx;
+  outline: none;
+  border: none;
+  border-radius: 0.8rem;
+  padding-left: 1.4rem;
+  padding-right: 0.5rem;
+  color: #fff;
+  background: #ff944d;
+  background-size: 0.8rem;
+  font-size: 30rpx;
+  width: 75%;
+  display: inline-block;
+}
+
+.butSearch {
+  float: right;
+  height: 70rpx;
+  width: 12%;
+  margin-bottom: 50rpx;
+  font-size: 30rpx;
+  margin-top: 0;
+  color: #fff;
+}
+
+.productList {
+  /* background-color: #f60; */
+  background-color: #fff;
+  margin-top: 80rpx;
+  /* height: 30rem; */
+}
+
+.productItem {
+  background-color: #fff;
+  /* border-bottom: #f60 solid 0.1rem; */
+  height: 250rpx;
+  width: 100%;
+}
+
+.isBottom {
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  color: #ddd;
+  text-align: center;
+  padding-bottom: 20rpx;
+}
+
+.productImgView {
+  float: left;
+  height: 100%;
+  width: 30%;
+}
+
+.productImg {
+  width: 220rpx;
+  height: 220rpx;
+  padding-left: 20rpx;
+  padding-top: 20rpx;
+}
+
+.productInfoView {
+  float: left;
+  /* padding-left: 1rem; */
+  margin-left: 40rpx;
+  width: 30%;
+  height: 100%;
+}
+
+.productName {
+  width: 450rpx;
+  margin-top: 0.5rem;
+  font-size: 30rpx;
+  font-weight: 800;
+  margin-left: 10rpx;
+  float: left;
+  position: absolute;
+  /* overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; */
+  
+  word-wrap:break-word;
+}
+
+.productDesc {
+  width: 450rpx;
+  margin-top: 2.8rem;
+  font-size: 30rpx;
+  margin-left: 10rpx;
+  float: left;
+  position: absolute;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* .productPrice {
+  margin-top: 5.2rem;
+  margin-left: 10rpx;
+  font-size: 30rpx;
+  float: left;
+  position: absolute;
+} */
+
+.productPrice {
+  font-size: 30rpx;
+  color: #f60;
+}
+
+.productVipPrice {
+  color: #ffd700;
+  font-size: 35rpx;
+}
+
+.vipimage {
+  width: 25rpx;
+  height: 25rpx;
+  margin-left: 20rpx;
+}
+
+.vippriceimage {
+  width: 80rpx;
+  height: 35rpx;
+  margin-left: 10rpx;
+  margin-bottom: -5rpx;
+}
+
+.dian {
+  width: 20%;
+  float: right;
+  height: 1.5rem;
+  margin-top: 170rpx;
+  margin-right: 0;
+}
+
+.dian image {
+  width: 70rpx;
+  height: 70rpx;
+  float: right;
+  margin-right: 45rpx;
+  margin-top: -10rpx;
+}
+
+.stepper {
+  width: 100%;
+  height: 100%;
+  display: inline;
+}
+
+.stepper text {
+  float: left;
+  width: 40rpx;
+  text-align: center;
+  font-size: 40rpx;
+  color: #f60;
+}
+
+.stepper input {
+  float: left;
+  width: 40rpx;
+  text-align: center;
+  font-size: 40rpx;
+}
+
+.priceView {
+  width: 200rpx;
+  float: left;
+  font-size: 30rpx;
+  margin-top: 160rpx;
+  margin-left: 10rpx;
+}
+
+.priceViewnovip {
+  width: 200rpx;
+  float: left;
+  font-size: 40rpx;
+  margin-top: 180rpx;
+  margin-left: 10rpx;
+}
+
+.line::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 0;
+  margin-left: 2.5%;
+  height: 1px;
+  width: 95%;
+  background-color: rgba(180, 180, 180, 0.3);
+}
+
+.Search_record_text {
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.Search_record_text>text {
+  font-size: 28rpx;
+  color: #898989;
+  margin-left: 20rpx;
+}
+
+.hot_box_text>text {
+  font-size: 28rpx;
+  color: #898989;
+  margin-left: 20rpx;
+}
+
+.hot_box_text {
+  margin-top: 40rpx;
+}
+
+.Search_record_text>image {
+  width: 44rpx;
+  height: 44rpx;
+  vertical-align: middle;
+  float: right;
+  margin-right: 20rpx;
+  margin-top: 7rpx;
+}
+
+.History-list {
+  margin-left: 20rpx;
+  margin-top: 28rpx;
+  margin-right: 20rpx;
+}
+
+.History-list>text {
+  display: inline-block;
+  height: 56rpx;
+  border-radius: 5px;
+  background: #f5f5f5;
+  max-width: 100%;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  line-height: 56rpx;
+  font-size: 26rpx;
+  color: #393939;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
+  margin-right: 20rpx;
+}
+
+.line::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 250rpx;
+  margin-left: 2.5%;
+  height: 1px;
+  width: 95%;
+  background-color: rgba(180, 180, 180, 0.3);
+}

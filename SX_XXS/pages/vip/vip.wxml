@@ -1,0 +1,52 @@
+<!--pages/vip/vip.wxml-->
+<!-- <text>pages/vip/vip.wxml</text> -->
+<view class='background'></view>
+<view class='vip-top'>
+  <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='btnGetuserInfo'> 获取头像昵称 </button>
+  <block wx:else>
+    <view class='loginImage'>
+      <image bindtap="bindViewTap" class="userinfo-avatar userinfo-avatar-vip" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <image wx:if='{{isVip!="普通用户"}}' src='/static/image/vipHead.png' class='vipHead'></image>
+    </view>
+    <view class="userinfo-nickname">{{userInfo.nickName}}</view>
+    <view class='isVip'>
+      <text> {{isVip}}</text>
+    </view>
+  </block>
+</view>
+<view class='card'>
+  <view class='card-top'>会员专享
+    <text>5</text>大特权</view>
+  <view class='card-senced'>会员期间曾为你节省<text style='color:#f60;font-weight:800'>￥{{jiesheng}}</text>元</view>
+  <view class='card-images'>
+    <view>
+      <image src='https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/joinvip/test1.png'></image>
+      <text>2小时达</text>
+    </view>
+    <view>
+      <image src='https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/joinvip/test2.png'></image>
+      <text>超级会员日</text>
+    </view>
+    <view>
+      <image src='https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/joinvip/test3.png'></image>
+      <text>专属客服</text>
+    </view>
+    <view>
+      <image src='https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/joinvip/test4.png'></image>
+      <text>积分加倍</text>
+    </view>
+    <view>
+      <image src='https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/joinvip/test5.png'></image>
+      <text>会员专享价</text>
+    </view>
+    <view>
+      <image src='https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/joinvip/test6.png'></image>
+      <text>敬请期待</text>
+    </view>
+  </view>
+  <view class='card-bottom' bindtap='joinVip'>{{joinvip}}</view>
+</view>
+
+<loading wx:if="{{!loading}}">
+  加载中...
+</loading>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Static/css/back/product.css">
+    <script src="../Static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../Static/js/bootstrap.js"></script>
+    <script src="../Static/js/tools.js"></script>
+</head>
+<body>
+<div class="panel-heading">
+    商品类型编辑
+</div>
+<div class="col-md-6 col-md-offset-3 productType">
+    <div class="input-group">
+        <span class="input-group-addon">类型编码</span>
+        <input type="text" class="form-control" placeholder="" value="0" disabled="true" id="typeid">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">类型名称</span>
+        <input type="text" class="form-control" placeholder="输入类型名称" id="name">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">父级分类</span>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" id="parentName" data-toggle="dropdown">无父级分类
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+
+            </ul>
+        </div>
+    </div>
+    <button class="btn-primary btn-submit" id="submit">保存</button>
+</div>
+<div style="display: none">
+    <div id="parentid">0</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var url = window.location;
+        var id = getUrlParam(url, "id");
+        var type = getUrlParam(url, "type");
+        if (type == "edit") {
+            $(".panel-heading").html("商品类型编辑");
+            getProductTypeDetail(id);
+            $("#submit").click(function () {
+                updateProductTypeById();
+            })
+        } else if (type == "add") {
+            $("#typeid").val(0);
+            $(".panel-heading").html("商品类型新增");
+            $("#submit").click(function () {
+                addProductTypeById();
+            })
+        }
+        getProductType();
+    });
+
+    function getProductType() {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+            url: 'getProductType',
+            dataType: "json",
+            // data: {"fid": $("#typeid").val(), "fname": $("#name").val()},
+
+            success: function (data) {
+                var dataObj = eval("(" + data.massage + ")");
+                console.log(dataObj);
+                var html = "";
+                html += " <li class='changeParent' id='0'><a href=\"#\">无父级分类</a></li>"
+                $.each(dataObj, function (index, obj) {
+                    html += " <li class='changeParent' id='" + obj.ftypeid + "'><a href=\"#\">" + obj.fName + "</a></li>"
+                })
+                $(".dropdown-menu").html(html);
+                $(".changeParent").click(function () {
+                    $("#parentid").html($(this).attr("id"));
+                    $("#parentName").html($(this).children().html());
+                })
+            }
+        })
+    }
+
+    function addProductTypeById() {
+        console.log($("#parentid").html())
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+            url: 'addProductTypeById',
+            dataType: "json",
+            data: {"fid": $("#typeid").val(), "fname": $("#name").val(), "fparentid": $("#parentid").html()},
+            success: function (data) {
+                alert(data.massage);
+                if (data.massage == '添加成功') {
+                    window.location.href = "listProductType";
+                }
+            }
+        })
+    }
+
+
+    function updateProductTypeById() {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+            url: 'updateProductTypeById',
+            dataType: "json",
+            data: {"fid": $("#typeid").val(), "fname": $("#name").val() ,"fparentid": $("#parentid").html()},
+            success: function (data) {
+                alert(data.massage);
+                if (data.massage == '更新成功') {
+                    window.location.href = "listProductType";
+                }
+            }
+        })
+    }
+
+    function getProductTypeDetail(fid) {
+        console.log(fid);
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+            url: 'getProductTypeById',
+            dataType: "json",
+            data: {"fid": fid},
+            success: function (data) {
+                console.log(data);
+                var dataObj = eval("(" + data.massage + ")");
+                $("#typeid").val(dataObj.ftypeid);
+                $("#name").val(dataObj.fName);
+            }
+        })
+    }
+</script>

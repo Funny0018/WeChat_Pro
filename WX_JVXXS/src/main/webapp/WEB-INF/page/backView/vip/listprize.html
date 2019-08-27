@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Static/css/back/product.css">
+    <script src="../Static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../Static/js/bootstrap.js"></script>
+    <script src="../Static/js/tools.js"></script>
+</head>
+<body>
+<div class="panel-heading">
+    抽奖管理列表
+</div>
+<div class="choseProduct" style="display: none;">
+    <div class="input-group">
+        <span class="input-group-addon">卡券名称</span>
+        <input type="text" class="form-control" placeholder="" value="" id="productName">
+        <span class="input-group-addon productBack">返回</span>
+    </div>
+    <div class="showCouponForAward">
+        <ul class="couponListForCoupon">
+
+        </ul>
+    </div>
+</div>
+<div class="editCoupon" style="display: none;">
+    <div class="editCounponFront">
+        <div class="input-group">
+            <span class="input-group-addon">中奖编码</span>
+            <input type="text" class="form-control" placeholder="" value="0" disabled="true" id="awardChanceID">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">卡券名称</span>
+            <span id="couponName" class="form-control"></span>
+            <!--<input type="text" class="form-control" placeholder="" value="" id="couponName">-->
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">卡券类型</span>
+            <input type="text" class="form-control" placeholder="" disabled="true" value="" id="couponType">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">抵扣商品</span>
+            <input type="text" class="form-control" placeholder="" disabled="true" value="" id="couponProduct">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">抵扣金额</span>
+            <input type="text" class="form-control" disabled="true" placeholder="" value="" id="couponPrice">
+        </div>
+        <!--<div class="input-group">-->
+        <!--<span class="input-group-addon">中奖概率</span>-->
+        <!--<input type="text" class="form-control" placeholder="" value="" id="awardChance">-->
+        <!--</div>-->
+        <button class="btn-primary btn-submit" id="submit">保存</button>
+        <button class="btn-primary btn-submit" id="cencel">取消</button>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="list-op" id="list_op">
+        <button type="button" class="btn btn-default btn-sm edit">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true">编辑</span>
+        </button>
+    </div>
+</div>
+<div class="panel-body">
+    <table class="table  table-striped table-bordered">
+        <thead>
+        <tr>
+            <th><input type="checkbox" id="checkAll" name="checkAll"/></th>
+            <th>获得顺序</th>
+            <th>卡券名称</th>
+            <th>卡券类型</th>
+            <th>抵扣商品</th>
+            <th>抵扣金额</th>
+            <!--<th>概率</th>-->
+        </tr>
+        </thead>
+        <tbody id="awardChanceList">
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAwardChance();
+        $(".edit").click(function () {
+            var pouponIDs = getIds();
+            if (pouponIDs != "") {
+                pouponIDs = pouponIDs.substring(0, pouponIDs.length - 1);
+            }
+            if (pouponIDs.split("|").length > 1) {
+                alert("只可以选择一个选项")
+            } else if (pouponIDs == "") {
+                alert("请选择需要修改的卡券")
+            } else {
+                var pouponID = pouponIDs;
+                var trs = $("#awardChanceList").find("tr");
+                var tr = "";
+                trs.each(function () {
+                    if ($(this).attr("id") == pouponID) {
+                        tr = $(this);
+                    }
+                })
+                $("#awardChanceID").val(tr.attr("id"));
+                $("#couponName").attr("tab-index", tr.find("th").eq(0).attr("tab-index"));
+                $("#couponName").html(tr.find("th").eq(1).html());
+                $("#couponType").val(tr.find("th").eq(2).html());
+                $("#couponProduct").val(tr.find("th").eq(3).html());
+                $("#couponPrice").val(tr.find("th").eq(4).html());
+                $("#awardChance").val(tr.find("th").eq(5).html());
+                $(".editCoupon").show();
+            }
+        })
+        $("#couponName").click(function () {
+            $(".choseProduct").show();
+        })
+        $("#productName").change(function () {
+            getCoupon($("#productName").val().trim());
+        })
+        $(".productBack").click(function () {
+            $(".choseProduct").hide();
+        })
+        $("#submit").click(function () {
+            $.ajax({
+                type: 'POST',
+                // contentType: "application/json; charset=utf-8",
+                contentType: "application/x-www-form-urlencoded",
+               url: 'updateAwardChance',
+                dataType: "json",
+                data: {
+                    "fid": $("#awardChanceID").val().trim(),
+                    "fcouponID": $("#couponName").attr("tab-index"),
+                    // "fchance": $("#awardChance").val().trim()
+                },
+                success: function (data) {
+                    alert(data.massage);
+                    $(".editCoupon").hide();
+                    getAwardChance();
+                }
+            })
+        })
+        $("#cencel").click(function () {
+            $(".editCoupon").hide();
+        })
+    })
+
+    function getCoupon(key) {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'getCouponByKey',
+            dataType: "json",
+            data: {"key": key},
+            success: function (data) {
+                var html = "<li><span style='font-weight: 800'>卡券名称</span><span style='font-weight: 800'>卡券类型</span><span style='font-weight: 800'>抵扣商品</span><span style='font-weight: 800'>抵扣金额</span><span style='font-weight: 800'>消费金额可用</span></li>";
+                var dataObj = eval("(" + data.massage + ")");
+                console.log(dataObj);
+                $.each(dataObj, function (index, obj) {
+                    html += "<li class='choseProductId' id='" + obj.fid + "'><span>" + obj.fname + "</span><span>" + obj.ftype + "</span><span>" + obj.fproductName + "</span><span>" + obj.fprice + "</span><span>" + obj.fminprice + "</span></li>";
+                })
+                $(".couponListForCoupon").html(html);
+                $(".choseProductId").click(function () {
+                    $("#couponName").attr("tab-index", $(this).attr("id"));
+                    $("#couponName").html($(this).find("span").eq(0).html());
+                    $("#couponType").val($(this).find("span").eq(1).html());
+                    $("#couponProduct").val($(this).find("span").eq(2).html());
+                    $("#couponPrice").val($(this).find("span").eq(3).html());
+                    $(".choseProduct").hide();
+                })
+            }
+        })
+    }
+
+    function getIds() {
+        var id = "";
+        $('input[type="checkbox"][name="checkProduct"]:checked').each(
+            function () {
+                id += $(this).parent().parent().attr("id") + "|";
+            }
+        );
+        return id;
+    }
+
+    function getAwardChance() {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'getAwardChance',
+            dataType: "json",
+            // data: {"fstate": state, "fname": fname, "ftype": ftype},
+            success: function (data) {
+                var dataObj = eval("(" + data.massage + ")");
+                console.log(dataObj);
+                var html = "";
+                var sumChance = 0;
+                var count = 0;
+                $.each(dataObj, function (index, obj) {
+                    sumChance += obj.fchance * 1;
+                    var owener = "";
+                    if (count == 0) {
+                        owener = "发起者";
+                    } else {
+                        owener = "参与者";
+                    }
+                    count++;
+                    html += "    <tr id='" + obj.fchanceID + "'>\n" +
+                        "        <th>" + owener +  "</th>\n" +
+                        "        <th tab-index='" + obj.fcouponID + "'>" + obj.fname + "</th>\n" +
+                        "        <th>" + obj.ftype + "</th>\n" +
+                        "        <th>" + obj.fproductID + "</th>\n" +
+                        "        <th>" + obj.fprice + "</th>\n" +
+                        // "        <th>" + obj.fchance + "</th>\n" +
+                        "    </tr>";
+                })
+                $("#awardChanceList").html(html);
+                // if (sumChance != 100) {
+                //     alert("概率和不为100")
+                // }
+                initTableCheckbox();
+            }
+        })
+    }
+</script>

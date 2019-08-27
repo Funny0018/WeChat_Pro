@@ -1,0 +1,54 @@
+<!--pages/share/share.wxml-->
+<view class='first' hidden='{{!first}}'>
+  <image src='https://xxs.xixiansheng.cn/Images/static/share/share_first.png'></image>
+  <view class='toScend' bindtap='toScend'></view>
+</view>
+<view class='secend' hidden='{{first}}'>
+  <image class="teamLeader" src="{{image}}" mode="widthFix"></image>
+  <image class='secendBack' src='https://xxs.xixiansheng.cn/Images/static/share/share_secend.png' mode='widthFix'></image>
+  <view class='teamerInfo'>
+    <block wx:for="{{teamer}}">
+      <view class='teamer'>
+        <image class="teamerIamge" src="{{item.userImage}}" mode="widthFix"></image>
+        <view class="teamerNikeName">{{item.nikename}}</view>
+      </view>
+    </block>
+  </view>
+  <view class='textView'>还差
+    <text>{{userlose}}</text> 人即可拆分红包，快邀请好友来拆
+  </view>
+  <view class='timerView'>
+    <text>{{hour}}</text>时
+    <text>{{min}}</text>分
+    <text>{{sec}}</text>秒后过期
+  </view>
+  <button class='shareBtn' open-type='share'></button>
+  <view class='rank'>
+    <block wx:for='{{rank}}'>
+      <view class='rankLine'>
+        <view class='rankImage'>
+          <image src="{{item.userImage}}" mode="widthFix"></image>
+        </view>
+        <view class='rankNikename'>{{item.nikename}}</view>
+        <view class='rnakCount'>完成{{item.fcount}}次</view>
+      </view>
+    </block>
+  </view>
+  <view class='showRank' bindtap='showRank'>
+  </view>
+</view>
+<view class='roleView' bindtap='closeRole' wx:if="{{showRole}}">
+  <view class='role'>
+    <view class='roleTitle'>活动规则</view>
+    <view class='roleText'>
+      <view> 1.用户邀请好友得好礼，满{{shareCount}}人即可瓜分金额抵扣券大礼。</view>
+      <view> 2.活动发起24小时仍未组满{{shareCount}}人，则拆红包失败。</view>
+      <view> 3.只有会员用户可以发起拆红包活动，每个自然月内，最多可发起3次。</view>
+      <view> 4.只有新登录用户被邀请登录才视为有效邀请。</view>
+      <view> 5.活动所获得红包为满减优惠券或水果抵扣券，可在购物车页面查看。</view>
+      <view> 6.本活动解释权最终归西鲜生所有。</view>
+    </view>
+  </view>
+</view>
+<view class='showRole' bindtap='showRole'>
+</view>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.shareLeaderDao">
+
+    <parameterMap id="parameterMap" type="com.entity.shareLeader"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.shareLeader">
+        <result property="fid" column="fid"/>
+        <result property="fcreatetime" column="fcreatetime"/>
+        <result property="fendtime" column="fendtime"/>
+        <result property="fuserid" column="fuserid"/>
+        <result property="fjoinuserid" column="fjoinuserid"/>
+        <result property="ffirstuserid" column="ffirstuserid"/>
+        <result property="fsecenduserid" column="fsecenduserid"/>
+        <result property="fthirduserid" column="fthirduserid"/>
+        <result property="fstate" column="fstate"/>
+    </resultMap>
+
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fcreatetime,
+            fendtime,
+            fuserid,
+            fjoinuserid,
+            ffirstuserid,
+            fsecenduserid,
+            fthirduserid,
+            fstate,
+        </trim>
+    </sql>
+    <insert id="add" parameterType="com.entity.shareLeader" useGeneratedKeys="true" keyProperty="fid">
+        insert into t_shareleader
+	(fid,
+	fcreatetime,
+	fendtime,
+	fuserid,
+	fjoinuserid,
+	ffirstuserid,
+	fsecenduserid,
+	fthirduserid,
+	fstate
+	)
+	values
+	(#{fid},
+	#{fcreatetime},
+	#{fendtime},
+	#{fuserid},
+	#{fjoinuserid},
+	#{ffirstuserid},
+	#{fsecenduserid},
+	#{fthirduserid},
+	#{fstate}
+	)
+    </insert>
+    <select id="selectByFid" parameterType="int" resultMap="resultMap">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_shareleader
+        WHERE fid=#{fid}
+    </select>
+    <select id="selectByFuserid" parameterType="map" resultMap="resultMap">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_shareleader
+        WHERE (fuserid=#{fuserid} OR fjoinuserid LIKE #{fjoinuserid}) AND fstate=0  order by fcreatetime desc
+        LIMIT 1
+    </select>
+    <select id="selectCountByFuserid" parameterType="map" resultType="int">
+       SELECT COUNT(1) FROM t_shareleader WHERE fcreatetime LIKE #{time} AND fuserid=#{fuserid} AND fstate=1
+    </select>
+    <update id="update" parameterType="com.entity.shareLeader" keyProperty="true">
+    UPDATE t_shareleader
+    SET
+    fcreatetime=#{fcreatetime},
+    fendtime=#{fendtime},
+    fuserid=#{fuserid},
+    fjoinuserid=#{fjoinuserid},
+    ffirstuserid=#{ffirstuserid},
+    fsecenduserid=#{fsecenduserid},
+    fthirduserid=#{fthirduserid},
+    fstate=#{fstate}
+    WHERE fid=#{fid}
+    </update>
+    <select id="selectTop" resultType="String">
+        select  fuserid from (select fuserid ,count(1) a from t_shareleader where fstate=2 group by fuserid )b
+        order by a DESC limit 3
+    </select>
+    <select id="selectTop100" resultType="String">
+        select  fuserid from (select fuserid ,count(1) a from t_shareleader where fstate=2 group by fuserid )b
+        order by a DESC limit 100
+    </select>
+    <select id="selectCountByUser" resultType="String">
+       select count(1) a from t_shareleader where fstate=2 and fuserid=#{fuserid}
+    </select>
+</mapper>

@@ -1,0 +1,275 @@
+/* pages/bills/bills.wxss */
+
+page {
+  background-color: #eee;
+}
+
+.bottom-bar {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  bottom: 0;
+  width: 100%;
+  height: 90rpx;
+  padding: 0;
+  border-top: 0.01rem #ceced1 solid;
+  /* background-color: #ceced1; */
+  background-color: #fff;
+}
+
+.amountAll {
+  width: 65%;
+  height: 90rpx;
+  font-size: 0.8rem;
+  margin-left: 1rem;
+  line-height: 2.2rem;
+}
+
+.totalprice {
+  height: 90rpx;
+  font-size: 1rem;
+  color: red;
+  padding-top: 0.5rem;
+  line-height: 2.2rem;
+}
+
+.submit {
+  background-color: #f60;
+  width: 30%;
+  height: 90rpx;
+  line-height: 90rpx;
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* border-radius: 0.5rem; */
+  font-size: 0.9rem;
+  color: #fff;
+  text-align: center;
+}
+
+.deliveryAddress-info {
+  margin-top: 10rpx;
+}
+
+.list-info {
+  height: 170rpx;
+  line-height: 170rpx;
+  background-color: #fff;
+}
+
+.list-info::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 170rpx;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(180, 180, 180, 0.3);
+}
+
+.list-new {
+  height: 170rpx;
+  line-height: 170rpx;
+  background-color: #fff;
+}
+
+.list-new::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 0rpx;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(180, 180, 180, 0.3);
+}
+
+.chooseNew {
+  margin-left: 30rpx;
+}
+
+.left {
+  height: 140rpx;
+  width: 550rpx;
+  float: left;
+}
+
+.top {
+  height: 100rpx;
+  width: 630rpx;
+  float: left;
+  font-size: 25rpx;
+  margin-left: 30rpx;
+  margin-top: 20rpx;
+}
+
+.city {
+  width: 550rpx;
+  height: 33rpx;
+  line-height: 33rpx;
+  float: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.address {
+  width: 550rpx;
+  height: 33rpx;
+  line-height: 33rpx;
+  float: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.buildno {
+  width: 550rpx;
+  height: 33rpx;
+  line-height: 33rpx;
+  float: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bottom {
+  font-size: 25rpx;
+  line-height: 40rpx;
+  width: 600rpx;
+  color: #aaa;
+  float: left;
+  height: 40rpx;
+}
+
+.name {
+  float: left;
+  margin-left: 30rpx;
+}
+
+.phone {
+  float: right;
+  margin-right: 60rpx;
+}
+
+.right {
+  height: 160rpx;
+  width: 170rpx;
+  float: right;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.torightImg {
+  width: 80rpx;
+  height: 80rpx;
+  margin-top: 40rpx;
+  margin-right: 20rpx;
+}
+
+.localImg {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.products-info {
+  width: 100%;
+  height: 150rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+}
+
+.productImg {
+  width: 100rpx;
+  height: 100rpx;
+  margin-left: 20rpx;
+  margin-top: 25rpx;
+  border: 1rpx solid #ddd;
+}
+
+.product-right {
+  width: 150rpx;
+  float: right;
+  height: 150rpx;
+  font-size: 30rpx;
+}
+
+.product-right text {
+  float: right;
+  width: 80rpx;
+  margin-top: 50rpx;
+  margin-right: 10rpx;
+}
+
+.product-right image {
+  margin-right: 10rpx;
+  margin-top: 55rpx;
+  float: right;
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.sale {
+  width: 100%;
+  height: 640rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+  margin-bottom: 2.2rem;
+}
+
+.saleTitle {
+  font-size: 30rpx;
+  height: 80rpx;
+  width: 95%;
+  margin-left: 2.5%;
+}
+
+.saleTitleText {
+  float: left;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.saleTitlePrice {
+  float: right;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.couponImg {
+  float: left;
+  width: 50rpx;
+  height: 50rpx;
+  margin-top: 15rpx;
+}
+
+.toRightImg {
+  float: right;
+  width: 50rpx;
+  height: 50rpx;
+  margin-top: 15rpx;
+}
+
+.couponText {
+  float: left;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-left: 10rpx;
+}
+
+.couponPrice {
+  float: right;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.line::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 80rpx;
+  height: 1px;
+  width: 95%;
+  background-color: rgba(180, 180, 180, 0.3);
+}
+

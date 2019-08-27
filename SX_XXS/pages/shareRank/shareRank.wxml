@@ -1,0 +1,27 @@
+<!--pages/shareRank/shareRank.wxml-->
+<view class='top'>
+  <view class='title'>分享活动全国排行</view>
+  <view class='titleLeft'>奖励排名</view>
+  <view class='titleRight'>完成次数</view>
+  <view class='userinfo'>
+    <view class='userrank'>{{user.rank}}</view>
+    <view class='userimage'>
+      <image src="{{user.userImage}}" mode="widthFix"></image>
+    </view>
+    <view class='usernikename'>{{user.nikename}}</view>
+    <view class='usercount'>{{user.fcount}}次</view>
+  </view>
+</view>
+<view class='middle'></view>
+<view class='rankInfo'>
+  <block wx:for='{{rank}}'>
+    <view class='rankinfo line'>
+      <view class='userrank'>{{item.rank}}</view>
+      <view class='userimage'>
+        <image src="{{item.userImage}}" mode="widthFix"></image>
+      </view>
+      <view class='usernikename'>{{item.nikename}}</view>
+      <view class='usercount'>{{item.fcount}}次</view>
+    </view>
+  </block>
+</view>

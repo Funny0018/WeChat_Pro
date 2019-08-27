@@ -1,0 +1,112 @@
+/* pages/userCoupon/userCoupon.wxss */
+/* pages/cartCoupon/cartCoupon.wxss */
+
+page {
+  background-color: #eee;
+}
+
+.top {
+  background-color: #fff;
+  margin-top: 10rpx;
+  height: 75rpx;
+  width: 100%;
+  line-height: 75rpx;
+}
+
+.top text {
+  margin-left: 20rpx;
+  font-size: 35rpx;
+}
+
+.couponView {
+  width: 95%;
+  margin-left: 2.5%;
+  height: 300rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+  /* border: #1b1b1b solid 1rpx; */
+  border-radius: 20rpx;
+}
+
+.couponViewNoUse {
+  width: 95%;
+  margin-left: 2.5%;
+  height: 300rpx;
+  background-color: #ccc;
+  margin-top: 20rpx;
+  /* border: #1b1b1b solid 1rpx; */
+  border-radius: 20rpx;
+}
+
+.leftView {
+  height: 100%;
+  width: 35%;
+  float: left;
+  text-align: center;
+}
+
+.leftView image {
+  width: 80%;
+  height: 80%;
+  margin-top: 10%;
+  margin-left: 15%;
+  border-radius: 20rpx;
+}
+
+.leftLeft {
+  color: #f60;
+  padding-top: 50%;
+  padding-left: 20%;
+  float: left;
+}
+
+.leftRight {
+  float: left;
+  color: #f60;
+  font-size: 90rpx;
+  padding-top: 30%;
+}
+
+.rightView {
+  height: 100%;
+  width: 60%;
+  margin-left: 5%;
+  float: left;
+  position: relative;
+}
+
+.rightFloat {
+  height: 55rpx;
+  width: 300rpx;
+  color: red;
+  border: red solid 1rpx;
+  border-radius: 20rpx;
+  background:rgba(0, 0, 0, 0.3);
+  position: absolute;
+  transform: rotate(7deg);
+  -ms-transform: rotate(7deg); /* IE 9 */
+  -moz-transform: rotate(7deg); /* Firefox */
+  -webkit-transform: rotate(7deg); /* Safari 和 Chrome */
+  -o-transform: rotate(7deg); /* Opera */
+  top:70rpx;
+  left: 100rpx;
+  text-align: center;
+}
+
+.rightTop {
+  height: 20%;
+  margin-top: 30rpx;
+  font-size: 30rpx;
+  overflow: hidden; /*超出部分隐藏*/
+  white-space: nowrap; /*不换行*/
+  text-overflow: ellipsis; /*超出部分文字以...显示*/
+}
+
+.rightLittle {
+  height: 15%;
+  font-size: 27rpx;
+  margin-top: 5rpx;
+  overflow: hidden; /*超出部分隐藏*/
+  white-space: nowrap; /*不换行*/
+  text-overflow: ellipsis; /*超出部分文字以...显示*/
+}

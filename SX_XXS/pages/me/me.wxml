@@ -1,0 +1,164 @@
+<!--pages/me/me.wxml-->
+<view class='background'></view>
+<view class='me-top'>
+  <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='btnGetuserInfo'> 获取头像昵称 </button>
+  <block wx:else>
+    <view class='loginImage'>
+      <image bindtap="bindViewTap" class="userinfo-avatar userinfo-avatar-vip" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <image wx:if='{{isVip!="普通用户"}}' src='/static/image/vipHead.png' class='vipHead'></image>
+    </view>
+    <view class="userinfo-nickname">{{userInfo.nickName}}</view>
+    <view class='isVip'>
+      <text> {{isVip}}</text>
+    </view>
+    <view class='vipdate'>
+      <text>{{vipdate}}</text>
+    </view>
+  </block>
+  <!-- <block wx:if="{{(!hasUserInfo && canIUse)}}">
+    <view>
+      <image src='/static/image/me/touxiang.png' class='userinfo-avatar'></image>
+      <view>
+        <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='btnGetuserInfo'>点击此处登陆</button>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    <view>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+  </block> -->
+</view>
+<view class='vipView' bindtap='joinVip'>
+
+  <image class='vipcard' src='/static/image/me/vipcard.png'></image>
+  <view class='vipTxt'>
+    <view class='vipTxtTop'>超多权益任您拿</view>
+    <view class='vipTxtBottom'>预计可为您节省2820元/年</view>
+  </view>
+  <image class='vipToRightImg' src='/static/image/me/toright.png'></image>
+  <text class='vipToRightTxt'>{{joinVip}}</text>
+</view>
+<view class='cardsView'>
+  <!-- <view class='cardsTop'>
+    <view class='cardsTopTxt line'>
+      <text>我的钱包</text> </view>
+    <!-- <image class='cardsTopImg' src='/static/image/me/toright.png'></image> -->
+  <!-- </view> -->
+  <view class='cardsAmount' bindtap='toRecharge'>
+    <view>￥{{vipMoney}}</view>
+    <!-- <view style='margin-top:10rpx;color:#f60;text-decoration:underline;'>￥{{vipMoney}}</view> -->
+    <view style='margin-top:10rpx; font-weight:400 '>账户余额</view>
+  </view>
+  <view class='verline'></view>
+  <view class='cardsCoupons' bindtap='toCoupon'>
+    <view> {{coupons}}</view>
+    <!-- <view style='margin-top:10rpx;color:#f60;text-decoration:underline;'> {{coupons}} </view> -->
+    <view style='margin-top:10rpx; font-weight:400 '> 剩余卡券</view>
+  </view>
+</view>
+<view class='orderListView'>
+  <view class='orderTopTxt line'>
+    <text>我的订单</text>
+    <view class='orderTopRight' bindtap='toOrder' id='-1'>
+      <text>我的订单</text>
+      <image src='/static/image/addDeliveryAddress/toright.png'></image>
+    </view>
+  </view>
+  <view class='orderList'>
+    <view class='order-menu' bindtap='toOrder' id='0'>
+      <image src='/static/image/order/toPay.png'></image>
+      <text>待付款</text>
+    </view>
+    <view class='order-menu' bindtap='toOrder' id='1'>
+      <image src='/static/image/order/toSend.png'></image>
+      <text>待发货</text>
+    </view>
+    <view class='order-menu ' bindtap='toOrder' id='2'>
+      <image src='/static/image/order/toRecive.png'></image>
+      <text>配送中</text>
+    </view>
+    <view class='order-menu' bindtap='toOrder' id='3'>
+      <image src='/static/image/order/reciveOrder.png'></image>
+      <text>已完成</text>
+    </view>
+  </view>
+</view>
+<view class='menuTable'>
+
+  <button open-type='contact' class='menuDetailBtn'>客服咨询</button>
+  <view class='menuDetail' bindtap='todelivery'>
+    <image src='/static/image/me/address.png'></image>
+    <view>地址管理</view>
+  </view>
+  <view class='menuDetail'>
+    <image src='/static/image/me/chongzhi.png'></image>
+    <view>充值记录</view>
+  </view>
+  <view class='menuDetail'>
+    <image src='/static/image/me/xiaofei.png'></image>
+    <view>消费记录</view>
+  </view>
+  <view class='menuDetail'>
+    <image src='/static/image/me/tuiguang.png'></image>
+    <view>我的推广</view>
+  </view>
+  <view class='menuDetail'>
+    <image src='/static/image/me/kefu.png'></image>
+    <view>客服咨询</view>
+  </view>
+  <view class='menuDetail' bindtap='tapCall'>
+    <image src='/static/image/me/dianhua.png'></image>
+    <view>客服电话</view>
+  </view>
+  <view class='menuDetail'>
+    <image src='/static/image/me/help.png'></image>
+    <view>帮助中心</view>
+  </view>
+  <!-- <view class='menuDetail' bindtap='test'> -->
+  <view class='menuDetail'>
+    <image src='/static/image/me/about.png'></image>
+    <view>关于我们</view>
+    <!-- <view>抽奖测试</view> -->
+  </view>
+</view>
+<!-- <view class='menuListView'>
+  <view class='menuView lines' bindtap='todelivery'>
+    <view>地址管理</view>
+    <image src='/static/image/me/toright.png'></image>
+  </view>
+  <view class='menuView lines'>
+    <view>充值记录</view>
+    <image src='/static/image/me/toright.png'></image>
+  </view>
+  <view class='menuView lines'>
+    <view>消费记录</view>
+    <image src='/static/image/me/toright.png'></image>
+  </view>
+  <view class='menuView'>
+    <view>我的推广</view>
+    <image src='/static/image/me/toright.png'></image>
+  </view>
+</view>
+<view class='otherView'>
+  <view class='menuView lines' style='margin-top:40rpx;'>
+    <button open-type='contact' class='contactBtn'>客服咨询</button>
+    <image src='/static/image/me/toright.png'></image>
+  </view>
+  <view class='menuView lines' bindtap='tapCall'>
+    <view>客服电话</view>
+    <image src='/static/image/me/toright.png'></image>
+  </view>
+  <view class='menuView lines'>
+    <view>帮助中心</view>
+    <image src='/static/image/me/toright.png'></image>
+  </view>
+  <view class='menuView'>
+    <view>关于我们</view>
+    <image src='/static/image/me/toright.png'></image>
+  </view>
+</view> -->
+<loading wx:if="{{!loading}}">
+  加载中...
+</loading>

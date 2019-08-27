@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.prientTaskDao">
+
+    <parameterMap id="parameterMap" type="com.entity.prientTask"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.prientTask">
+        <result property="fid" column="fid"/>
+        <result property="fbillno" column="fbillno"/>
+        <result property="ftaskno" column="ftaskno"/>
+        <result property="fbindstate" column="fbindstate"/>
+        <result property="fbindmassage" column="fbindmassage"/>
+        <result property="fstatestate" column="fstatestate"/>
+        <result property="fstatemassage" column="fstatemassage"/>
+        <result property="fprientstate" column="fprientstate"/>
+        <result property="fprientmassage" column="fprientmassage"/>
+        <result property="fprientdate" column="fprientdate"/>
+    </resultMap>
+	<sql id="columnSql">
+		<trim suffixOverrides=",">
+			fid,
+			fbillno,
+			ftaskno,
+			fbindstate,
+			fbindmassage,
+			fstatestate,
+			fstatemassage,
+			fprientstate,
+			fprientmassage,
+			fprientdate,
+		</trim>
+	</sql>
+    <insert id="add" parameterType="com.entity.prientTask" useGeneratedKeys="true" keyProperty="fid">
+insert into wx_jvxxs.t_prienttask
+	(
+	fbillno,
+	ftaskno,
+	fbindstate,
+	fbindmassage,
+	fstatestate,
+	fstatemassage,
+	fprientstate,
+	fprientmassage,
+	fprientdate
+	)
+	values
+	(
+	#{fbillno},
+	#{ftaskno},
+	#{fbindstate},
+	#{fbindmassage},
+	#{fstatestate},
+	#{fstatemassage},
+	#{fprientstate},
+	#{fprientmassage},
+	#{fprientdate}
+	)
+    </insert>
+</mapper>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Static/css/back/product.css">
+    <script src="../Static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../Static/js/bootstrap.js"></script>
+    <script src="../Static/js/tools.js"></script>
+</head>
+<body>
+<div class="panel-heading">
+    订单信息列表
+</div>
+<div class="panel-body">
+    <div class="my-container">
+        <label class="myLabel-content">是否VIP：</label>
+        <ul>
+            <li role="presentation" class='productTypeIndex'>
+                <a role="menuitem" class="active" tabindex="-1" href="#">全部</a>
+            </li>
+            <li role="presentation" class='productTypeIndex'>
+                <a role="menuitem" tabindex="1" href="#">会员</a>
+            </li>
+            <li role="presentation" class='productTypeIndex'>
+                <a role="menuitem" tabindex="0" href="#">非会员</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="my-container">
+        <label class="myLabel-content">用户编号：</label>
+        <div class="myText-content">
+            <input id="productName" type="text" class="form-control" placeholder="输入用户编号">
+        </div>
+        <button id="search" type="button" class="btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-search" aria-hidden="true">搜索</span>
+        </button>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="list-op" id="list_op">
+        <div class="vipCount"></div>
+    </div>
+</div>
+<div class="panel-body">
+    <table class="table  table-striped table-bordered">
+        <thead>
+        <tr>
+            <th><input type="checkbox" id="checkAll" name="checkAll"/></th>
+            <th>会员编号</th>
+            <th>OPENID</th>
+            <th>UNIONID</th>
+            <th>账户余额</th>
+            <th>是否会员</th>
+            <th>会员开始时间</th>
+            <th>会员结束时间</th>
+        </tr>
+        </thead>
+        <tbody id="productList">
+        </tbody>
+    </table>
+</div>
+<div class="panel-body">
+    <div class="page-header">显示第<span id="minCount">1</span>到第<span id="maxCount">10</span>条数据，共<span
+            id="allCount">0</span>条数据，共<span id="maxPage">0</span>页 ，每页显示10 条记录
+    </div>
+    <ul class="pagination">
+        <li><a href="#">&laquo;&laquo;</a></li>
+        <li><a href="#">&laquo;</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">&raquo;</a></li>
+        <li><a href="#">&raquo;&raquo;</a></li>
+    </ul>
+</div>
+<div style="display: none">
+    <div id="productTypeSelect">-1</div>
+    <div id="pageIndex">1</div>
+    <div id="pageCount">10</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".productTypeIndex").click(function () {
+            var obj = ($(this).find("a"))
+            var index = obj.attr("tabindex");
+            var name = obj.html();
+            $("#pageIndex").html(1);
+            $("#productTypeSelect").html(index);
+            $(".productTypeIndex").find('a').removeClass('active');
+            $(this).find('a').addClass('active');
+            getVip($("#productName").val(), $("#pageIndex").html(), $("#productTypeSelect").html(), $("#pageCount").html());
+        })
+        getVip($("#productName").val(), $("#pageIndex").html(), $("#productTypeSelect").html(), $("#pageCount").html());
+        $("#search").click(function () {
+            getVip($("#productName").val(), $("#pageIndex").html(), $("#productTypeSelect").html(), $("#pageCount").html());
+        });
+        $("#reset").click(function () {
+            $("#productName").val("");
+            $("#productTypeSelect").html(0)
+            $("#dropdownMenu1").html("全部<span class=\"caret\"></span>");
+        })
+
+        $(".edit").click(function () {
+            toEdit("edit");
+        })
+        $(".delete").click(function () {
+            var productid = getIds();
+            if (productid == "") {
+                alert("请选择需要删除的商品类型")
+            } else {
+                deleteProductTypeById(productid);
+            }
+        })
+    })
+
+    function toEdit(type) {
+        var productid = getIds();
+        if (productid != "") {
+            productid = productid.substring(0, productid.length - 1);
+        }
+        console.log(productid);
+        if (productid.split("|").length > 1) {
+            alert("只可以选择一个选项")
+        } else if (productid == "") {
+            alert("请选择需要修改的商品")
+        } else {
+            window.location.href = "back/editProduct?type=" + type + "&id=" + productid;
+        }
+    }
+
+    function getIds() {
+        var id = "";
+        $('input[type="checkbox"][name="checkProduct"]:checked').each(
+            function () {
+                id += $(this).parent().parent().attr("id") + "|";
+            }
+        );
+        return id;
+    }
+
+    function getVip(key, pageIndex, type, pageSize) {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'getUserInfo',
+            dataType: "json",
+            data: {"userid": key, "pageIndex": pageIndex, "type": type, "pageSize": pageSize},
+            success: function (data) {
+                var dataObj = eval("(" + data.massage + ")");
+                console.log(dataObj);
+                var maxPage = data.maxPage * 1;
+                var maxCount = data.maxCount * 1;
+                var html = '';
+
+                $.each(dataObj, function (index, obj) {
+                    var state = "";
+                    switch (obj.fisvip) {
+                        case "0":
+                            state = "非会员";
+                            break;
+                        case "1":
+                            state = "会员";
+                            break;
+                    }
+                    html += "    <tr id='" + obj.fuserid + "'>\n" +
+                        "        <th>" + obj.fuserid + "</th>\n" +
+                        "        <th>" + obj.fopenid + "</th>\n" +
+                        "        <th>" + obj.funionid + "</th>\n" +
+                        "        <th>" + obj.fmoney + "</th>\n" +
+                        "        <th>" + state + "</th>\n" +
+                        "        <th>" + obj.fstart + "</th>\n" +
+                        "        <th>" + obj.fend + "</th>\n" +
+                        "    </tr>"
+                })
+                $("#productList").html(html);
+                $("#minCount").html((pageIndex * 1 - 1) * pageSize + 1);
+                $("#maxCount").html(pageIndex * pageSize);
+                $("#allCount").html(maxCount);
+                $("#maxPage").html(maxPage);
+                $(".vipCount").html("会员数量：" + maxCount);
+
+
+                var pages = "";
+                if (maxPage <= 5) {
+                    for (var i = 1; i <= maxPage; i++) {
+                        pages += i + ",";
+                    }
+                } else if (maxPage > 5 && (pageIndex * 1 + 2) >= maxPage) {
+                    for (var i = (maxPage - 5); i <= maxPage; i++) {
+                        pages += i + ",";
+                    }
+                } else if (maxPage > 5 && (pageIndex - 2) <= 0) {
+                    for (var i = 1; i <= 5; i++) {
+                        pages += i + ",";
+                    }
+                } else {
+                    for (var i = (pageIndex - 2); i <= (pageIndex * 1 + 2); i++) {
+                        pages += i + ",";
+                    }
+                }
+                var pageHtml = " <li class='toMinPage'><a href=\"#\">&laquo;&laquo;</a></li>\n" +
+                    "                    <li class='toLastPage'><a href=\"#\">&laquo;</a></li>"
+                $.each(pages.split(','), function (index, obj) {
+                    if (obj != "") {
+                        pageHtml += "<li class='toPage'><a href=\"#\">" + obj + "</a></li>\n";
+                    }
+                })
+                pageHtml += "                    <li  class='toNextPage'><a href=\"#\"'>&raquo;</a></li>\n" +
+                    "                    <li class='toMaxPage'><a href=\"#\">&raquo;&raquo;</a></li>";
+                $(".pagination").html(pageHtml);
+
+                $(".toMinPage").click(function () {
+                    var pageIndex = 0;
+                    $("#pageIndex").html(pageIndex);
+                    getVip($("#productName").val(), pageIndex, $("#productTypeSelect").html(), $("#pageCount").html());
+                });
+                $(".toLastPage").click(function () {
+                    var pageIndex = $("#pageIndex").html();
+                    if (pageIndex <= 1) {
+                        alert("当前为第一页");
+                    } else {
+                        $("#pageIndex").html(pageIndex - 1);
+                        getVip($("#productName").val(), pageIndex - 1, $("#productTypeSelect").html(), $("#pageCount").html());
+                    }
+                });
+                $(".toPage").click(function () {
+                    var pageIndex = $(this).find("a").html();
+                    $("#pageIndex").html(pageIndex);
+                    getVip($("#productName").val(), pageIndex, $("#productTypeSelect").html(), $("#pageCount").html());
+                })
+                $(".toNextPage").click(function () {
+                    var pageIndex = $("#pageIndex").html();
+                    if (pageIndex == $("#maxPage").html()) {
+                        alert("当前为最后一页")
+                    } else {
+                        $("#pageIndex").html(pageIndex * 1 + 1);
+                        getVip($("#productName").val(), pageIndex * 1 + 1, $("#productTypeSelect").html(), $("#pageCount").html());
+                    }
+                });
+                $(".toMaxPage").click(function () {
+                    var pageIndex = $("#maxPage").html();
+                    $("#pageIndex").html(pageIndex);
+                    getVip($("#productName").val(), pageIndex, $("#productTypeSelect").html(), $("#pageCount").html());
+                });
+
+
+                initTableCheckbox();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // /*弹出jqXHR对象的信息*/
+                // alert(jqXHR.responseText);
+                // alert(jqXHR.status);
+                // alert(jqXHR.readyState);
+                // alert(jqXHR.statusText);
+                // /*弹出其他两个参数的信息*/
+                // alert(textStatus);
+                // alert(errorThrown);
+
+                alert('请求失败 ');
+            }
+        })
+
+
+    }
+</script>

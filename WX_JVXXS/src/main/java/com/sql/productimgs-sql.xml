@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.productImgsDao">
+
+    <parameterMap id="parameterMap" type="com.entity.productImgs"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.productImgs">
+        <result property="fid" column="fid"/>
+        <result property="fproductid" column="fproductid"/>
+        <result property="fimageurl" column="fimageurl"/>
+        <result property="fstate" column="fstate"/>
+        <result property="fcreatedate" column="fcreatedate"/>
+
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fproductid,
+            fimageurl,
+            fstate,
+            fcreatedate,
+        </trim>
+    </sql>
+    <select id="selectByProductID" resultMap="resultMap" parameterType="int">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_productimgs
+        WHERE fproductid =#{fproductid} AND fstate>=0
+        ORDER BY fcreatedate DESC
+    </select>
+    <update id="deleteImagesByFid" parameterType="int" keyProperty="true">
+        UPDATE t_productimgs
+        SET fstate=-1
+        WHERE fid=#{fid}
+    </update>
+
+    <insert id="insertImages"  parameterType="com.entity.productImgs" useGeneratedKeys="true" keyProperty="fid">
+       INSERT t_productimgs
+       ( fid,
+            fproductid,
+            fimageurl,
+            fstate,
+            fcreatedate)
+            VALUES
+            ( #{fid},
+            #{fproductid},
+            #{fimageurl},
+            #{fstate},
+            #{fcreatedate})
+    </insert>
+
+</mapper>

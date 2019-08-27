@@ -1,0 +1,31 @@
+<!--pages/address/address.wxml-->
+<view class='address-page'>
+  <view class='address-top'>
+    <view class='search'>
+      <text type='text' class='province'>{{province}}</text>
+      <image src='/static/image/address/down.png' class='img-down'></image>
+      <image src='/static/image/address/search.png' class='img-search'></image>
+      <input type='text' class='key' placeholder='请输入您的地址' bindinput='inputChange'></input>
+    </view>
+    <view class='local-top'>
+      <text class='local-text'>当前定位</text>
+      <text class='local-new'>+新增地址</text>
+    </view>
+    <view class='local-bottom'>
+      <image src='/static/image/address/local.png' class='img-local'></image>
+      <text class='local-address'  bindtap='tapAddress' id='{{local}}'>{{local}}</text>
+      <image src='/static/image/address/reflash.png' class='img-reflash' bindtap='reflash'></image>
+    </view>
+  </view>
+  <view class='address-list'>
+    <text class='list-title'>附近地址</text>
+    <view class='list'>
+      <block wx:for="{{locals}}" wx:key="id">
+        <view class='address-info' bindtap='tapAddress' id='{{item.title}}'>
+          <text class='info-title'>{{item.title}}</text>
+          <text class='info-address'>{{item.address}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

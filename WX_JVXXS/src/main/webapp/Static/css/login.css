@@ -1,0 +1,59 @@
+.logindiv {
+    height: 35rem;
+    width: 40rem;
+    margin-right: auto;
+    margin-left: auto;
+    /*background-color: #eee;*/
+    margin-top: 10rem;
+    position: relative;
+    text-align: center;
+}
+
+.logintitle {
+    width: 30rem;
+    height: 5rem;
+    line-height: 5rem;
+    /*background-color: #6495ED;*/
+    color: #6495ED;
+    border-radius: 1rem;
+    font-size: xx-large;
+    text-align: center;
+    position: absolute;
+    top: 5rem;
+    left: 5rem;
+}
+
+.input-group {
+    margin-left: auto;
+    margin-right: auto;
+    width: 25rem;
+    margin-top: 4rem;
+    position: absolute;
+    top: 10rem;
+    left: 7.5rem;
+}
+
+.input-group img {
+    width: 4rem;
+    height: 4rem;
+}
+
+.input-group input {
+    width: 20rem;
+}
+
+.loginBtn {
+    width: 20rem;
+    height: 5rem;
+    line-height: 5rem;
+    background-color: #6495ED;
+    color: #fff;
+    border-radius: 1rem;
+    font-size: xx-large;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    position: absolute;
+    top: 25rem;
+    left: 10rem;
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.awardChanceDao">
+
+    <parameterMap id="parameterMap" type="com.entity.awardChance"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.awardChance">
+        <result property="fid" column="fid"/>
+        <result property="fcouponID" column="fcouponID"/>
+        <result property="fchance" column="fchance"/>
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fcouponID,
+            fchance,
+        </trim>
+    </sql>
+
+    <select id="selectByNone" resultMap="resultMap" parameterType="String">
+        select
+        <include refid="columnSql"></include>
+        FROM t_awardchance ORDER BY FID
+    </select>
+    <update id="update" parameterType="com.entity.awardChance" useGeneratedKeys="true">
+        UPDATE t_awardchance
+        SET fcouponID=#{fcouponID},
+        fchance=#{fchance}
+        WHERE fid=#{fid}
+    </update>
+</mapper>

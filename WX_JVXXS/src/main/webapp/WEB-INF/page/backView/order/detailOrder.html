@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Static/css/back/product.css">
+    <script src="../Static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../Static/js/bootstrap.js"></script>
+    <script src="../Static/js/tools.js"></script>
+</head>
+<body>
+<div class="my-container">
+    <label class="myLabel-content">订单类型：</label>
+    <ul id="productType">
+        <li role="presentation" class='productTypeIndex'>
+            <a role="menuitem" class="active" tabindex="-1" href="#">全部</a>
+        </li>
+        <li role="presentation" class='productTypeIndex'>
+            <a role="menuitem" tabindex="0" href="#">待付款</a>
+        </li>
+        <li role="presentation" class='productTypeIndex'>
+            <a role="menuitem" tabindex="1" href="#">待发货</a>
+        </li>
+        <li role="presentation" class='productTypeIndex'>
+            <a role="menuitem" tabindex="2" href="#">待收货</a>
+        </li>
+        <li role="presentation" class='productTypeIndex'>
+            <a role="menuitem" tabindex="3" href="#">已完成</a>
+        </li>
+    </ul>
+</div>
+<div class="page-header orderhead">
+    <div id="billno"></div>
+    <div id="ordertype" class="ordertype"></div>
+</div>
+<div class="orderInfoArea">
+    <div class="orderDetailHead">单据信息</div>
+    <div class="orderInfo">
+        <div>下单时间</div>
+        <div id="orderBillDate"></div>
+        <div>支付时间</div>
+        <div id="orderPayDate"></div>
+        <div>发货时间</div>
+        <div id="orderSendDate"></div>
+        <div>收货时间</div>
+        <div id="orderArriveDate"></div>
+        <div>快递单号</div>
+        <div id="orderSendNo"></div>
+    </div>
+</div>
+<div id="address" class="orderAddress">
+    <div class="orderDetailHead">配送信息</div>
+    <div class="orderAddressArea">
+        <div id="addressname"></div>
+        <div id="addresscityarea"></div>
+    </div>
+</div>
+<div id="orderProductList" class="orderProductList">
+    <div class="orderDetailHead">商品信息</div>
+    <table class="table  table-striped table-bordered">
+        <thead>
+        <tr>
+            <th style="display: none;">商品ID</th>
+            <th>商品名称</th>
+            <th>商品描述</th>
+            <th>商品图片</th>
+            <th>商品价格</th>
+            <th>会员价格</th>
+            <th>购买数量</th>
+            <th>价格</th>
+        </tr>
+        </thead>
+        <tbody id="productList">
+        </tbody>
+    </table>
+</div>
+<div class="orderPrice">
+    <div class="orderDetailHead">金额信息</div>
+    <div class="orderPriceArea">
+        <div>商品总价</div>
+        <div id="orderProductPrice"></div>
+        <div>抵扣券价格</div>
+        <div id="orderDikouPrice"></div>
+        <div>红包价格</div>
+        <div id="orderHongbaoPrice"></div>
+        <div>商品实付</div>
+        <div id="orderTotalPrice"></div>
+        <div>运费</div>
+        <div id="orderYunFei"></div>
+        <div>会员抵扣</div>
+        <div id="orderVipAmount"></div>
+        <div class="finalprice" style="height: 2.5rem">最终价格</div>
+        <div id="orderFinalPrice" class="finalprice" style="height: 2.5rem"></div>
+    </div>
+</div>
+<div class="send">
+    <div> 发货单号：</div>
+    <input class="input-group-lg sendNo" id="sendNo" value="">
+    <button id="submit" class="order-submit">发货</button>
+</div>
+
+
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var url = window.location;
+        var billno = getUrlParam(url, "billno");
+        getOrderDetail(billno);
+        $("#submit").click(function () {
+            $.ajax({
+                type: 'POST',
+                // contentType: "application/json; charset=utf-8",
+                contentType: "application/x-www-form-urlencoded",
+               url: 'sendOrder',
+                dataType: "json",
+                data: {"billno": $("#billno").html(), "sendno": $("#sendNo").val()},
+                success: function (data) {
+                    alert(data.massage);
+                    var type = 0;
+                    $(".productTypeIndex").find("a").each(function (i) {
+                        if ($(this).attr('class') == 'active') {
+                            type = $(this).attr('tabindex')
+                        }
+                    })
+                    window.location.href = "../back/listOrder?type=" + type;
+                }
+            })
+        })
+        $(".productTypeIndex").click(function () {
+            var obj = ($(this).find("a"))
+            var index = obj.attr("tabindex");
+            $(".productTypeIndex").find("a").removeClass('active');
+            $(this).find('a').addClass('active');
+            window.location.href = "../back/listOrder?type=" + index;
+        })
+    })
+
+    function getOrderDetail(billno) {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'getOrderDetail',
+            dataType: "json",
+            data: {"billno": billno},
+            success: function (data) {
+                var dataObj = eval("(" + data.massage + ")");
+                var address = dataObj.deliveryAddress;
+                var products = dataObj.fproducts;
+                console.log(dataObj);
+                var state = "";
+                switch (dataObj.fstate) {
+                    case "0":
+                        state = "待付款";
+                        $(".send").hide();
+                        break;
+                    case "1":
+                        state = "待发货";
+                        $(".send").show();
+                        break;
+                    case "2":
+                        state = "待收货";
+                        $(".send").hide();
+                        break;
+                    case "3":
+                        state = "已完成";
+                        $(".send").hide();
+                        break;
+                    default:
+                        state = "已失效";
+                        $(".send").hide();
+                        break;
+                }
+                console.log(state);
+                $("#billno").html(billno);
+                $("#ordertype").html(state);
+
+                $("#orderBillDate").html(dataObj.fbilldate);
+                $("#orderPayDate").html(dataObj.fpaydate);
+                $("#orderSendDate").html(dataObj.fsenddate);
+                $("#orderArriveDate").html(dataObj.farrivedate);
+                $("#orderSendNo").html(dataObj.fsendno);
+
+                $("#addressname").html(address.name);
+                $("#addresscityarea").html(address.faddress);
+                var producninfo = "";
+
+                $.each(products, function (index, obj) {
+                    producninfo += "    <tr id='" + obj.fProductId + "'>\n" +
+                        "        <th style='display: none'>" + obj.fProductId + "</th>\n" +
+                        "        <th class='input-change'>" + obj.fname + "</th>\n" +
+                        "        <th class='input-change'>" + obj.fdec + "</th>\n" +
+                        "        <th><img style='width: 50px;height: 50px;' src='" + obj.fImgUrl + "' alt=''></th>\n" +
+                        "        <th class='input-change'>" + obj.fprice + "</th>\n" +
+                        "        <th class='input-change'>" + obj.fvipprice + "</th>\n" +
+                        "        <th class='input-change'>" + obj.count + "</th>\n" +
+                        "        <th class='input-change'>" + obj.amount + "</th>\n" +
+                        "    </tr>"
+                })
+                $("#productList").html(producninfo);
+
+                $("#orderProductPrice").html(dataObj.totalprice);
+                $("#orderDikouPrice").html(dataObj.dikouprice);
+                $("#orderHongbaoPrice").html(dataObj.hongbaoprice);
+                $("#orderYunFei").html(dataObj.yunfei);
+                $("#orderTotalPrice").html(dataObj.finalProductPrice);
+                $("#orderVipAmount").html(dataObj.fvipamount);
+                $("#orderFinalPrice").html(dataObj.finalPrice);
+
+                $(".productTypeIndex").find("a").each(function (i) {
+                    $(this).removeClass("active");
+                    if ($(this).attr('tabindex') == dataObj.fstate) {
+                        $(this).addClass("active");
+                    }
+                })
+
+
+            }
+        })
+    }
+</script>

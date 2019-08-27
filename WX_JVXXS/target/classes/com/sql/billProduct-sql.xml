@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.billProductDao">
+
+    <parameterMap id="parameterMap" type="com.entity.billProduct"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.billProduct">
+        <result property="fBillProductID" column="fBillProductID"/>
+        <result property="fBillID" column="fBillID"/>
+        <result property="fproductID" column="fproductID"/>
+        <result property="fName" column="fName"/>
+        <result property="fImgUrl" column="fImgUrl"/>
+        <result property="fDesc" column="fDesc"/>
+        <result property="fDescDetail" column="fDescDetail"/>
+        <result property="fOldPrice" column="fOldPrice"/>
+        <result property="fPrice" column="fPrice"/>
+        <result property="fUnit" column="fUnit"/>
+        <result property="fcount" column="fcount"/>
+
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fBillProductID,
+            fproductID,
+            fbillid,
+            fName,
+            fImgUrl,
+            fDesc,
+            fDescDetail,
+            fOldPrice,
+            fPrice,
+            fvipprice,
+            fUnit,
+            fcount,
+        </trim>
+    </sql>
+    <insert id="add" parameterType="java.util.List" useGeneratedKeys="true"
+            keyProperty="fBillProductID">
+        INSERT INTO t_billproduct
+        (
+        fBillProductID,
+        fproductID,
+        fbillid,
+        fName,
+        fImgUrl,
+        fDesc,
+        fDescDetail,
+        fOldPrice,
+        fPrice,
+        fvipprice,
+        fUnit,
+        fcount)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.fBillProductID},
+            #{item.fproductID},
+            #{item.fBillID},
+            #{item.fName},
+            #{item.fImgUrl},
+            #{item.fDesc},
+            #{item.fDescDetail},
+            #{item.fOldPrice},
+            #{item.fPrice},
+            #{item.fvipprice},
+            #{item.fUnit},
+            #{item.fcount})
+        </foreach>
+    </insert>
+    <select id="selectByFbillid" parameterType="int" resultMap="resultMap">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_billproduct
+        WHERE fbillid=#{fbillid}
+    </select>
+</mapper>

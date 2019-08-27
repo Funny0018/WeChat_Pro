@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>西鲜生会员</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="../../wxStatic/css/index.css">
+</head>
+<body>
+<div class="page-group">
+    <nav class="bar bar-tab">
+        <a class="tab-item active" id="home" href="#">
+            <span class="icon">
+            <img src="../wxStatic/images/index/home-checked.png"/></span>
+            <span class="tab-label">首页</span>
+        </a>
+        <a class="tab-item " id="cart" href="#">
+            <span class="icon ">
+            <img src="../wxStatic/images/index/cart-unchecked.png"/></span></span>
+            <span class="tab-label">购物车</span>
+        </a>
+        <a class="tab-item" id="vip">
+            <span class="icon ">
+            <img src="../wxStatic/images/index/vip-unchecked.png"/></span></span>
+            <span class="tab-label">会员</span>
+        </a>
+        <a class="tab-item" id="me">
+            <span class="icon ">
+            <img src="../wxStatic/images/index/me-unchecked.png"/></span></span>
+            <span class="tab-label">我的</span>
+        </a>
+    </nav>
+    <div id="div-home" style="display: block" class="content">
+        <header class="bar bar-nav" style="background: #ff6600;">
+            <div class="title">
+                <div id="address" style="width: 47%;  position: relative;float: left;text-align: left;">定位失败</div>
+                <div style="width: 47%; position: relative;float: left;text-align: center;">
+                    <input value="输入商品名称" type="text" id="stock-text"/>
+                </div>
+            </div>
+        </header>
+        <div class="content  type-list">
+        </div>
+        <div class="content productList">
+            <div class="list-block media-list">
+                <ul>
+                    <li class="line">
+                        <label class="item-content">
+                            <div class="prodcut-Left">
+                                <img src="https://xxs.xixiansheng.cn/Images/product/179_190105_160209_核桃本.jpg">
+                            </div>
+                            <div class="product-Right">
+                                <div class="priduct-Info">
+                                    <div class="product-Name">aaaa</div>
+                                    <div class="product-Desc">bbbb</div>
+                                </div>
+                                <div class="product-Other">
+                                    <div class="product-Other-Left">
+                                        <div class="product-Price">￥10</div>
+                                        <div class="product-Vipprice">￥20</div>
+                                        <div class="product-Salled">已售：100份</div>
+                                    </div>
+                                    <div class="product-Other-Right">
+                                        <div class="product-Other-Dian" style="display: none"></div>
+                                        <div class="product-Other-Cart" style="display: block;">
+                                            <img src="../wxStatic/images/index/cart.png"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </li>
+                    <li class="line">
+                        <label class="item-content">
+                            <div class="prodcut-Left">
+                                <img src="https://xxs.xixiansheng.cn/Images/product/179_190105_160209_核桃本.jpg">
+                            </div>
+                            <div class="product-Right">
+                                <div class="priduct-Info">
+                                    <div class="product-Name">aaaa</div>
+                                    <div class="product-Desc">bbbb</div>
+                                </div>
+                                <div class="product-Other">
+                                    <div class="product-Other-Left">
+                                        <div class="product-Price">￥10</div>
+                                        <div class="product-Vipprice">￥20</div>
+                                        <div class="product-Salled">已售：100份</div>
+                                    </div>
+                                    <div class="product-Other-Right">
+                                        <div class="product-Other-Dian" style="display: block">
+                                            <span class="bindMinus">-</span><span class="count">10</span><span class="bindPlus">+</span>
+                                        </div>
+                                        <div class="product-Other-Cart" style="display: none;">
+                                            <img src="../wxStatic/images/index/cart.png"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="div-cart" style="display: none" class="content">cart</div>
+    <div id="div-vip" style="display: none" class="content">vip</div>
+    <div id="div-me" style="display: none" class="content">me</div>
+</div>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script type="text/javascript">
+    Zepto(function ($) {
+        $("#home").click(function () {
+            changePage('home');
+        });
+        $("#cart").click(function () {
+            changePage('cart');
+        });
+        $("#vip").click(function () {
+            changePage('vip');
+        });
+        $("#me").click(function () {
+            changePage('me');
+        });
+        getProductType();
+    });
+
+    function changePage(id) {
+        id == "home" ? $("#home").find("img").attr('src', '../../wxStatic/images/index/home-checked.png') : $("#home").find("img").attr('src', '../../wxStatic/images/index/home-unchecked.png');
+        id == "cart" ? $("#cart").find("img").attr('src', '../../wxStatic/images/index/cart-checked.png') : $("#cart").find("img").attr('src', '../../wxStatic/images/index/cart-unchecked.png');
+        id == "vip" ? $("#vip").find("img").attr('src', '../../wxStatic/images/index/vip-checked.png') : $("#vip").find("img").attr('src', '../../wxStatic/images/index/vip-unchecked.png');
+        id == "me" ? $("#me").find("img").attr('src', '../../wxStatic/images/index/me-checked.png') : $("#me").find("img").attr('src', '../../wxStatic/images/index/me-unchecked.png');
+        id == "home" ? $("#home").addClass("active") : $("#home").removeClass("active");
+        id == "cart" ? $("#cart").addClass("active") : $("#cart").removeClass("active");
+        id == "vip" ? $("#vip").addClass("active") : $("#vip").removeClass("active");
+        id == "me" ? $("#me").addClass("active") : $("#me").removeClass("active");
+        id == "home" ? $("#div-home").show() : $("#div-home").hide();
+        id == "cart" ? $("#div-cart").show() : $("#div-cart").hide();
+        id == "vip" ? $("#div-vip").show() : $("#div-vip").hide();
+        id == "me" ? $("#div-me").show() : $("#div-me").hide();
+    }
+
+    function getProductType() {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+            url: '/wxGetProductType',
+            dataType: "json",
+            // data: {"name": $("#username").val(), "psd": $("#password").val()},
+            success: function (data) {
+                console.log(data);
+                var jsondata = eval("(" + data.massage + ")");
+                var typehtml = "";
+                $.each(jsondata, function (index, obj) {
+                    typehtml += "<span class='productType' id='type-" + obj.ftypeid + "'>" + obj.fName + "</span>";
+                })
+                $(".type-list").html(typehtml);
+                $("#type-0").addClass('type-active');
+                $(".productType").click(function () {
+                    $(".productType").removeClass('type-active');
+                    $(this).addClass('type-active');
+                })
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

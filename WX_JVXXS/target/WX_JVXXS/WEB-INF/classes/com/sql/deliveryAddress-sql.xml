@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.deliveryAddressDao">
+
+    <parameterMap id="parameterMap" type="com.entity.deliveryAddress"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.deliveryAddress">
+        <result property="fid" column="fid"/>
+        <result property="fname" column="fname"/>
+        <result property="fphone" column="fphone"/>
+        <result property="fcity" column="fcity"/>
+        <result property="faddress" column="faddress"/>
+        <result property="fbuildno" column="fbuildno"/>
+        <result property="fuserid" column="fuserid"/>
+        <result property="fisdefault" column="fisdefault"/>
+
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fname,
+            fphone,
+            fcity,
+            faddress,
+            fbuildno,
+            fuserid,
+            fisdefault,
+        </trim>
+    </sql>
+    <select id="selectByFid" resultMap="resultMap" parameterType="int">
+        select
+        <include refid="columnSql"></include>
+        FROM t_deliveryaddress
+        WHERE fid=#{fid} AND fisdefault>=0
+    </select>
+    <select id="selectByFuserid" resultMap="resultMap" parameterType="int">
+        select
+        <include refid="columnSql"></include>
+        FROM t_deliveryaddress
+        WHERE fuserid=#{fuserid} AND fisdefault>=0
+    </select>
+    <insert id="add" parameterType="com.entity.deliveryAddress" useGeneratedKeys="true" keyProperty="fid">
+       INSERT INTO t_deliveryaddress
+        (
+        fname,
+                    fphone,
+            fcity,
+            faddress,
+            fbuildno,
+            fuserid,
+            fisdefault)
+        VALUES
+        (
+            #{fname},
+            #{fphone},
+            #{fcity},
+            #{faddress},
+            #{fbuildno},
+            #{fuserid},
+            #{fisdefault})
+    </insert>
+    <update id="update" parameterType="com.entity.deliveryAddress" useGeneratedKeys="true">
+        UPDATE t_deliveryaddress
+        SET
+              fname=#{fname},
+              fphone=#{fphone},
+              fcity=#{fcity},
+              faddress=#{faddress},
+              fbuildno=#{fbuildno},
+              fisdefault=#{fisdefault}
+         WHERE fid=#{fid}
+    </update>
+    <update id="delete" parameterType="int" useGeneratedKeys="true">
+        UPDATE t_deliveryaddress
+        SET
+        fisdefault=-1
+         WHERE fid=#{fid}
+    </update>
+
+</mapper>

@@ -1,0 +1,97 @@
+/* pages/deliveryAddress/deliveryAddress.wxss */
+
+.list-info {
+  height: 200rpx;
+}
+
+.list-info::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 200rpx;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(180, 180, 180, 0.3);
+}
+
+.left {
+  height: 160rpx;
+  width: 600rpx;
+  float: left;
+}
+
+.top {
+  height: 120rpx;
+  width: 630rpx;
+  float: left;
+  font-size: 30rpx;
+  margin-left: 30rpx;
+  margin-top: 20rpx;
+}
+
+.city {
+  width: 550rpx;
+  float: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.address {
+  width: 550rpx;
+  float: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.buildno {
+  width: 550rpx;
+  float: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bottom {
+  width: 600rpx;
+  color: #aaa;
+  float: left;
+  height: 40rpx;
+}
+
+.name {
+  float: left;
+  margin-left: 30rpx;
+}
+
+.phone {
+  float: right;
+  margin-right: 60rpx;
+}
+
+.right {
+  height: 160rpx;
+  width: 120rpx;
+  float: right;
+  vertical-align: middle;
+  text-align: center;
+}
+
+image {
+  width: 80rpx;
+  height: 80rpx;
+  margin-top: 40rpx;
+  margin-right: 20rpx;
+}
+.adddelivery{
+  margin-top: 30rpx;
+  margin-left: 30%;
+  width: 40%;
+  height: 70rpx;
+  line-height: 70rpx;
+  color: #fff;
+  background-color: #f60;
+  text-align: center;
+  border-radius: 10rpx;margin-bottom: 30rpx;
+}

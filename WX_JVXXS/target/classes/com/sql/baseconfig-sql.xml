@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.baseconfigDao">
+
+    <parameterMap id="parameterMap" type="com.entity.baseconfig"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.baseconfig">
+        <result property="fid" column="fid"/>
+        <result property="fyunfei" column="fyunfei"/>
+        <result property="fbaoyou" column="fbaoyou"/>
+        <result property="fpagesize" column="fpagesize"/>
+        <result property="forderpagesize" column="forderpagesize"/>
+        <result property="fsharecount" column="fsharecount"/>
+        <result property="fopenshare" column="fopenshare"/>
+        <result property="fopentejia" column="fopentejia"/>
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fyunfei,
+            fbaoyou,
+            fpagesize,
+            forderpagesize,
+            fsharecount,
+            fopenshare,
+            fopentejia,
+        </trim>
+    </sql>
+
+    <select id="selectByNone" resultMap="resultMap" parameterType="String">
+        select
+        <include refid="columnSql"></include>
+        FROM t_baseconfig
+    </select>
+    <update id="updateInfo" parameterType="com.entity.baseconfig" useGeneratedKeys="true">
+        UPDATE t_baseconfig
+        SET fyunfei=#{fyunfei},
+        fbaoyou=#{fbaoyou},
+        fpagesize=#{fpagesize},
+        forderpagesize=#{forderpagesize},
+        fsharecount=#{fsharecount},
+        fopenshare=#{fopenshare},
+        fopentejia=#{fopentejia}
+        WHERE fid=1
+    </update>
+
+</mapper>

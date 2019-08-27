@@ -1,0 +1,64 @@
+<!--pages/cartCoupon/cartCoupon.wxml-->
+<view class='top' bindtap='clear'>
+  <text>不使用红包</text>
+</view>
+<block wx:for="{{couponList}}">
+  <block wx:if="{{item.ftype=='金额抵扣'}}">
+    <view wx:if="{{item.canUse=='1'}}" class='couponView' id="{{item.fid}}" bindtap='choseCoupon'>
+      <view class='leftView'>
+        <view class='leftLeft'>￥</view>
+        <view class='leftRight'>{{item.fprice}}</view>
+      </view>
+      <view class='rightView'>
+        <view class='rightTop'>{{item.fname}}</view>
+        <view class='rightLittle'>满{{item.fminprice}}元可用</view>
+        <view class='rightLittle'>全品类通用</view>
+        <view class='rightLittle'>会员、非会员通用</view>
+        <view class='rightLittle'>有效期：{{item.fstartdate}}至{{item.fenddate}}</view>
+      </view>
+    </view>
+    <view wx:else class='couponViewNoUse' id="{{item.fid}}">
+      <view class='leftView'>
+        <view class='leftLeft'>￥</view>
+        <view class='leftRight'>{{item.fprice}}</view>
+      </view>
+      <view class='rightView'>
+        <view class='rightFloat'>{{item.useInfo}}</view>
+        <view class='rightTop'>{{item.fname}}</view>
+        <view class='rightLittle'>满{{item.fminprice}}元可用</view>
+        <view class='rightLittle'>全品类通用</view>
+        <view class='rightLittle'>会员、非会员通用</view>
+        <view class='rightLittle'>有效期：{{item.fstartdate}}至{{item.fenddate}}</view>
+      </view>
+    </view>
+  </block>
+  <block wx:else if="{{item.ftype=='商品抵扣'}}">
+    <view wx:if="{{item.canUse=='1'}}" class='couponView' id="{{item.fid}}" bindtap='choseCoupon'>
+      <view class='leftView'>
+        <!-- <view class='leftRight'>{{item.fprice}}</view> -->
+        <image src="{{item.productImg}}"></image>
+      </view>
+      <view class='rightView'>
+        <view class='rightTop'>{{item.fname}}</view>
+        <view class='rightLittle'>满{{item.fminprice}}元可用</view>
+        <view class='rightLittle'>全品类通用</view>
+        <view class='rightLittle'>会员、非会员通用</view>
+        <view class='rightLittle'>有效期：{{item.fstartdate}}至{{item.fenddate}}</view>
+      </view>
+    </view>
+    <view wx:else class='couponViewNoUse' id="{{item.fid}}">
+      <view class='leftView'>
+        <!-- <view class='leftRight'>{{item.fprice}}</view> -->
+        <image src="{{item.productImg}}"></image>
+      </view>
+      <view class='rightView'>
+        <view class='rightFloat'>{{item.useInfo}}</view>
+        <view class='rightTop'>{{item.fname}}</view>
+        <view class='rightLittle'>满{{item.fminprice}}元可用</view>
+        <view class='rightLittle'>全品类通用</view>
+        <view class='rightLittle'>会员、非会员通用</view>
+        <view class='rightLittle'>有效期：{{item.fstartdate}}至{{item.fenddate}}</view>
+      </view>
+    </view>
+  </block>
+</block>

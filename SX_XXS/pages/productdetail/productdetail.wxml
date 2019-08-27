@@ -1,0 +1,65 @@
+<!--pages/productdetail/productdetail.wxml-->
+
+<view class='dialog' style='display:{{dialogShow}}'>{{totalPrice}}
+  <view class='u-ril'>{{infoPrice}}
+  </view>
+</view>
+<!-- <view class='test'></view> -->
+<view class='bottom'>
+  <view class='cart' bindtap='toCart'>
+    <image src='/static/image/tabBar/cart-checked.png'></image>
+    <view wx:if='{{count>0}}' class='{{move==1?"subscript":"subscript-move"}}'>{{count}}</view>
+    <!-- <view wx:if='{{count>0}}' class='subscript'></view> -->
+  </view>
+  <view class='intoCart' bindtap='intoCart'>加入购物车</view>
+</view>
+<swiper class='swiper' indicator-dots='true' indicator-color='#f60' indicator-active-color='#ddd' autoplay='{{autoplay}}' interval='2400' circular='true'>
+  <!-- <swiper class='swiper'> -->
+  <block wx:for='{{imgs}}'>
+    <swiper-item>
+      <!-- <image src='{{item.fimageurl}}' mode="aspectFit"></image> -->
+      <image src='{{item.fimageurl}}' mode="widthFix"></image>
+    </swiper-item>
+  </block>
+  <block wx:for='{{videos}}'>
+    <swiper-item wx:if='{{item.fvideourl!=0}}'>
+      <video src='{{item.fvideourl}}' autoplay='true' loop='true' page-gesture='true' controls='false' custom-cache='false'></video>
+    </swiper-item>
+  </block>
+</swiper>
+<view class='productInfo '>
+  <view class='productName'>{{fname}}</view>
+  <view class='productDesc'>{{fdesc}}</view>
+  <view wx:if='{{fVipPrice>0}}' class='priceView'>
+    <view class='productPrice'>￥{{fPrice}}</view>
+    <view class='productVipPrice'>￥{{fVipPrice}}</view>
+
+    <block wx:for='{{ftoptag}}' wx:for-item='toptag'>
+      <text class='toptag'>{{toptag}}</text>
+    </block>
+    <!-- <image class='vipimage' src='/static/image/product/vip.png'></image> -->
+    <!-- <image class='vippriceimage' src='https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/product/vipprice.png'></image> -->
+
+    <view class='salled' wx:if="{{fistejia==0}}">已售{{fsalled}}份</view>
+    <view class='salled' wx:else>剩余{{fleftcount}}份</view>
+  </view>
+  <view wx:else class='priceViewnovip'>
+    <text class='productPrice' style='font-size:40rpx;'>￥{{fPrice}}</text>
+    <view class='salled' wx:if="{{fistejia==0}}">已售{{fsalled}}份</view>
+    <view class='salled' wx:else>剩余{{fleftcount}}份</view>
+    <!-- 已售{{fsalled}}份 -->
+  </view>
+  <view bindtap='toJoinVip' class='toJoin'>
+    <!-- <image class='joinImage' mode='widthFix' src='https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/product/joinvip.jpg'></image> -->
+    <text class='toJoinLeft'>尊享5大特权，可节省2820元/年</text>
+    <text class='toJoinRight'>去开通</text>
+  </view>
+  <view class='tagView'>
+    <block wx:for='{{tags}}'>
+      <view class='tag'>·{{item.fname}}</view>
+    </block>
+  </view>
+</view>
+<view class='detailImage'>
+  <image src='{{fdetailImg}}' mode='widthFix'></image>
+</view>

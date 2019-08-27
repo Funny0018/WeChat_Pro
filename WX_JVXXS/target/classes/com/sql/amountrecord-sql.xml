@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.amountRecordDao">
+
+    <parameterMap id="parameterMap" type="com.entity.amountRecord"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.amountRecord">
+        <result property="fid" column="fid"/>
+        <result property="fdate" column="fdate"/>
+        <result property="fuserid" column="fuserid"/>
+        <result property="famount" column="famount"/>
+        <result property="fstate" column="fstate"/>
+        <result property="fbillno" column="fbillno"/>
+        <result property="fwxno" column="fwxno"/>
+        <result property="fattech" column="fattech"/>
+        <result property="fbody" column="fbody"/>
+        <result property="fbilltype" column="fbilltype"/>
+        <result property="fpayamount" column="fpayamount"/>
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fdate,
+            fuserid,
+            famount,
+            fstate,
+            fbillno,
+            fwxno,
+            fattech,
+            fbody,
+            fbilltype,
+            fpayamount,
+        </trim>
+    </sql>
+
+    <select id="selectByfwxno" resultMap="resultMap" parameterType="String">
+        select
+        <include refid="columnSql"></include>
+        FROM t_amountrecord
+        WHERE fwxno=#{fwxno}
+    </select>
+    <insert id="add" parameterType="com.entity.amountRecord" useGeneratedKeys="true" keyProperty="fid">
+       INSERT INTO t_amountrecord
+        ( fid,
+            fdate,
+            fuserid,
+            famount,
+            fstate,
+            fbillno,
+            fwxno,
+            fattech,
+            fbody,
+            fbilltype,
+            fpayamount)
+        VALUES
+        (#{fid},
+            #{fdate},
+            #{fuserid},
+            #{famount},
+            #{fstate},
+            #{fbillno},
+            #{fwxno},
+            #{fattech},
+            #{fbody},
+            #{fbilltype},#{fpayamount})
+    </insert>
+    <select id="selectByUserAndType" resultMap="resultMap" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_amountrecord
+        WHERE 1=1 AND fuserid=#{userid}
+        AND fstate in
+        <foreach collection="fstate" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY fdate DESC
+        limit #{currIndex} , #{pageSize}
+    </select>
+    <select id="selectCountByUserAndType" resultType="int" parameterType="map">
+        SELECT
+        count(1)
+        FROM t_amountrecord
+        WHERE 1=1 AND fuserid=#{userid}
+        AND fstate in
+        <foreach collection="fstate" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY fdate DESC
+    </select>
+</mapper>

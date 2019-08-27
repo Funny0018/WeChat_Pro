@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.billDao">
+
+    <parameterMap id="parameterMap" type="com.entity.bill"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.bill">
+        <result property="fbillid" column="fbillid"/>
+        <result property="fstate" column="fstate"/>
+        <result property="fbillNo" column="fbillNo"/>
+        <result property="ftotalAmount" column="ftotalAmount"/>
+        <result property="fdikouid" column="fdikouid"/>
+        <result property="fdikouAmount" column="fdikouAmount"/>
+        <result property="fhongbaoAmount" column="fhongbaoAmount"/>
+        <result property="fproductAmount" column="fproductAmount"/>
+        <result property="fyunfei" column="fyunfei"/>
+        <result property="ffinalAmount" column="ffinalAmount"/>
+        <result property="fuserID" column="fuserID"/>
+        <result property="fbilldate" column="fbilldate"/>
+        <result property="fpaydate" column="fpaydate"/>
+        <result property="fsenddate" column="fsenddate"/>
+        <result property="farrivedate" column="farrivedate"/>
+        <result property="fsendno" column="fsendno"/>
+        <result property="ftotalpricevip" column="ftotalpricevip"/>
+
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fbillid,
+            fstate,
+            fbillNo,
+            ftotalAmount,
+            fdikouid,
+            fdikouAmount,
+            fhongbaoAmount,
+            fproductAmount,
+            fyunfei,
+            fvipamount,
+            ffinalAmount,
+            ftotalpricevip,
+            fuserID,
+            fbilldate,
+            fpaydate,
+            fsenddate,
+            farrivedate,
+            fsendno,
+        </trim>
+    </sql>
+    <insert id="add" parameterType="com.entity.bill" useGeneratedKeys="true" keyProperty="fbillid">
+       INSERT INTO t_bill
+        (
+         fbillid,
+            fstate,
+            fbillNo,
+            ftotalAmount,
+            fdikouid,
+            fdikouAmount,
+            fhongbaoAmount,
+            fproductAmount,
+            fyunfei,
+            fvipamount,
+            ffinalAmount,
+            ftotalpricevip,
+            fbilldate,
+            fuserID,
+            fpaydate,
+            fsenddate,
+            farrivedate,
+            fsendno)
+        VALUES
+        (
+            #{fbillid},
+            #{fstate},
+            #{fbillNo},
+            #{ftotalAmount},
+            #{fdikouid},
+            #{fdikouAmount},
+            #{fhongbaoAmount},
+            #{fproductAmount},
+            #{fyunfei},
+            #{fvipamount},
+            #{ffinalAmount},
+            #{ftotalpricevip},
+            #{fbilldate},
+            #{fuserID},
+            #{fpaydate},
+            #{fsenddate},
+            #{farrivedate},
+            #{fsendno})
+    </insert>
+    <select id="selectMaxBillno" resultType="String" parameterType="String">
+    SELECT fbillno FROM t_bill WHERE fbillno LIKE #{billno}  ORDER BY fbillno DESC limit 1
+    </select>
+    <select id="selectByFbillno" parameterType="String" resultMap="resultMap">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_bill
+        WHERE fbillno=#{fbillno}
+    </select>
+    <update id="updateState" parameterType="com.entity.bill" useGeneratedKeys="true">
+        UPDATE t_bill
+        SET fstate=#{fstate},
+        fpaydate=#{fpaydate},
+        fsenddate=#{fsenddate},
+        farrivedate=#{farrivedate},
+        fsendno=#{fsendno}
+        WHERE fbillid=#{fbillid}
+    </update>
+    <select id="selectByNone" resultType="com.entity.bill" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_bill
+        WHERE fstate>=0
+        <if test='userid!=0 and userid!=null'>
+            AND fuserID=#{userid}
+        </if>
+        <if test='key!="" and key!=null'>
+            AND fbillno like #{key}
+        </if>
+        ORDER BY fbilldate DESC
+        limit #{currIndex} , #{pageSize}
+    </select>
+    <select id="selectByType" resultType="com.entity.bill" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_bill
+        WHERE fstate=#{fstate}
+        <if test='userid!=0 and userid!=null'>
+            AND fuserID=#{userid}
+        </if>
+        <if test='key!="" and key!=null'>
+            AND fbillno like #{key}
+        </if>
+        ORDER BY fbilldate DESC
+        limit #{currIndex} , #{pageSize}
+    </select>
+    <select id="selectCountByType" resultType="int" parameterType="int">
+        select count(1) from t_bill where fstate=#{fstate}
+        <if test='userid!=0 and userid!=null'>
+            AND fuserID=#{userid}
+        </if>
+        <if test='key!="" and key!=null'>
+            AND fbillno like #{key}
+        </if>
+    </select>
+    <select id="selectCountByNone" resultType="int" parameterType="int">
+        select count(1) from t_bill WHERE fstate>=0
+        <if test='userid!=0 and userid!=null'>
+            AND fuserID=#{userid}
+        </if>
+        <if test='key!="" and key!=null'>
+            AND fbillno like #{key}
+        </if>
+    </select>
+    <select id="selectVipPriceForUser" resultType="int" parameterType="int">
+        select IFNULL(SUM(ftotalpricevip),0) from t_bill where fuserid=#{fuserid} and fstate>0
+    </select>
+
+    <update id="deleteByIds" keyProperty="true" parameterType="map">
+        UPDATE t_bill
+        SET fstate=-1
+        WHERE fbillid in
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

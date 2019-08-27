@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Static/css/back/product.css">
+    <script src="../Static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../Static/js/bootstrap.js"></script>
+    <script src="../Static/js/tools.js"></script>
+</head>
+<body>
+
+<div class="prientBack">
+    <div class="prientFront">
+        <div class="prientHead">选择打印机</div>
+        <ul id="prientDevice">
+        </ul>
+    </div>
+</div>
+<div class="panel-heading">
+    订单信息列表
+</div>
+<div class="panel-body">
+    <div class="my-container">
+        <label class="myLabel-content">订单类型：</label>
+        <ul id="productType">
+            <li role="presentation" class='productTypeIndex'>
+                <a role="menuitem" class="active" tabindex="-1" href="#">全部</a>
+            </li>
+            <li role="presentation" class='productTypeIndex'>
+                <a role="menuitem" tabindex="0" href="#">待付款</a>
+            </li>
+            <li role="presentation" class='productTypeIndex'>
+                <a role="menuitem" tabindex="1" href="#">待发货</a>
+            </li>
+            <li role="presentation" class='productTypeIndex'>
+                <a role="menuitem" tabindex="2" href="#">待收货</a>
+            </li>
+            <li role="presentation" class='productTypeIndex'>
+                <a role="menuitem" tabindex="3" href="#">已完成</a>
+            </li>
+        </ul>
+    </div>
+    <div class="my-container">
+        <label class="myLabel-content">订单单号：</label>
+        <div class="myText-content">
+            <input id="productName" type="text" class="form-control" placeholder="输入订单单号">
+        </div>
+        <button id="search" type="button" class="btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-search" aria-hidden="true">搜索</span>
+        </button>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="list-op" id="list_op">
+        <button type="button" class="btn btn-default btn-sm prient">
+            <span class="glyphicon glyphicon-print" aria-hidden="true">打印</span>
+        </button>
+    </div>
+</div>
+<div class="panel-body">
+    <table class="table  table-striped table-bordered">
+        <thead>
+        <tr>
+            <th><input type="checkbox" id="checkAll" name="checkAll"/></th>
+            <th>单据编号</th>
+            <th>单据日期</th>
+            <th>商品总价</th>
+            <th>单据总价</th>
+            <th>单据状态</th>
+            <th>用户ID</th>
+        </tr>
+        </thead>
+        <tbody id="productList">
+        </tbody>
+    </table>
+</div>
+<div class="panel-body">
+    <div class="page-header">显示第<span id="minCount">1</span>到第<span id="maxCount">10</span>条数据，共<span
+            id="allCount">0</span>条数据，共<span id="maxPage">0</span>页 ，每页显示10 条记录
+    </div>
+    <ul class="pagination">
+        <li><a href="#">&laquo;&laquo;</a></li>
+        <li><a href="#">&laquo;</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">&raquo;</a></li>
+        <li><a href="#">&raquo;&raquo;</a></li>
+    </ul>
+</div>
+<div style="display: none">
+    <div id="productTypeSelect">-1</div>
+    <div id="pageIndex">1</div>
+    <div id="pageCount">10</div>
+    <div id="prientBill"></div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var url = window.location;
+        var type = getUrlParam(url, "type");
+        if (type == "") {
+            type = '-1'
+        }
+        $("#productTypeSelect").html(type);
+        $(".productTypeIndex").find("a").each(function (i) {
+            $(this).removeClass("active");
+            if ($(this).attr('tabindex') == type) {
+                $(this).addClass("active");
+            }
+        })
+        getOrder($("#productName").val(), $("#pageIndex").html(), $("#productTypeSelect").html(), $("#pageCount").html());
+        $(".productTypeIndex").click(function () {
+            var obj = ($(this).find("a"))
+            var index = obj.attr("tabindex");
+            $(".productTypeIndex").find("a").removeClass('active');
+            $(this).find('a').addClass('active');
+            $("#pageIndex").html('1');
+            $("#productTypeSelect").html(index);
+            getOrder($("#productName").val(), $("#pageIndex").html(), $("#productTypeSelect").html(), $("#pageCount").html());
+        })
+        getPrientDevice();
+        $("#search").click(function () {
+            getOrder($("#productName").val(), $("#pageIndex").html(), $("#productTypeSelect").html(), $("#pageCount").html());
+        });
+        $("#reset").click(function () {
+            $("#productName").val("");
+            $("#productTypeSelect").html(0)
+            $("#dropdownMenu1").html("全部<span class=\"caret\"></span>");
+        })
+
+        $(".edit").click(function () {
+            toEdit("edit");
+        });
+        $(".prient").click(function () {
+            var productid = getIds();
+            if (productid != "") {
+                productid = productid.substring(0, productid.length - 1);
+            }
+            if (productid.split("|").length > 1) {
+                alert("只可以选择一个选项")
+            } else if (productid == "") {
+                alert("请选择需要打印的订单")
+            } else {
+                $(".prientBack").show();
+                $("#prientBill").html(productid);
+            }
+        })
+        $(".prientBack").click(function () {
+            $(".prientBack").hide();
+        })
+        $(".delete").click(function () {
+            var productid = getIds();
+            if (productid == "") {
+                alert("请选择需要删除的商品类型")
+            } else {
+                deleteOrderById(productid);
+            }
+        })
+    })
+
+    function deleteOrderById(ids) {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'deleteOrder',
+            dataType: "json",
+            data: {"ids": ids},
+            success: function (data) {
+                alert(data.massage);
+                getOrder($("#productName").val(), $("#pageIndex").html(), $("#productTypeSelect").html(), $("#pageCount").html());
+            }
+        })
+    }
+
+    function toEdit(type) {
+        var productid = getIds();
+        if (productid != "") {
+            productid = productid.substring(0, productid.length - 1);
+        }
+        if (productid.split("|").length > 1) {
+            alert("只可以选择一个选项")
+        } else if (productid == "") {
+            alert("请选择需要修改的商品")
+        } else {
+            window.location.href = "editProduct?type=" + type + "&id=" + productid;
+        }
+    }
+
+    function getIds() {
+        var id = "";
+        var id = "";
+        $('input[type="checkbox"][name="checkProduct"]:checked').each(
+            function () {
+                id += $(this).parent().parent().attr("id") + "|";
+            }
+        );
+        return id;
+    }
+
+    function getPrientDevice() {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'getPrientDevice',
+            dataType: "json",
+            // data: {"key": key, "pageIndex": pageIndex, "fstate": type, "pageSize": pageSize},
+            success: function (data) {
+                var dataObj = eval("(" + data.massage + ")");
+                var html = "";
+                $.each(dataObj, function (index, obj) {
+                    html += "<li class='prientBill' id='" + obj.fid + "'><span>" + obj.fname + "</span><span>" + obj.fuuid + "</span></li>";
+                })
+                $("#prientDevice").html(html);
+                $(".prientBill").click(function () {
+                    var j = confirm("是否使用打印机 \r" + $(this).children('span').eq(0).html() + "\r打印单据" + $("#prientBill").html() + "？");
+                    if (j) {
+                        prientBill($("#prientBill").html(), $(this).attr("id"));
+                    }
+
+                })
+            }
+        })
+    }
+
+    function prientBill(billno, prientID) {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'prientBill',
+            dataType: "json",
+            data: {"billno": billno, "prientID": prientID},
+            success: function (data) {
+                alert(data.massage);
+            }
+        })
+    }
+
+    function getOrder(key, pageIndex, type, pageSize) {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'getOrder',
+            dataType: "json",
+            data: {"key": key, "pageIndex": pageIndex, "fstate": type == "" ? "-1" : type, "pageSize": pageSize},
+            success: function (data) {
+                var dataObj = eval("(" + data.massage + ")");
+                var maxPage = data.maxPage * 1;
+                var maxCount = data.maxCount * 1;
+                var html = '';
+
+                $.each(dataObj, function (index, obj) {
+                    var state = "";
+                    switch (obj.fstate) {
+                        case "0":
+                            state = "待付款";
+                            break;
+                        case "1":
+                            state = "待发货";
+                            break;
+                        case "2":
+                            state = "待收货";
+                            break;
+                        case "3":
+                            state = "已完成";
+                            break;
+                        default:
+                            state = "已失效";
+                            break;
+                    }
+                    html += "    <tr id='" + obj.fbillno + "'>\n" +
+                        "        <th  class='toBillDetail'>" + obj.fbillno + "</th>\n" +
+                        "        <th class='toBillDetail'>" + obj.fbilldate + "</th>\n" +
+                        "        <th class='toBillDetail'>" + obj.finalProductPrice + "</th>\n" +
+                        "        <th class='toBillDetail'>" + obj.finalPrice + "</th>\n" +
+                        "        <th class='toBillDetail'>" + state + "</th>\n" +
+                        "        <th class='toBillDetail'>" + obj.userid + "</th>\n" +
+                        "    </tr>"
+                })
+                $("#productList").html(html);
+                $("#minCount").html((pageIndex * 1 - 1) * pageSize + 1);
+                $("#maxCount").html(pageIndex * pageSize);
+                $("#allCount").html(maxCount);
+                $("#maxPage").html(maxPage);
+
+                $(".toBillDetail").click(function () {
+                    window.location.href = "orderdetail?billno=" + $(this).parent().attr("id");
+                })
+                var pages = "";
+                if (maxPage <= 5) {
+                    for (var i = 1; i <= maxPage; i++) {
+                        pages += i + ",";
+                    }
+                } else if (maxPage > 5 && (pageIndex * 1 + 2) >= maxPage) {
+                    for (var i = (maxPage - 5); i <= maxPage; i++) {
+                        pages += i + ",";
+                    }
+                } else if (maxPage > 5 && (pageIndex - 2) <= 0) {
+                    for (var i = 1; i <= 5; i++) {
+                        pages += i + ",";
+                    }
+                } else {
+                    for (var i = (pageIndex - 2); i <= (pageIndex * 1 + 2); i++) {
+                        pages += i + ",";
+                    }
+                }
+                var pageHtml = " <li class='toMinPage'><a href=\"#\">&laquo;&laquo;</a></li>\n" +
+                    "                    <li class='toLastPage'><a href=\"#\">&laquo;</a></li>"
+                $.each(pages.split(','), function (index, obj) {
+                    if (obj != "") {
+                        pageHtml += "<li class='toPage'><a href=\"#\">" + obj + "</a></li>\n";
+                    }
+                })
+                pageHtml += "                    <li  class='toNextPage'><a href=\"#\"'>&raquo;</a></li>\n" +
+                    "                    <li class='toMaxPage'><a href=\"#\">&raquo;&raquo;</a></li>";
+                $(".pagination").html(pageHtml);
+                $(".pagination").find("li").find("a").each(function (i) {
+                    if ($(this).html() == $("#pageIndex").html()) {
+                        $(this).addClass("active");
+                    }
+                })
+                $(".toMinPage").click(function () {
+                    var pageIndex = 0;
+                    $("#pageIndex").html(pageIndex);
+                    getOrder($("#productName").val(), pageIndex, $("#productTypeSelect").html(), $("#pageCount").html());
+                });
+                $(".toLastPage").click(function () {
+                    var pageIndex = $("#pageIndex").html();
+                    if (pageIndex <= 1) {
+                        alert("当前为第一页");
+                    } else {
+                        $("#pageIndex").html(pageIndex - 1);
+                        getOrder($("#productName").val(), pageIndex - 1, $("#productTypeSelect").html(), $("#pageCount").html());
+                    }
+                });
+                $(".toPage").click(function () {
+                    var pageIndex = $(this).find("a").html();
+                    $("#pageIndex").html(pageIndex);
+                    getOrder($("#productName").val(), pageIndex, $("#productTypeSelect").html(), $("#pageCount").html());
+                })
+                $(".toNextPage").click(function () {
+                    var pageIndex = $("#pageIndex").html();
+                    if (pageIndex == $("#maxPage").html()) {
+                        alert("当前为最后一页")
+                    } else {
+                        $("#pageIndex").html(pageIndex * 1 + 1);
+                        getOrder($("#productName").val(), pageIndex * 1 + 1, $("#productTypeSelect").html(), $("#pageCount").html());
+                    }
+                });
+                $(".toMaxPage").click(function () {
+                    var pageIndex = $("#maxPage").html();
+                    $("#pageIndex").html(pageIndex);
+                    getOrder($("#productName").val(), pageIndex, $("#productTypeSelect").html(), $("#pageCount").html());
+                });
+
+
+                initTableCheckbox();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // /*弹出jqXHR对象的信息*/
+                // alert(jqXHR.responseText);
+                // alert(jqXHR.status);
+                // alert(jqXHR.readyState);
+                // alert(jqXHR.statusText);
+                // /*弹出其他两个参数的信息*/
+                // alert(textStatus);
+                // alert(errorThrown);
+
+                alert('请求失败 ');
+            }
+        })
+    }
+</script>

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.productDao">
+
+    <parameterMap id="parameterMap" type="com.entity.product"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.product">
+        <result property="fProductId" column="fproductid"/>
+        <result property="fName" column="fname"/>
+        <result property="fImgUrl" column="fimgurl"/>
+        <result property="fdetailImg" column="fdetailimg"/>
+        <result property="fDesc" column="fdesc"/>
+        <result property="fDescDetail" column="fdescdetail"/>
+        <result property="fOldPrice" column="foldprice"/>
+        <result property="fPrice" column="fprice"/>
+        <result property="fUnit" column="funit"/>
+        <result property="ftype" column="ftype"/>
+        <result property="ftag" column="ftag"/>
+        <result property="ftoptag" column="ftoptag"/>
+        <result property="fsalled" column="fsalled"/>
+        <result property="fcreatedate" column="fcreatedate"/>
+        <result property="fstate" column="fstate"/>
+        <result property="fishot" column="fishot"/>
+        <result property="fsort" column="fsort"/>
+        <result property="fistop" column="fistop"/>
+        <result property="fistejia" column="fistejia"/>
+        <result property="fleftcount" column="fleftcount"/>
+
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fproductid,
+            fname,
+            fimgurl,
+            fdetailImg,
+            fdesc,
+            fdescdetail,
+            foldprice,
+            fprice,
+            fvipprice,
+            funit,
+            ftype,
+            ftag,
+            ftoptag,
+            fsalled,
+            fcreatedate,
+            fstate,
+            fishot,
+            fsort,
+            fistop,
+            fistejia,
+            fleftcount,
+        </trim>
+    </sql>
+    <select id="selectTejiaByNone" resultMap="resultMap">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE fstate>0 AND fistejia=1
+        ORDER BY fistop desc, fsort desc,fcreatedate desc
+        limit 4
+    </select>
+    <select id="selectByFid" resultMap="resultMap" parameterType="int">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE fproductid =#{fproductid}
+    </select>
+    <update id="updateSalled" keyProperty="true" parameterType="map">
+        UPDATE t_products
+        SET fstate=#{issall}
+        WHERE fproductid in
+        <foreach collection="fids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="updateTop" keyProperty="true" parameterType="map">
+        UPDATE t_products
+        SET fistop=#{fistop}
+        WHERE fproductid in
+        <foreach collection="fids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="updateType" keyProperty="true" parameterType="map">
+        UPDATE t_products
+        SET ftype=#{ftype}
+        WHERE fproductid in
+        <foreach collection="fids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="updateSort" keyProperty="true" parameterType="map">
+        UPDATE t_products
+        SET fsort=fsort+#{fsrot}
+        WHERE fproductid in
+        <foreach collection="fids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="updatehot" keyProperty="true" parameterType="map">
+        UPDATE t_products
+        SET fishot=#{fishot}
+        WHERE fproductid in
+        <foreach collection="fids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <select id="selectByFids" resultMap="resultMap" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE fproductid in
+        <foreach collection="fids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="selectByNone" resultType="com.entity.product" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE fstate>0 AND fistejia=0
+        ORDER BY fistop desc, fsort desc,fcreatedate desc
+        limit #{currIndex} , #{pageSize}
+    </select>
+    <select id="selectByType" resultType="com.entity.product" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE ftype=#{ftype} AND fstate>0 AND fistejia=0
+        ORDER BY fistop desc, fsort desc,fcreatedate desc
+        limit #{currIndex} , #{pageSize}
+    </select>
+    <select id="selectHotProduct" resultType="com.entity.product" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE fishot=1 AND fstate>0 AND fistejia=0
+        ORDER BY fistop desc, fsort desc,fcreatedate desc
+    </select>
+
+    <select id="selectByNoneForWx" resultType="com.entity.product" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE fstate>0 AND fname!='' AND fprice>0 AND fistejia=0
+        ORDER BY fistop desc, fsort desc,fcreatedate desc
+        limit #{currIndex} , #{pageSize}
+    </select>
+
+    <select id="selectByNoneForWxTeJia" resultType="com.entity.product" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE fstate>0 AND fname!='' AND fprice>0 AND fistejia=1
+        ORDER BY fistop desc, fsort desc,fcreatedate desc
+        limit #{currIndex} , #{pageSize}
+    </select>
+    <select id="selectByTypeForWx" resultType="com.entity.product" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE
+        ftype IN
+        <foreach collection="ftype" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND fstate>0 AND fname!='' AND fprice>0 AND fistejia=0
+        ORDER BY fistop desc, fsort desc,fcreatedate desc
+        limit #{currIndex} , #{pageSize}
+    </select>
+
+    <select id="selectCountByType" resultType="int" parameterType="String">
+        select count(1) from t_products where ftype IN
+        <foreach collection="ftype" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND fstate>0 AND fname!='' AND fprice>0 AND fistejia=0
+    </select>
+    <select id="selectCountByNone" resultType="int" parameterType="int">
+        select count(1) from t_products  WHERE  fstate>0 AND fname!='' AND fprice>0 AND fistejia=0
+    </select>
+    <select id="selectCountByNoneTeJia" resultType="int" parameterType="int">
+        select count(1) from t_products  WHERE  fstate>0 AND fname!='' AND fprice>0 AND fistejia=1
+    </select>
+    <select id="selectByKey" resultType="com.entity.product" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE fname like #{key} AND fstate>0 AND fistejia=0
+        ORDER BY fistop desc, fsort desc,fcreatedate desc
+        limit #{currIndex} , #{pageSize}
+    </select>
+    <select id="selectByKeyAndType" resultType="com.entity.product" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE 1=1 AND fistejia=0
+        <if test='key!="" and key!=null'>
+            AND fname like #{key}
+        </if>
+        <if test='ftype!="0" and ftype!=null'>
+            AND ftype=#{ftype}
+        </if>
+        <if test='ishot>=0'>
+            AND fishot=#{ishot}
+        </if>
+        <choose>
+            <when test="issall>=0">
+                AND fstate=#{issall}
+            </when>
+            <otherwise>
+                AND fstate>0
+            </otherwise>
+        </choose>
+        ORDER BY fistop desc, fsort desc,fcreatedate desc
+        limit #{currIndex} , #{pageSize}
+    </select>
+    <select id="selectByKeyAndTypeTejia" resultType="com.entity.product" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_products
+        WHERE 1=1 AND fistejia=1
+        <if test='key!="" and key!=null'>
+            AND fname like #{key}
+        </if>
+        <choose>
+            <when test="issall>=0">
+                AND fstate=#{issall}
+            </when>
+            <otherwise>
+                AND fstate>0
+            </otherwise>
+        </choose>
+        ORDER BY fistop desc, fsort desc,fcreatedate desc
+        limit #{currIndex} , #{pageSize}
+    </select>
+    <select id="selectCountByKey" resultType="int" parameterType="String">
+        select count(1) from t_products where fname like #{key}  AND fstate>=0 AND fistejia=0
+    </select>
+
+    <select id="selectCountByKeyAndType" resultType="int">
+        select count(1) from t_products
+        WHERE 1=1 AND fistejia=0
+        <if test='key!="" and key!=null'>
+            AND fname like #{key}
+        </if>
+        <if test='ftype!="0" and ftype!=null'>
+            AND ftype=#{ftype}
+        </if>
+        <if test='ishot>=0'>
+            AND fishot=#{ishot}
+        </if>
+        <choose>
+            <when test="issall>=0">
+                AND fstate=#{issall}
+            </when>
+            <otherwise>
+                AND fstate>=0
+            </otherwise>
+        </choose>
+    </select>
+    <select id="selectCountByKeyAndTypeTejia" resultType="int">
+        select count(1) from t_products
+        WHERE 1=1 AND fistejia=0
+        <if test='key!="" and key!=null'>
+            AND fname like #{key}
+        </if>
+        <choose>
+            <when test="issall>=0">
+                AND fstate=#{issall}
+            </when>
+            <otherwise>
+                AND fstate>=0
+            </otherwise>
+        </choose>
+    </select>
+    <update id="updateByFid" parameterType="com.entity.product" keyProperty="true">
+        UPDATE t_products
+        SET fname=#{fName},
+            fimgurl=#{fImgUrl},
+            fdetailImg=#{fdetailImg},
+            fdesc=#{fDesc},
+            fdescdetail=#{fDescDetail},
+            foldprice=#{fOldPrice},
+            fprice=#{fPrice},
+            fvipprice=#{fvipprice},
+            funit=#{fUnit},
+            ftype=#{ftype},
+            ftag=#{ftag},
+            ftoptag=#{ftoptag},
+            fsalled=#{fsalled},
+            fcreatedate=#{fcreatedate},
+            fstate=#{fstate},
+            fishot=#{fishot},
+            fsort=#{fsort},
+            fleftcount=#{fleftcount}
+        WHERE fproductid=#{fProductId}
+    </update>
+    <update id="updateByFidForBack" parameterType="com.entity.product" keyProperty="true">
+        UPDATE t_products
+        SET fname=#{fName},
+            fdesc=#{fDesc},
+            fdescdetail=#{fDescDetail},
+            foldprice=#{fOldPrice},
+            fprice=#{fPrice},
+            fvipprice=#{fvipprice},
+            funit=#{fUnit},
+            ftype=#{ftype},
+            ftag=#{ftag},
+            fsalled=#{fsalled},
+            ftoptag=#{ftoptag},
+            fsort=#{fsort},
+            fleftcount=#{fleftcount}
+        WHERE fproductid=#{fProductId}
+    </update>
+    <insert id="add" parameterType="com.entity.product" useGeneratedKeys="true" keyProperty="fProductId">
+        INSERT INTO t_products
+        ( fproductid,
+            fname,
+            fimgurl,
+            fdetailImg,
+            fdesc,
+            fdescdetail,
+            foldprice,
+            fprice,
+            fvipprice,
+            funit,
+            ftype,
+            ftag,
+            ftoptag,
+            fsalled,
+            fcreatedate,
+            fstate,fsort,fistejia,fleftcount)
+            VALUES(
+             #{fProductId},
+            #{fName},
+            #{fImgUrl},
+            #{fdetailImg},
+            #{fDesc},
+            #{fDescDetail},
+            #{fOldPrice},
+            #{fPrice},
+            #{fvipprice},
+            #{fUnit},
+            #{ftype},
+            #{ftag},
+            #{ftoptag},
+            #{fsalled},
+            #{fcreatedate},
+            #{fstate},0,#{fistejia},#{fleftcount}
+            )
+    </insert>
+</mapper>

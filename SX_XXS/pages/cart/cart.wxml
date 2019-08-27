@@ -1,0 +1,133 @@
+<!--pages/cart/cart.wxml-->
+<view class='login-info' wx:if="{{loginView}}" bindtap='hideView'>
+  <view class='login'>
+    您还没有登陆
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='loginbut'>点击此处登录</button>
+  </view>
+</view>
+<view class='bottom-bar'>
+  <view class='chooseAll' bindtap='chooseAll'>
+    <icon wx:if="{{selectedAllStatus}}" type="success" size="20" color='#f60' class="l-mycheck mycheckChecked" color='#f60' />
+    <icon wx:else type="circle" size="20" class="l-mycheck" />
+    <text>全选</text>
+  </view>
+  <view class='amountAll'>实付金额：
+    <text class='totalprice'>{{finalPrice}}</text>
+  </view>
+  <view class='submit' bindtap='toBill'>去结算</view>
+</view>
+<view class='productList'>
+  <view class='productListTop'>
+    <view class='productListLeft' bindtap='chooseAll'>
+      <icon wx:if="{{selectedAllStatus}}" type="success" size="20" class="l-mycheck" color='#f60' style='margin-top:30rpx;' />
+      <icon wx:else type="circle" size="20" class="l-mycheck" style='margin-top:30rpx;' />
+    </view>
+    <text>1小时达</text>
+    <view class='productListRight' bindtap='toProduct'>
+      <view class='coudan'>{{tobaoyou}}</view>
+      <image wx:if='{{tobaoyou!=""}}' src='/static/image/addDeliveryAddress/toright.png'></image>
+    </view>
+  </view>
+  <checkbox-group bindchange="chooseProduct">
+    <block wx:for="{{product}}" wx:key="fProductId">
+      <block wx:if="{{item.count!='0'}}">
+        <view class="productItem">
+          <checkbox class='checkbox' checked='{{item.checked}}' id='check-{{item.fProductId}}' value='{{item.fProductId}}'>
+          </checkbox>
+          <view class='productImgView' bindtap='toDetail' id='{{item.fProductId}}'>
+            <image src='{{item.fImgUrl}}' class='productImg'>
+            </image>
+          </view>
+          <view class='productInfoView'>
+            <view class='infoView'>
+              <view class='productName'>{{item.fName}}</view>
+              <view class='productDesc'>{{item.fDesc}}</view>
+            </view>
+            <view wx:if='{{item.fVipPrice>0}}' class='priceView'>
+              <view class='productPrice'>￥{{item.fPrice}}</view>
+              <image class='vipimage' src='/static/image/product/vip.png'></image>
+              <view class='productVipPrice'>￥{{item.fVipPrice}}</view>
+            </view>
+            <view wx:else class='priceView' style='margin-top:130rpx;'>
+              <view class='productPrice' style='font-size:30rpx;'>￥{{item.fPrice}}</view>
+            </view>
+          </view>
+          <view class="dian" id="product-{{item.fProductId}}">
+            <!--<view class="cunpage_row">购买数量:</view>-->
+            <view class="stepper">
+              <!--减号-->
+              <view bindtap="bindMinus" class='stepperBind' id="bindMinus-{{item.fProductId}}">-</view>
+              <!--数值-->
+
+              <!-- <input type="number" bindchange="pay_num" value="{{item.count}}" disabled='true' id="count-{{item.fProductId}}" /> -->
+              <view class='stepperCount'>{{item.count}}</view>
+              <!--加号-->
+              <view bindtap="bindPlus" class='stepperBind' id="bindPlus-{{item.fProductId}}">+</view>
+            </view>
+
+          </view>
+        </view>
+      </block>
+    </block>
+  </checkbox-group>
+</view>
+<view wx:if='{{isvip=="0"}}' class='vipView' bindtap='toJoinVip'>
+  <image class='vipcard' src='/static/image/me/vipcard.png'></image>
+  <view wx:if='{{isvip=="0"}}' class='vipTxt'>
+    <view class='vipTxtTop'>超多权益任您拿</view>
+    <view class='vipTxtBottom'>预计可为您节省2820元/年</view>
+  </view>
+  <image class='vipToRightImg' src='/static/image/me/toright.png'></image>
+  <text class='vipToRightTxt'>现在加入</text>
+</view>
+<view class='sale'>
+  <view class='saleTitle line'>
+    <text class='couponText'>{{viptext}}</text>
+    <text class='couponPrice' style='color:#f60'>{{totalpricevip}}</text>
+  </view>
+  <view class='saleTitle line'>
+    <text class='couponText'>商品总价</text>
+    <text class='couponPrice'>￥{{totalprice}}</text>
+  </view>
+  <view class='saleTitle line' bindtap='toHongbao'>
+  <!-- <view class='saleTitle line'> -->
+    <image src='/static/image/cart/youhuiquan.png' class='couponImg'></image>
+    <text class='couponText'>{{dikoutitle}}</text>
+    <image src='/static/image/addDeliveryAddress/toright.png' class='toRightImg'></image>
+    <text wx:if="{{dikouprice=='无可用抵扣券'}}" class='couponPrice' style='color:{{dikoucolor}}'>{{dikouprice}}</text>
+    <text wx:else class='couponPrice' style='color:{{dikoucolor}}'>{{dikouprice}}</text>
+  </view>
+  <!-- <view class='saleTitle line'>
+    <image src='/static/image/cart/hongbao.png' class='couponImg'></image>
+    <text class='couponText'>{{hongbaotitle}}</text>
+    <image src='/static/image/addDeliveryAddress/toright.png' class='toRightImg'></image>
+    <text wx:if="{{hongbaoprice=='无可用红包'}}" class='couponPrice' style='color:{{hongbaocolor}}'>{{hongbaoprice}}</text>
+    <text wx:else class='couponPrice' style='color:{{hongbaocolor}}'>{{hongbaoprice}}</text>
+  </view> -->
+
+  <view class='saleTitle '>
+    <text class='couponText'>商品实付</text>
+    <text class='couponPrice'>{{finalProductPrice}}</text>
+  </view>
+  <view class='saleTitle line'>
+    <text class='couponText'>配送费</text>
+    <text class='couponPrice'>{{yunfei}}</text>
+  </view>
+  <view class='saleTitle line'>
+    <text class='couponText'>合计</text>
+    <text class='couponPrice'>{{payprice}}</text>
+  </view>
+
+  <view class='saleTitle '>
+    <image src='/static/image/product/vip.png' class='couponImg'></image>
+    <text class='couponText'>会员抵扣</text>
+    <!-- <image src='/static/image/addDeliveryAddress/toright.png' class='toRightImg'></image> -->
+    <text class='couponPrice' style='color:#f60'>{{fvipamount}}</text>
+  </view>
+
+
+  <!-- <view class='saleTitle line' style='font-size:35rpx;'>
+    <text class='couponPrice'>{{finalPrice}}</text>
+    <text class='couponPrice' style='margin-right:10rpx;'>合计</text>
+  </view> -->
+</view>

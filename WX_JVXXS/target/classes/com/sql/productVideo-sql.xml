@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.productVideoDao">
+
+    <parameterMap id="parameterMap" type="com.entity.productVideo"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.productVideo">
+        <result property="fid" column="fid"/>
+        <result property="fproductid" column="fproductid"/>
+        <result property="fvideourl" column="fvideourl"/>
+        <result property="fstate" column="fstate"/>
+        <result property="fcreatedate" column="fcreatedate"/>
+
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fproductid,
+            fvideourl,
+            fstate,
+            fcreatedate,
+        </trim>
+    </sql>
+    <select id="selectByProductID" resultMap="resultMap" parameterType="int">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_productvideo
+        WHERE fproductid =#{fproductid} AND fstate>=0
+        ORDER BY fcreatedate DESC
+    </select>
+    <update id="deleteVideoByFid" parameterType="int" keyProperty="true">
+        UPDATE t_productvideo
+        SET fstate=-1
+        WHERE fid=#{fid}
+    </update>
+
+    <insert id="insertVideo"  parameterType="com.entity.productImgs" useGeneratedKeys="true" keyProperty="fid">
+       INSERT t_productvideo
+       ( fid,
+            fproductid,
+            fvideourl,
+            fstate,
+            fcreatedate)
+            VALUES
+            ( #{fid},
+            #{fproductid},
+            #{fvideourl},
+            #{fstate},
+            #{fcreatedate})
+    </insert>
+
+</mapper>

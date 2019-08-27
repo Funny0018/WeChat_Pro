@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.errorLogDao">
+
+    <parameterMap id="parameterMap" type="com.entity.errorLog"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.errorLog">
+        <result property="fid" column="fid"/>
+        <result property="fdate" column="fdate"/>
+        <result property="fphonemodel" column="fphonemodel"/>
+        <result property="fuserid" column="fuserid"/>
+        <result property="fflag" column="fflag"/>
+        <result property="ferrormsg" column="ferrormsg"/>
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fdate,
+            fphonemodel,
+            fuserid,
+            fflag,
+            ferrormsg,
+            fuserid,
+            fisdefault,
+        </trim>
+    </sql>
+
+    <insert id="add" parameterType="com.entity.errorLog" useGeneratedKeys="true" keyProperty="fid">
+       INSERT INTO t_errorlog
+        (
+            fdate,
+            fphonemodel,
+            fuserid,
+            fflag,
+            ferrormsg)
+        VALUES
+        (
+            #{fdate},
+            #{fphonemodel},
+            #{fuserid},
+            #{fflag},
+            #{ferrormsg})
+    </insert>
+
+</mapper>

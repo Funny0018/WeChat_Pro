@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Static/css/back/product.css">
+    <script src="../Static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../Static/js/bootstrap.js"></script>
+    <script src="../Static/js/tools.js"></script>
+</head>
+<body>
+<div class="panel-heading">
+    商品标签编辑
+</div>
+<div class="col-md-6 col-md-offset-3 productType">
+    <div class="input-group">
+        <span class="input-group-addon">标签编码</span>
+        <input type="text" class="form-control" placeholder="" value="0" disabled="true" id="typeid">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">标签名称</span>
+        <input type="text" class="form-control" placeholder="输入标签名称" id="name">
+    </div>
+    <button class="btn-primary btn-submit" id="submit">保存</button>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var url = window.location;
+        var id = getUrlParam(url, "id");
+        var type = getUrlParam(url, "type");
+        if (type == "edit") {
+            $(".panel-heading").html("商品标签编辑");
+            getProductTypeDetail(id);
+            $("#submit").click(function () {
+                updateProductTypeById();
+            })
+        } else if (type == "add") {
+            $("#typeid").val(0);
+            $(".panel-heading").html("商品标签新增");
+            $("#submit").click(function () {
+                addProductTypeById();
+            })
+        }
+    });
+
+
+    function addProductTypeById() {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'addProductTagById',
+            dataType: "json",
+            data: {"fid": $("#typeid").val(), "fname": $("#name").val()},
+            success: function (data) {
+                alert(data.massage);
+                if (data.massage == '添加成功') {
+                    window.location.href = "back/listProductTag";
+                }
+            }
+        })
+    }
+
+
+    function updateProductTypeById() {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'updateProductTagById',
+            dataType: "json",
+            data: {"fid": $("#typeid").val(), "fname": $("#name").val()},
+            success: function (data) {
+                alert(data.massage);
+                if (data.massage == '更新成功') {
+                    window.location.href = "back/listProductTag";
+                }
+            }
+        })
+    }
+
+    function getProductTypeDetail(fid) {
+        console.log(fid);
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+           url: 'getProductTagById',
+            dataType: "json",
+            data: {"fid": fid},
+            success: function (data) {
+                console.log(data);
+                var dataObj = eval("(" + data.massage + ")");
+                $("#typeid").val(dataObj.ftypeid);
+                $("#name").val(dataObj.fName);
+            }
+        })
+    }
+</script>

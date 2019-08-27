@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>西鲜生会员后台管理系统</title>
+    <!--<link rel="stylesheet" href="../Static/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="../Static/css/login.css">-->
+    <!--<script type="text/javascript" src="../Static/js/bootstrap.js"></script>-->
+    <!--<script src="../Static/js/jquery-1.8.2.min.js"></script>-->
+    <link rel="stylesheet" href="Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Static/css/login.css">
+    <script type="text/javascript" src="Static/js/bootstrap.js"></script>
+    <script src="Static/js/jquery-1.8.2.min.js"></script>
+</head>
+<body>
+<div class="logindiv">
+    <div class="logintitle">西鲜生会员后台管理系统</div>
+    <div class="input-group">
+        <img src="Static/images/login/user.png"/><input id="username" type="text" value="">
+        <img src="Static/images/login/psd.png"/><input id="password" type="password" value="">
+    </div>
+    <div class="loginBtn">登录</div>
+</div>
+</body>
+</html>
+<Script type="text/javascript">
+    $(document).ready(function () {
+        $(".loginBtn").click(function () {
+            $.ajax({
+                type: 'POST',
+                // contentType: "application/json; charset=utf-8",
+                contentType: "application/x-www-form-urlencoded",
+                url: 'back/login',
+                dataType: "json",
+                data: {"name": $("#username").val(), "psd": $("#password").val()},
+                success: function (data) {
+                    alert(data.massage);
+                    if (data.massage == "登录成功") {
+
+                        window.location.href = "back/index";
+                    }
+                }
+            })
+        })
+    })
+</Script>

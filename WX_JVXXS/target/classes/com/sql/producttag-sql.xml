@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.producttagDao">
+
+    <parameterMap id="parameterMap" type="com.entity.producttag"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.producttag">
+        <result property="fid" column="fid"/>
+        <result property="fname" column="fname"/>
+        <result property="fstate" column="fstate"/>
+
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fname,
+            fstate,
+        </trim>
+    </sql>
+    <select id="selectByFids" resultMap="resultMap" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_producttag
+        WHERE fid in
+        <foreach collection="fids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <update id="updateById" parameterType="com.entity.producttag" useGeneratedKeys="true">
+        UPDATE t_producttag
+        SET fname=#{fname},
+        fstate=#{fstate}
+        WHERE fid=#{fid}
+    </update>
+    <insert id="add" parameterType="com.entity.producttag" useGeneratedKeys="true" keyProperty="fid">
+        INSERT INTO t_producttag (
+        fid,
+        fname,
+        fstate
+        )VALUES
+        (
+        #{fid},
+        #{fname},
+        #{fstate}
+        )
+    </insert>
+    <select id="selectByNone" resultType="com.entity.producttag">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_producttag
+        WHERE fstate>0 ORDER BY fstate desc
+    </select>
+
+    <select id="selectById" resultMap="resultMap" parameterType="int">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_producttag
+        WHERE fid=#{fid}
+    </select>
+</mapper>

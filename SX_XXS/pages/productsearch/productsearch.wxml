@@ -1,0 +1,62 @@
+<!--pages/productsearch/productsearch.wxml-->
+<view class='searchTop'>
+  <image class='searchImg' src='/static/image/searchBtn.png'></image>
+  <input class='search' type='text' focus="{{name_focus}}" placeholder='搜索' bindinput='setKey' bindconfirm='searchproduct' value='{{input_value}}'></input>
+  <view class='butSearch' bindtap='searchproduct'>搜索</view>
+</view>
+<view class='productList' wx:if='{{product!=""}}'>
+  <block wx:for="{{product}}" wx:key="fProductId">
+    <view class="productItem line">
+      <view class='productImgView' id='{{item.fProductId}}' bindtap='toDetail'>
+        <image src='{{item.fImgUrl}}' class='productImg'></image>
+      </view>
+      <view class='productInfoView' id='{{item.fProductId}}' bindtap='toDetail'>
+        <view class='productName'>{{item.fName}}</view>
+        <view class='productDesc'>{{item.fDesc}}</view>
+        <view wx:if='{{item.fVipPrice>0}}' class='priceView'>
+          <text class='productPrice'>￥{{item.fPrice}}
+          </text >
+            <text class='productVipPrice'>￥{{item.fVipPrice}}</text>
+          <!-- <image class='vipimage' src='/static/image/product/vip.png'></image> -->
+          <image class='vippriceimage' src='https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/product/vipprice.png'></image>
+        </view>
+        <view wx:else class='priceViewnovip'>
+          <text class='productPrice'>￥{{item.fPrice}}</text >
+          </view>
+      </view>
+      <view class="dian" id="product-{{item.fProductId}}" style='display:{{item.count=="0"?"none":"display"}}'>
+        <!-- <view class="cun page_row">购买数量:</view> -->
+        <view class="stepper">
+          <!-- 减号 -->
+          <text bindtap="bindMinus" id="bindMinus-{{item.fProductId}}">-</text>
+          <!-- 数值 -->
+
+          <input type="number" bindchange="pay_num" value="{{item.count}}" disabled='true' id="count-{{item.fProductId}}" />
+          <!-- 加号 -->
+          <text bindtap="bindPlus" id="bindPlus-{{item.fProductId}}">+</text>
+        </view>
+
+      </view>
+      <view class='dian' bindtap="bindPlus" id="cart-{{item.fProductId}}" style='display:{{item.count=="0"?"display":"none"}}'>
+        <image src='/static/image/product/cart.png'></image>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view class='productList' wx:else>
+  <view class="Search_record_text">
+    <text>搜索记录</text>
+    <image bindtap='delete_list' src='/static/image/product/delete.png'></image>
+  </view>
+  <!--记录词的盒子-->
+  <view class="History_box">
+    <view class="History-list">
+      <text wx:for="{{keys}}" data-text="{{item}}" wx:key="key" bindtap='this_value'>{{item}}</text>
+    </view>
+  </view>
+</view>
+<loading wx:if="{{!loading}}">
+  加载中...
+</loading>
+<view class='isBottom' style='display:{{isbottom?"block":"none"}}'>-----------我是有底线的---------</view>

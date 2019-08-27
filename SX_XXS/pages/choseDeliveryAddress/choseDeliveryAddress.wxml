@@ -1,0 +1,16 @@
+<!--pages/choseDeliveryAddress/choseDeliveryAddress.wxml-->
+<!-- <text>pages/choseDeliveryAddress/choseDeliveryAddress.wxml</text> -->
+<view class='address-top'>
+<view class='search'>
+      <image src='/static/image/address/search.png' class='img-search'></image>
+  <input type='text' class='key' placeholder='请输入您的地址' bindinput='inputChange'></input>
+</view>
+</view>
+<view class='info-list'>
+  <block wx:for="{{locals}}" wx:key="id">
+    <view class='address-info' bindtap='tapAddress' id='{{item.title}}-{{item.ad_infos}}'>
+      <text class='info-title'>{{item.title}}</text>
+      <text class='info-address'>{{item.address}}</text>
+    </view>
+  </block>
+</view>

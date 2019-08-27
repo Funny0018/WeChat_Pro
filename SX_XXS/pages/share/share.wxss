@@ -1,0 +1,270 @@
+/* pages/share/share.wxss */
+
+page {
+  background-color: #ddd;
+}
+
+.first {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.first image {
+  width: 100%;
+  height: 100%;
+}
+
+.toScend {
+  width: 60%;
+  height: 7.5%;
+  background: rgba(red, green, blue, 0);
+  z-index: 10;
+  position: absolute;
+  top: 70.5%;
+  left: 20%;
+}
+
+.secend {
+  width: 100%;
+}
+
+.secendBack {
+  width: 100%;
+  z-index: 1;
+  position: absolute;
+}
+
+.teamLeader {
+  position: absolute;
+  border-radius: 100%;
+  width: 13.7%;
+  left: 315rpx;
+  top: 364rpx;
+  z-index: 0;
+}
+
+.teamer1 {
+  position: absolute;
+  border-radius: 100%;
+  width: 13.7%;
+  /* left: 21%;
+  top: 45.5%; */
+  left: 160rpx;
+  top: 555rpx;
+  z-index: 10;
+}
+
+.teamer2 {
+  position: absolute;
+  border-radius: 100%;
+  width: 13.7%;
+  /* left: 41.95%;
+  top: 45.5%; */
+  left: 315rpx;
+  top: 555rpx;
+  z-index: 10;
+}
+
+.teamer3 {
+  position: absolute;
+  border-radius: 100%;
+  width: 13%;
+  /* left: 63%;
+  top: 45.5%; */
+  left: 475rpx;
+  top: 555rpx;
+  z-index: 10;
+}
+
+.textView {
+  position: absolute;
+  z-index: 99;
+  font-size: 24rpx;
+  top: 800rpx;
+  left: 160rpx;
+  color: #fad03d;
+}
+
+.textView text {
+  color: #fff;
+}
+
+.timerView {
+  position: absolute;
+  z-index: 99;
+  font-size: 24rpx;
+  top: 850rpx;
+  left: 220rpx;
+  color: #fad03d;
+}
+
+.timerView text {
+  border-radius: 10rpx;
+  background-color: #fff;
+  color: #2b2b2b;
+  text-align: center;
+  width: 30rpx;
+  display: inline-block;
+  padding: 2rpx;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+
+.shareBtn {
+  z-index: 99;
+  position: absolute;
+  width: 70%;
+  height: 90rpx;
+  border: none;
+  display: block;
+  margin-top: 940rpx;
+  margin-left: 15%;
+  /* opacity: 0; */
+  background: url("https://xxs.xixiansheng.cn/Images/static/share/share_click.png") no-repeat;
+  background-size: 100% 100%;
+}
+
+.shareBtn::after {
+  border: none;
+}
+
+.teamerInfo {
+  z-index: 50;
+  /* background-color: #fff; */
+  width: 80%;
+  height: 230rpx;
+  position: absolute;
+  left: 20%;
+  top: 550rpx;
+  overflow: scroll;
+}
+
+.teamer {
+  z-index: 90;
+  width: 70%;
+  /* position: absolute; */
+  height: 50rpx;
+  margin-top: 10rpx;
+  display: inline-block;
+}
+
+.teamerIamge {
+  border-radius: 100%;
+  width: 13%;
+  z-index: 10;
+  float: left;
+}
+
+.teamerNikeName {
+  float: left;
+  margin-left: 20rpx;
+  font-size: 30rpx;
+  color: #ddd;
+}
+
+.roleView {
+  z-index: 990;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.role {
+  z-index: 999;
+  background-color: #fff;
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 200rpx;
+  height: 800rpx;
+  position: absolute;
+  border-radius: 20rpx;
+}
+
+.roleTitle {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-weight: 800;
+  font-size: 45rpx;
+  margin-top: 10rpx;
+}
+
+.roleText {
+  width: 85%;
+  margin-left: 10%;
+  margin-top: 10rpx;
+}
+
+.roleText view {
+  font-size: 30rpx;
+  color: #2b2b2b;
+  margin-top: 15rpx;
+  text-indent: -20rpx;
+}
+
+.showRole {
+  z-index: 900;
+  width: 100rpx;
+  height: 60rpx;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  right: 0;
+  top: 26rpx;
+}
+
+.rank {
+  background-color: rgba(0, 0, 0, 0);
+  width: 480rpx;
+  height: 300rpx;
+  position: absolute;
+  z-index: 1;
+  margin-left: 160rpx;
+  margin-top: 1240rpx;
+}
+
+.rankLine {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 30rpx;
+  color: #cdcdcd;
+}
+
+.rankImage image {
+  border-radius: 100%;
+  width: 70rpx;
+  z-index: 10;
+  float: left;
+}
+
+.rankNikename {
+  line-height: 100rpx;
+  width: 240rpx;
+  height: 100rpx;
+  margin-left: 20rpx;
+  float: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rnakCount {
+  line-height: 100rpx;
+  width: 110rpx;
+  height: 100rpx;
+  float: left;
+}
+
+.showRank {
+  z-index: 900;
+  width: 320rpx;
+  height: 70rpx;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  left: 220rpx;
+  top: 1580rpx;
+}

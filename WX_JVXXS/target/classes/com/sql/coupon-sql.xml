@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.couponDao">
+
+    <parameterMap id="parameterMap" type="com.entity.coupon"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.coupon">
+        <result property="fid" column="fid"/>
+        <result property="fname" column="fname"/>
+        <result property="ftype" column="ftype"/>
+        <result property="fproductId" column="fproductId"/>
+        <result property="fprice" column="fprice"/>
+        <result property="fminprice" column="fminprice"/>
+        <result property="fstartdate" column="fstartdate"/>
+        <result property="fenddate" column="fenddate"/>
+        <result property="foverdate" column="foverdate"/>
+        <result property="fstate" column="fstate"/>
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fname,
+            ftype,
+            fproductId,
+            fprice,
+            fminprice,
+            fstartdate,
+            fenddate,
+            foverdate,
+            fstate,
+        </trim>
+    </sql>
+    <update id="updateState" keyProperty="true" parameterType="map">
+        UPDATE t_coupon
+        SET fstate=#{fstate}
+        WHERE fid in
+        <foreach collection="fids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <select id="selectByQueryForBack" resultType="com.entity.coupon" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_coupon
+        WHERE 1=1
+        <if test='fname!="" and fname!=null'>
+            AND fname like #{fname}
+        </if>
+        <if test='ftype>0'>
+            AND ftype=#{ftype}
+        </if>
+        <if test='fstate>=-1'>
+            AND fstate=#{fstate}
+        </if>
+        ORDER BY fid DESC
+    </select>
+    <select id="selectById" resultType="com.entity.coupon" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_coupon
+        WHERE fid=#{fid}
+    </select>
+    <insert id="add" parameterType="com.entity.coupon" useGeneratedKeys="true" keyProperty="fid">
+       INSERT INTO t_coupon
+        (
+           fname,
+	ftype,
+	fproductId,
+	fprice,
+	fminprice,
+	fstartdate,
+	fenddate,
+	foverdate,
+	fstate)
+        VALUES
+        (
+           #{fname},
+	#{ftype},
+	#{fproductId},
+	#{fprice},
+	#{fminprice},
+	#{fstartdate},
+	#{fenddate},
+	#{foverdate},
+	#{fstate})
+    </insert>
+    <update id="update" keyProperty="true" parameterType="com.entity.coupon">
+        UPDATE t_coupon
+        SET fname=#{fname},
+        ftype=#{ftype},
+        fproductId=#{fproductId},
+        fprice=#{fprice},
+        fminprice=#{fminprice},
+        fstartdate=#{fstartdate},
+        fenddate=#{fenddate},
+        foverdate=#{foverdate},
+        fstate=#{fstate}
+        WHERE fid =#{fid}
+
+    </update>
+</mapper>

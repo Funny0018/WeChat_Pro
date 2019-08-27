@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.userCouponDao">
+
+    <parameterMap id="parameterMap" type="com.entity.userCoupon"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.userCoupon">
+        <result property="fid" column="fid"/>
+        <result property="fuserid" column="fuserid"/>
+        <result property="fname" column="fname"/>
+        <result property="ftype" column="ftype"/>
+        <result property="fproductId" column="fproductId"/>
+        <result property="fprice" column="fprice"/>
+        <result property="fminprice" column="fminprice"/>
+        <result property="fstartdate" column="fstartdate"/>
+        <result property="fenddate" column="fenddate"/>
+        <result property="fstate" column="fstate"/>
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fuserid,
+            fname,
+            ftype,
+            fproductId,
+            fprice,
+            fminprice,
+            fstartdate,
+            fenddate,
+            fstate,
+        </trim>
+    </sql>
+    <insert id="add" parameterType="com.entity.userCoupon" useGeneratedKeys="true" keyProperty="fid">
+insert into t_usercoupon
+	( 
+	fuserid, 
+	fname, 
+	ftype, 
+	fproductId, 
+	fprice, 
+	fminprice, 
+	fstartdate, 
+	fenddate, 
+	fstate
+	)
+	values
+	( 
+	#{fuserid}, 
+	#{fname}, 
+	#{ftype}, 
+	#{fproductId}, 
+	#{fprice}, 
+	#{fminprice}, 
+	#{fstartdate}, 
+	#{fenddate}, 
+	#{fstate}
+	);
+</insert>
+    <select id="selectByFuserid" resultMap="resultMap" parameterType="int">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_usercoupon
+        WHERE fuserid=#{fuserid} AND fstate=1
+
+        and unix_timestamp(fstartdate) &lt; unix_timestamp(NOW())
+        and unix_timestamp(fenddate) > unix_timestamp(NOW());
+    </select>
+    <select id="selectCountByFuserid" resultType="int" parameterType="int">
+        SELECT
+        COUNT(1)
+        FROM t_usercoupon
+        WHERE fuserid=#{fuserid} AND fstate=1
+
+        and unix_timestamp(fstartdate) &lt; unix_timestamp(NOW())
+        and unix_timestamp(fenddate) > unix_timestamp(NOW());
+    </select>
+    <update id="updateState" parameterType="int" useGeneratedKeys="true">
+        UPDATE t_usercoupon
+        SET fstate=#{fstate},
+        fusedate=cast(now() as char(50))
+        WHERE fid=#{fid}
+    </update>
+    <select id="selectBuFid" parameterType="int" resultMap="resultMap">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_usercoupon
+        WHERE fid=#{fid}
+    </select>
+    <select id="selectIsNew" parameterType="String" resultType="int">
+        SELECT count(1)
+        FROM t_usercoupon
+        WHERE fuserid=#{fuserid} AND fname=#{fname}
+    </select>
+</mapper>

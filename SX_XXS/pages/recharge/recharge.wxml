@@ -1,0 +1,49 @@
+<!--pages/recharge/recharge.wxml-->
+
+<view class='amountView'>
+  <view class='amount-title'>
+    账户余额
+  </view>
+  <view class='amount-price'>
+    ￥{{vipamountapp}}
+  </view>
+</view>
+<view class='chooseType'>
+
+  <swiper class='swiper' bindchange='swiperTab' current="{{current}}">
+    <block wx:for='{{types}}' wx:key='fid'>
+      <swiper-item>
+        <view class='rechargeDetail' id='{{item.fid}}' style="background: url('{{item.fimgurl}}') no-repeat;height: 400rpx;  margin-left: 20rpx;  margin-right: 20rpx;  margin-top: 20rpx;  border-radius: 20rpx;  background-size: cover; ">
+          <!-- <view class='rechargeDetail {{item.fid==typeid?" active ":" "}}' bindtap='changeType' id='{{item.fid}}'> -->
+          <view class='rechargeDetailTitle'>尊享会员储值卡</view>
+          <view class='rechargeDetailprice'>{{item.fprice}}</view>
+          <view class='rechargeDetailText'>{{item.fviptext}}</view>
+          <!-- <view class='rechargeDetailDec' style='color:#000'>{{item.fdec}}</view> -->
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+
+
+
+
+
+  <view class='tabSwitch'>
+    <block wx:for="{{types}}" wx:key='fid' wx:for-item="tabItem">
+      <view class='tab {{tabItem.fid==typeid?"active":" "}}' id='type-{{tabItem.fid}}' bindtap='changeType'>
+        {{tabItem.fprice}}
+      </view>
+    </block>
+  </view>
+  <!-- <swiper-item wx:for="{{types}}" wx:for-item="tabItem" wx:for-index="fid" wx:key="fid" class="tab-content">
+    {{tabItem.fprice}}
+  </swiper-item>
+  </swiper> -->
+</view>
+<view class='rechargeAmount' style='display:{{rechargeamount?"display ":"none "}};'>
+  <view>充值金额：</view>
+  <input type='number' maxlength='10' bindinput='inputprice' value='{{inputvalue}}'></input>
+</view>
+<view class='bottom'>
+  <view class='bottomLeft' bindtap='recharge'>需支付{{fprice}}</view>
+</view>

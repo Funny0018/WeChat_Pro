@@ -1,0 +1,456 @@
+/* pages/cart/cart.wxss */
+
+page {
+  background-color: #ddd;
+}
+
+.bottom-bar {
+  position: fixed;
+  z-index: 10;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  border-top: 1rpx #ceced1 solid;
+  /* background-color: #ceced1; */
+  background-color: #fff;
+}
+
+.chooseAll {
+  float: left;
+  width: 20%;
+  height: 100rpx;
+  line-height: 100rpx;
+  margin-left: 20rpx;
+}
+
+.chooseAll text {
+  font-size: 35rpx;
+  position: absolute;
+  margin-left: 10rpx;
+  /* top: -5rpx; */
+}
+
+.l-mycheck {
+  color: #f60;
+  margin-top: 20rpx;
+}
+
+.amountAll {
+  width: 65%;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 0.8rem;
+  margin-left: 1rem;
+}
+
+.totalprice {
+  height: 100rpx;
+  font-size: 1rem;
+  color: red;
+  padding-top: 0.5rem;
+  line-height: 100rpx;
+}
+
+.submit {
+  background-color: #f60;
+  width: 30%;
+  height: 80rpx;
+  line-height: 80rpx;
+  position: absolute;
+  right: 0.5rem;
+  top: 10rpx;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  color: #fff;
+  text-align: center;
+}
+
+.productList {
+  /* background-color: #f60; */
+  background-color: #fff;
+  /* margin-top: 0.2rem; *//* height: 30rem; */
+}
+
+.productItem {
+  background-color: #fff;
+  /* border-bottom: #f60 solid 0.1rem; */
+  height: 230rpx;
+}
+
+.productImgView {
+  float: left;
+  width: 5.0rem;
+  height: 5.0rem;
+  margin-left: 35rpx;
+}
+
+.productImg {
+  width: 5.0rem;
+  height: 5.0rem;
+  padding-left: 1rem;
+  padding-top: 0.25rem;
+}
+
+.productInfoView {
+  float: left;
+  padding-left: 1rem;
+  width: 30%;
+  height: 180rpx;
+}
+
+.infoView {
+  margin-top: 10rpx;
+  margin-left: 10rpx;
+  width: 100%;
+}
+
+.productName {
+  width: 510rpx;
+  font-size: 30rpx;
+  font-weight: 800;
+  float: left;
+  position: absolute;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.productDesc {
+  width: 510rpx;
+  margin-top: 40rpx;
+  font-size: 25rpx;
+  float: left;
+  position: absolute;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.priceView {
+  width: 200rpx;
+  height: 150rpx;
+  float: left;
+  font-size: 30rpx;
+  margin-top: 90rpx;
+  margin-left: 10rpx;
+}
+
+.productPrice {
+  font-size: 25rpx;
+  margin-left: 20rpx;
+  color: #f60;
+}
+
+.productVipPrice {
+  color: #ffd700;
+  float: left;
+}
+
+.vipimage {
+  width: 25rpx;
+  height: 25rpx;
+  margin-left: 20rpx;
+  margin-top: 10rpx;
+  float: left;
+}
+
+.dian {
+  width: 25%;
+  float: right;
+  height: 70rpx;
+  margin-top: 110rpx;
+  margin-right: 0;
+}
+
+.dian image {
+  width: 70rpx;
+  height: 50rpx;
+  float: right;
+  margin-right: 45rpx;
+  margin-top: -10rpx;
+}
+
+.stepper {
+  display: inline;
+}
+
+.stepperBind {
+  float: left;
+  width: 40rpx;
+  height: 50rpx;
+  text-align: center;
+  font-size: 40rpx;
+  color: #f60;
+}
+
+.stepperCount {
+  float: left;
+  width: 60rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  font-size: 35rpx;
+}
+
+.stepper text {
+  float: left;
+  width: 40rpx;
+  height: 50rpx;
+  text-align: center;
+  font-size: 40rpx;
+  color: #f60;
+}
+
+.stepper input {
+  float: left;
+  width: 60rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  font-size: 35rpx;
+}
+
+/*checkbox 整体大小  */
+
+checkbox {
+  background: none;
+  width: 50rpx;
+  height: 140rpx;
+  float: left;
+  padding-top: 70rpx;
+  padding-left: 15rpx;
+  padding-right: 40rpx;
+  position: absolute;
+}
+
+/*checkbox 选项框大小  */
+
+checkbox .wx-checkbox-input {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+/*checkbox选中后样式  */
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  background: #f60;
+}
+
+/*checkbox选中后图标样式  */
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  width: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #fff;
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
+
+.line::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 80rpx;
+  height: 1px;
+  width: 95%;
+  background-color: rgba(180, 180, 180, 0.3);
+}
+
+.sale {
+  width: 95%;
+  margin-left: 2.5%;
+  /* height: 550rpx; */
+  height: 580rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+  margin-bottom: 120rpx;
+  border-radius: 20rpx;
+}
+
+.saleTitle {
+  font-size: 30rpx;
+  height: 80rpx;
+  width: 95%;
+  margin-left: 2.5%;
+}
+
+.saleTitleText {
+  float: left;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.saleTitlePrice {
+  float: right;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.couponImg {
+  float: left;
+  width: 50rpx;
+  height: 50rpx;
+  margin-top: 15rpx;
+}
+
+.toRightImg {
+  float: right;
+  width: 50rpx;
+  height: 50rpx;
+  margin-top: 15rpx;
+}
+
+.couponText {
+  float: left;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-left: 10rpx;
+}
+
+.couponPrice {
+  float: right;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.login-info {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 499;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.login {
+  height: 120rpx;
+  line-height: 120rpx;
+  margin-top: 55%;
+  width: 60%;
+  margin-left: 20%;
+  color: #ddd;
+  font-size: 30rpx;
+  text-align: center;
+  background-color: #fff;
+  z-index: 500;
+}
+
+.loginbut {
+  width: 100%;
+  outline: none;
+}
+
+.productListTop {
+  width: 100%;
+  font-size: 30rpx;
+  font-weight: 700;
+  /* margin-left: 20rpx; */
+  height: 120rpx;
+}
+
+.productListTop text {
+  font-size: 35rpx;
+  position: absolute;
+  margin-left: 10rpx;
+  margin-top: 25rpx;
+}
+
+.productListLeft {
+  float: left;
+  margin-left: 20rpx;
+}
+
+.productListRight {
+  float: right;
+  width: 50%;
+}
+
+.productListRight view {
+  font-size: 23rpx;
+  font-weight: 500;
+  width: 80%;
+  float: left;
+  margin-top: 20rpx;
+  color: #f60;
+}
+
+.productListRight image {
+  width: 30rpx;
+  height: 30rpx;
+  float: left;
+  margin-top: 35rpx;
+}
+
+.productListTop::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 100rpx;
+  height: 1px;
+  width: 95%;
+  background-color: rgba(180, 180, 180, 0.3);
+}
+
+.vipView {
+  margin-top: 10rpx;
+  background-color: #fff;
+  width: 95%;
+  height: 130rpx;
+  line-height: 130rpx;
+  border-radius: 20rpx;
+  /* box-shadow: 10rpx 10rpx 10rpx #666; */
+  margin-left: 2.5%;
+  border: 1rpx #ccc solid;
+}
+
+.vipcard {
+  width: 100rpx;
+  height: 100rpx;
+  margin-top: 15rpx;
+  margin-left: 40rpx;
+  float: left;
+}
+
+.vipTxt {
+  height: 130rpx;
+  width: 320rpx;
+  float: left;
+  margin-left: 20rpx;
+}
+
+.vipTxtTop {
+  width: 320rpx;
+  height: 40rpx;
+  line-height: 30rpx;
+  font-size: 30rpx;
+  margin-top: 30rpx;
+  font-weight: 600;
+}
+
+.vipTxtBottom {
+  width: 320rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  margin-top: 0rpx;
+  font-size: 25rpx;
+}
+
+.vipToRightTxt {
+  height: 30rpx;
+  float: right;
+  padding-bottom: 40rpx;
+  font-weight: 800;
+  font-size: 30rpx;
+  color: #222;
+}
+
+.vipToRightImg {
+  float: right;
+  width: 30rpx;
+  height: 30rpx;
+  margin-top: 50rpx;
+  margin-right: 20rpx;
+}

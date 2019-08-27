@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Static/css/back/product.css">
+    <link rel="stylesheet" href="../Static/css/file-input/fileinput.min.css">
+    <script type="text/javascript" src="../Static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../Static/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../Static/js/tools.js"></script>
+</head>
+<body>
+
+<div class="panel-heading">
+    基础信息修改
+</div>
+<div class="col-md-6 col-md-offset-3 product">
+    <div class="input-group">
+        <span class="input-group-addon">默认运费</span>
+        <input type="text" class="form-control" placeholder="" value="0" id="yunfei">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">包邮金额</span>
+        <input type="text" class="form-control" placeholder="输入名称" id="baoyou">
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon">商品页数量</span>
+        <input type="text" class="form-control" placeholder="输入描述" id="pagesize">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">订单页数量</span>
+        <input type="text" class="form-control" placeholder="输入描述" id="orderpagesize">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">分享活动人数</span>
+        <input type="text" class="form-control" placeholder="输入描述" id="sharecount">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">是否开启分享（0为关闭，1为开启）</span>
+        <input type="text" class="form-control" placeholder="输入描述" id="openshare">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">是否开启特价（0为关闭，1为开启）</span>
+        <input type="text" class="form-control" placeholder="输入描述" id="opentejia">
+    </div>
+    <button class="btn-primary btn-submit" id="submit">保存</button>
+    <div style="display: none">
+        <div id="productTypeSelect">0</div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        getBaseInfo();
+        $("#submit").click(function () {
+            save();
+        })
+    })
+
+    function save() {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+            url: 'updageBaseConfig',
+            dataType: "json",
+            data: {
+                "yunfei": $("#yunfei").val(),
+                "baoyou": $("#baoyou").val(),
+                "pagesize": $("#pagesize").val(),
+                "orderpagesize": $("#orderpagesize").val(),
+                "sharecount":$("#sharecount").val(),
+                "openshare":$("#openshare").val(),
+                "opentejia":$("#opentejia").val()
+            },
+            success: function (data) {
+                alert(data.massage);
+
+            }
+        })
+    }
+
+    function getBaseInfo() {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+            url: '../wxGetBaseConfig',
+            dataType: "json",
+            success: function (data) {
+                $("#yunfei").val(data.yunfei);
+                $("#baoyou").val(data.baoyou);
+                $("#pagesize").val(data.pagesize);
+                $("#orderpagesize").val(data.orderpagesize);
+                $("#sharecount").val(data.sharecount);
+                $("#openshare").val(data.openshare);
+                $("#opentejia").val(data.opentejia);
+            }
+        })
+    }
+</script>

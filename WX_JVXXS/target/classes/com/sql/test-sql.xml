@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.TestDao">
+
+    <parameterMap id="parameterMap" type="com.entity.test"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.test">
+        <result property="fid" column="fid"/>
+        <result property="fname" column="fname"/>
+    </resultMap>
+
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+fid,
+            fname,
+        </trim>
+    </sql>
+<select id="selectFnameByFid">
+    select
+    <include refid="columnSql"></include>
+    FROM
+    WHERE fid=#{fid}
+</select>
+ </mapper>

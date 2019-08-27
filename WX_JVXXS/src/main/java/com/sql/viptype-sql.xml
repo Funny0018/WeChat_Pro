@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.vipTypeDao">
+
+    <parameterMap id="parameterMap" type="com.entity.vipType"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.vipType">
+        <result property="fid" column="fid"/>
+        <result property="fname" column="fname"/>
+        <result property="ffullname" column="ffullname"/>
+        <result property="fdiscount" column="fdiscount"/>
+        <result property="foldprice" column="foldprice"/>
+        <result property="fprice" column="fprice"/>
+        <result property="fstate" column="fstate"/>
+        <result property="ftime" column="ftime"/>
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fname,
+            ffullname,
+            fdiscount,
+            foldprice,
+            fprice,
+            fstate,
+            ftime,
+        </trim>
+    </sql>
+
+    <select id="selectByNone" resultMap="resultMap" parameterType="String">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_viptype
+        WHERE fstate>0
+        ORDER BY fprice
+    </select>
+    <select id="selectByFid" resultMap="resultMap" parameterType="String">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_viptype
+        WHERE fstate>0
+        AND fid=#{fid}
+    </select>
+</mapper>

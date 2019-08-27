@@ -1,0 +1,115 @@
+/* pages/shareRank/shareRank.wxss */
+
+page {
+  background-color: #eee;
+}
+
+.top {
+  height: 250rpx;
+  width: 100%;
+  position: fixed;
+  background-color: #fff;
+  z-index: 200;
+}
+
+.title {
+  text-align: center;
+  font-weight: 800;
+  font-size: 40rpx;
+  margin-top: 30rpx;
+  height: 70rpx;
+}
+
+.titleLeft {
+  /* color: #dfdfdf; */
+  font-size: 20rpx;
+  float: left;
+  width: 300rpx;
+  padding-top: 20rpx;
+  margin-left: 20rpx;
+  text-align: left;
+}
+
+.titleRight {
+  font-size: 20rpx;
+  float: right;
+  width: 300rpx;
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+  text-align: right;
+}
+
+.userinfo {
+  height: 80rpx;
+  margin-top: 70rpx;
+  width: 100%;
+  font-size: 45rpx;
+}
+
+.userinfo image {
+  border-radius: 100%;
+  width: 60rpx;
+  z-index: 10;
+}
+
+.userrank {
+  margin-left: 20rpx;
+  float: left;
+  width: 100rpx;
+  text-align: center;
+}
+
+.userimage {
+  margin-left: 20rpx;
+  float: left;
+}
+
+.usernikename {
+  margin-left: 20rpx;
+  float: left;
+}
+
+.usercount {
+  float: right;
+  margin-right: 40rpx;
+}
+
+.middle {
+  height: 30rpx;
+  background-color: #eee;
+  position: fixed;
+  margin-top: 250rpx;
+  z-index: 200;
+  width: 100%;
+}
+
+.rankInfo {
+  background-color: #fff;
+  position: absolute;
+  margin-top: 280rpx;
+  width: 100%;
+}
+
+.rankinfo {
+  height: 80rpx;
+  margin-top: 40rpx;
+  width: 100%;
+  font-size: 45rpx;
+}
+
+.rankinfo image {
+  border-radius: 100%;
+  width: 60rpx;
+  z-index: 10;
+}
+
+.line::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 80rpx;
+  margin-left: 2.5%;
+  height: 1px;
+  width: 95%;
+  background-color: rgba(180, 180, 180, 0.3);
+}

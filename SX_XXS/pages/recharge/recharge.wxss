@@ -1,0 +1,183 @@
+/* pages/recharge/recharge.wxss */
+
+.amountView {
+  /* margin-top: 20rpx; */
+  background-color: #fff;
+  width: 90%;
+  height: 150rpx;
+  line-height: 130rpx;
+  border-bottom-left-radius: 20rpx;
+  border-bottom-right-radius: 20rpx;
+  box-shadow: 5rpx 5rpx 5rpx #666;
+  margin-left: 5%;
+  border: 1rpx #ccc solid;
+}
+
+.amount-title {
+  height: 57rpx;
+  width: 100%;
+  margin-left: 20rpx;
+  color: #888;
+  font-size: 30rpx;
+}
+
+.amount-price {
+  height: 60rpx;
+  width: 100%;
+  color: #f60;
+  margin-left: 20rpx;
+}
+
+.rechargeView {
+  margin-top: 20rpx;
+  background-color: #fff;
+  width: 90%;
+  height: 400rpx;
+  line-height: 130rpx;
+  border-radius: 20rpx;
+  box-shadow: 5rpx 5rpx 5rpx #666;
+  margin-left: 5%;
+  border: 1rpx #ccc solid;
+}
+
+.rechargeDetail {
+  height: 400rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-top: 20rpx;
+  border-radius: 20rpx;
+  background-size: cover;
+  -moz-background-size: 100% 100%;
+  /* box-shadow: 5rpx 5rpx 5rpx 5rpx #666; */
+}
+
+.rechargeDetailTitle {
+  text-align: right;
+  width: 90%;
+  font-size: 25rpx;
+  padding-top: 40rpx;
+}
+
+.rechargeDetailprice {
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 500rpx;
+  font-size: 80rpx;
+  text-align: left;
+  padding-top: 160rpx;
+  padding-left: 40rpx;
+}
+
+.rechargeDetailText {
+  width: 500rpx;
+  padding-left: 40rpx;
+  font-size: 30rpx;
+}
+
+.bottom {
+  width: 100%;
+  height: 120rpx;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  box-shadow: 10rpx 10rpx 10rpx 10rpx #666;
+}
+
+.bottomLeft {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 20rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #f60;
+  color: #fff;
+  text-align: center;
+}
+
+.bottomPrice {
+  color: #eb5640;
+  height: 50rpx;
+  font-size: 35rpx;
+}
+
+.rechargeAmount {
+  width: 90%;
+  height: 80rpx;
+  /* background-color: #ddd;   */
+  border-radius: 20rpx;
+  box-shadow: 5rpx 5rpx 5rpx 5rpx #666;
+  margin-left: 5%;
+  margin-top: 20rpx;
+}
+
+.rechargeAmount view {
+  float: left;
+  margin-left: 20rpx;
+  line-height: 80rpx;
+  height: 80rpx;
+  width: 30%;
+}
+
+.rechargeAmount input {
+  margin-right: 20rpx;
+  float: right;
+  text-align: right;
+  height: 80rpx;
+  width: 60%;
+}
+
+.chooseType {
+  margin-top: 40rpx;
+  height: 520rpx;
+  position: relative;
+}
+
+.scroll-header {
+  width: 100%;
+  height: 440rpx;
+  display: flex;
+  white-space: nowrap; /* 这个很重要， */
+  z-index: 999;
+  background-color: #fff;
+  position: fixed;
+  margin-top: 30rpx;
+}
+
+.tabSwitch {
+  height: 50rpx;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.swiper {
+  width: 100%;
+  height: 440rpx;
+}
+
+.tab {
+  float: left;
+  width: 13%;
+  margin-left: 5rpx;
+  font-size: 25rpx;
+  text-align: center;
+  color: #ababab;
+  /* border: solid #000 1rpx; */
+}
+
+.active {
+  /* border-bottom: 2rpx solid #f60; */
+  font-weight: 800;
+  /* font-size: 28rpx; */
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 0;
+  margin-left: 3%;
+  height: 1px;
+  width: 6%;
+  background-color: #f60;
+}

@@ -1,0 +1,94 @@
+<!--pages/bills/bills.wxml-->
+<view class='bottom-bar'>
+  <view class='amountAll'>付款
+    <text class='totalprice'>{{finalPrice}}</text>
+  </view>
+  <view class='submit' bindtap='toPay'>去支付</view>
+</view>
+<view class='deliveryAddress-info'>
+  <block wx:if='{{hasdeliveryAddress}}'>
+    <block wx:for='{{deliveryAddress}}'>
+      <view class='list-info' bindtap='chooseAddress' id='{{item.fid}}' bindtap='toAddress'>
+        <view class='left'>
+          <view class='top'>
+            <text class='city'>{{item.fcity}}</text>
+            <text class='address'>{{item.faddress}}</text>
+            <text class='buildno'>{{item.fbuildno}}</text>
+          </view>
+          <view class='bottom'>
+            <text class='name'>{{item.fname}}</text>
+            <text class='phone'>{{item.fphone}}</text>
+          </view>
+        </view>
+        <view class='right'>
+          <image src='/static/image/addDeliveryAddress/toright.png' class='torightImg'></image>
+        </view>
+      </view>
+    </block>
+  </block>
+  <block wx:else>
+    <view class='list-new' bindtap='toAddress'>
+      <view class='chooseNew'>
+        <image src='/static/image/address/local.png' class='localImg'></image>
+        选择收货地址</view>
+    </view>
+  </block>
+</view>
+<view class='products-info' bindtap='toProductInfo'>
+  <block wx:for='{{cartInfo}}'>
+    <image src='{{item.fImgUrl}}' class='productImg'></image>
+  </block>
+  <view class='product-right'>
+    <image src='/static/image/addDeliveryAddress/toright.png'></image>
+    <text>共{{count}}件</text>
+  </view>
+</view>
+<view class='sale'>
+  <view class='saleTitle line'>
+    <text class='couponText'>{{viptext}}</text>
+    <text class='couponPrice' style='color:#f60'>{{totalpricevip}}</text>
+  </view>
+  <view class='saleTitle line'>
+    <text class='couponText'>商品总价</text>
+    <text class='couponPrice'>￥{{totalprice}}</text>
+  </view>
+  <view class='saleTitle line'>
+    <image src='/static/image/cart/youhuiquan.png' class='couponImg'></image>
+    <text class='couponText'>{{dikoutitle}}</text>
+    <image src='/static/image/addDeliveryAddress/toright.png' class='toRightImg'></image>
+    <text class='couponPrice' style='color:{{dikoucolor}}'>{{dikouprice}}</text>
+  </view>
+  <view class='saleTitle line'>
+    <image src='/static/image/cart/hongbao.png' class='couponImg'></image>
+    <text class='couponText'>{{hongbaotitle}}</text>
+    <image src='/static/image/addDeliveryAddress/toright.png' class='toRightImg'></image>
+    <text class='couponPrice' style='color:{{hongbaocolor}}'>{{hongbaoprice}}</text>
+  </view>
+
+  <view class='saleTitle '>
+    <text class='couponText'>商品实付</text>
+    <text class='couponPrice'>{{finalProductPrice}}</text>
+  </view>
+  <view class='saleTitle line'>
+    <text class='couponText'>配送费费</text>
+    <text class='couponPrice'>{{yunfei}}</text>
+  </view>
+  <view class='saleTitle line'>
+    <text class='couponText'>合计</text>
+    <text class='couponPrice'>{{payprice}}</text>
+  </view>
+
+  <view class='saleTitle '>
+    <image src='/static/image/product/vip.png' class='couponImg'></image>
+    <text class='couponText'>会员抵扣</text>
+    <!-- <image src='/static/image/addDeliveryAddress/toright.png' class='toRightImg'></image> -->
+    <text class='couponPrice' style='color:#f60'>{{fvipamount}}</text>
+  </view>
+  <!-- <view class='saleTitle' style='font-size:35rpx;'>
+    <text class='couponPrice'>{{finalPrice}}</text>
+    <text class='couponPrice' style='margin-right:10rpx;'>合计</text>
+  </view> -->
+</view>
+<loading wx:if="{{!loading}}">
+  加载中...
+</loading>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../Static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Static/css/back/product.css">
+    <link rel="stylesheet" href="../Static/css/file-input/fileinput.min.css">
+    <script type="text/javascript" src="../Static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../Static/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../Static/js/tools.js"></script>
+    <script type="text/javascript" src="../Static/js/file-input/fileinput.min.js"></script>
+    <script type="text/javascript" src="../Static/js/file-input/zh.js"></script>
+</head>
+<body>
+<div class="panel-heading">
+    商品编辑
+</div>
+<div class="col-md-6 col-md-offset-3 product">
+    <div class="input-group">
+        <span class="input-group-addon">商品编码</span>
+        <input type="text" class="form-control" placeholder="" value="0" disabled="true" id="id">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品名称</span>
+        <input type="text" class="form-control" placeholder="输入名称" id="name">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品分类</span>
+        <div class="myText-content">
+            <div class="dropdown productTypeSelect">
+                <button type="button" class="btn dropdown-toggle productTypeSelect" id="type"
+                        data-toggle="dropdown">全部
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="productType">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">首页图片</span>
+        <!--<input type="text" class="form-control" placeholder="输入名称" id="name">-->
+        <!--<img src="" id="image"/>-->
+        <!--<input id="imageUpload1" type="file" class="file"/>-->
+        <!--<input class="form-control" type="file" id="imageUpload" multiple name="imagefile"/>-->
+        <input class="form-control" type="file" id="imageUpload" multiple="multiple" name="imagefile"/>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">首页视频</span>
+        <!--<input type="text" class="form-control" placeholder="输入名称" id="name">-->
+        <!--<img src="" id="image"/>-->
+        <!--<input id="imageUpload1" type="file" class="file"/>-->
+        <!--<input class="form-control" type="file" id="imageUpload" multiple name="imagefile"/>-->
+        <input class="form-control" type="file" id="videoUpload" multiple="multiple" name="videoFile"/>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品描述</span>
+        <input type="text" class="form-control" placeholder="输入描述" id="desc">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品详细描述（禁用）</span>
+        <input type="text" class="form-control" placeholder="输入描述" id="descdetail">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品原价（禁用）</span>
+        <input type="text" class="form-control" placeholder="输入描述" id="oldprice">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品售价</span>
+        <input type="text" class="form-control" placeholder="输入描述" id="price">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品会员价</span>
+        <input type="text" class="form-control" placeholder="输入描述" id="vipprice">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品单位（禁用）</span>
+        <input type="text" class="form-control" placeholder="输入描述" id="unit">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品详情图片</span>
+        <!--<input type="text" class="form-control" placeholder="输入描述" id="detailimgs">-->
+
+        <input class="form-control" type="file" id="imageUploads" multiple="multiple" name="imagefiles"/>
+        <!--<div class="detailimgs" id="detailimgs"></div>-->
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品标签</span>
+        <input type="text" class="form-control" placeholder="输入商品标签" id="tag">
+        <!--<div class="tag" id="tag"></div>-->
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品顶部标签</span>
+        <input type="text" class="form-control" placeholder="输入商品标签" id="toptag">
+        <!--<div class="tag" id="tag"></div>-->
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品销售数量</span>
+        <input type="text" class="form-control" placeholder="输入商品销售数量" id="salled">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">商品详细长图</span>
+        <!--<input type="text" class="form-control" placeholder="输入描述" id="detailimg">-->
+        <input class="form-control" type="file" id="imageUploadDetail" multiple="multiple" name="imagefileDetail"/>
+    </div>
+
+
+    <button class="btn-primary btn-submit" id="submit">保存</button>
+    <div style="display: none">
+        <div id="productTypeSelect">0</div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        getProductType();
+        var url = window.location;
+        var id = getUrlParam(url, "id");
+        var type = getUrlParam(url, "type");
+        // initFileInput();
+        if (type == "edit") {
+            $(".panel-heading").html("商品编辑");
+            getProductDetail(id);
+            $("#submit").click(function () {
+                updateProductById();
+            })
+        } else if (type == "add") {
+            $("#typeid").val(0);
+            $(".panel-heading").html("商品新增");
+            getProductDetail(id);
+            $("#submit").click(function () {
+                updateProductById();
+            })
+        }
+    });
+
+    function updateProductById() {
+        var updateinfo = "{\"fProductId\":" + $("#id").val() + ",\"ftype\": " + $("#productTypeSelect").html() + ",\"fName\":\"" + $("#name").val() + "\",\"fDesc\":\"" + $("#desc").val() + "\",\"fDescDetail\": \"" + $("#descdetail").val() + "\",\"fOldPrice\":" + $("#oldprice").val() + ",\"fPrice\":" + $("#price").val() + ",\"vipprice\":" + $("#vipprice").val() + ",\"fUnit\":\"" + $("#unit").val() + "\",\"fsalled\":" + $("#salled").val() + ",\"edittag\":\"" + $("#tag").val() + "\",\"editftoptag\":\"" + $("#toptag").val() + "\"}";
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+            url: 'updateProduct',
+            dataType: "json",
+            data: {"info": updateinfo},
+            success: function (data) {
+                console.log(data);
+                if (data.massage == "修改成功") {
+                    alert(data.massage);
+                }
+            }
+        })
+
+    }
+
+    function getProductType() {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+            url: 'getAllProductType',
+            dataType: "json",
+            // data: {"key": key, "pageIndex": pageIndex, "type": type, "pageSize": pageSize},
+            success: function (data) {
+                var dataObj = eval("(" + data.massage + ")");
+                var html = "";
+                $.each(dataObj, function (index, obj) {
+                    html += " <li role=\"presentation\" class='productTypeIndex'>\n" +
+                        "                        <a role=\"menuitem\" tabindex=\"" + obj.ftypeid + "\" href=\"#\">" + obj.fName + "</a>\n" +
+                        "                    </li>";
+                })
+                $("#productType").html(html);
+                $(".productTypeIndex").click(function () {
+                    var obj = ($(this).find("a"))
+                    var index = obj.attr("tabindex");
+                    var name = obj.html();
+                    $("#productTypeSelect").html(index);
+                    $("#type").html(name + "<span class=\"caret\"></span>");
+                })
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // /*弹出jqXHR对象的信息*/
+                // alert(jqXHR.responseText);
+                // alert(jqXHR.status);
+                // alert(jqXHR.readyState);
+                // alert(jqXHR.statusText);
+                // /*弹出其他两个参数的信息*/
+                // alert(textStatus);
+                // alert(errorThrown);
+                alert('请求失败 ');
+            }
+        });
+    }
+
+    function initFileInputs(id, images) {
+        console.log(images);
+        var image = new Array();
+        var imageinfo = new Array();
+        for (var i in  images) {
+            image.push("<img src='" + images[i].fimageurl + "' class='file-preview-image'>");
+            imageinfo.push(JSON.parse("{\"caption\":\"images\",\"url\":\"/back/deleteImage\",\"key\":" + images[i].fid + ",\"extra\":{\"id\":" + images[i].fid + "}}"));
+
+        }
+
+
+        $("#imageUploads").fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: "upLoadImages", //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+            initialPreview: image,
+            initialPreviewConfig: imageinfo,
+            //uploadExtraData:{"id": 1, "fileName":'123.mp3'},
+            uploadAsync: true, //默认异步上传
+            showUpload: true, //是否显示上传按钮
+            showRemove: true, //显示移除按钮
+            showPreview: true, //是否显示预览
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式    
+            dropZoneEnabled: true,//是否显示拖拽区域
+            // autoReplace: true,
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            //maxImageWidth: 1000,//图片的最大宽度
+            //maxImageHeight: 1000,//图片的最大高度
+            //maxFileSize:0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            overwriteInitial: false,//不覆盖已上传的图片
+            maxFileCount: 5, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount: true,
+            previewFileIcon: "<iclass='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+            uploadExtraData: function (previewId, index) {           //传参
+                var data = {
+                    "id": id,     //此处自定义传参
+                };
+                return data;
+            },
+
+        }).on("fileuploaded", function (event, data, previewId, index) {
+        }).on('filepredelete', function (event, key) {
+            console.log('Keypredelete = ' + key);
+        }).on('filedelete', function (event, data, key) {
+            console.log('Keydelete = ' + key);
+            console.log(data.response);
+        }).on('filedeleted', function (event, key, data) {
+            if (data.responseJSON.massage == '删除成功') {
+                alert('删除成功');
+            }
+        }).on('filesuccessremove', function (event, id) {
+            console.log(event);
+            console.log(id);
+            // if (id)) {
+            //     console.log('Uploaded thumbnail successfully removed');
+            // } else {
+            //     return false; // abort the thumbnail removal
+            // }
+        });
+
+    }
+
+    function initFileInpitVideo(id, videos) {
+        console.log(videos);
+        var image = new Array();
+        var imageinfo = new Array();
+        for (var i in  videos) {
+            image.push("<video src='" + videos[i].fvideourl + "' class='file-preview-video'/>");
+            imageinfo.push(JSON.parse("{\"caption\":\"video\",\"url\":\"deleteVideos\",\"key\":" + videos[i].fid + ",\"extra\":{\"id\":" + videos[i].fid + "}}"));
+        }
+        $("#videoUpload").fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: "upLoadVideo", //上传的地址
+            allowedFileExtensions: ['mp4','avi','dat','3gp','mov','rmvb'],//接收的文件后缀
+            initialPreview: image,
+            initialPreviewConfig: imageinfo,
+            uploadAsync: true, //默认异步上传
+            showUpload: true, //是否显示上传按钮
+            showRemove: true, //显示移除按钮
+            showPreview: true, //是否显示预览
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式    
+            dropZoneEnabled: true,//是否显示拖拽区域
+            autoReplace: true,
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            //maxImageWidth: 1000,//图片的最大宽度
+            //maxImageHeight: 1000,//图片的最大高度
+            //maxFileSize:0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            maxFileCount: 1, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount: true,
+            previewFileIcon: "<iclass='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+            uploadExtraData: function (previewId, index) {           //传参
+                var data = {
+                    "id": id,      //此处自定义传参
+                };
+                return data;
+            },
+
+        }).on("fileuploaded", function (event, data, previewId, index) {
+        }).on('filepredelete', function (event, key) {
+            console.log('Keypredelete = ' + key);
+        }).on('filedelete', function (event, data, key) {
+            console.log('Keydelete = ' + key);
+            console.log(data.response);
+        }).on('filedeleted', function (event, key, data) {
+            if (data.responseJSON.massage == '删除成功') {
+                alert('删除成功');
+            }
+        }).on('filesuccessremove', function (event, id) {
+            console.log(event);
+            console.log(id);
+            // if (id)) {
+            //     console.log('Uploaded thumbnail successfully removed');
+            // } else {
+            //     return false; // abort the thumbnail removal
+            // }
+        });
+    }
+
+    function initFileInput(id, url) {
+        console.log('a');
+        $("#imageUpload").fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: "upLoadImage", //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+            initialPreview: [
+                "<img src='" + url + "' class='file-preview-image'>"
+            ],
+            //uploadExtraData:{"id": 1, "fileName":'123.mp3'},
+            uploadAsync: true, //默认异步上传
+            showUpload: true, //是否显示上传按钮
+            showRemove: true, //显示移除按钮
+            showPreview: true, //是否显示预览
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式    
+            dropZoneEnabled: true,//是否显示拖拽区域
+            autoReplace: true,
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            //maxImageWidth: 1000,//图片的最大宽度
+            //maxImageHeight: 1000,//图片的最大高度
+            //maxFileSize:0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            maxFileCount: 1, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount: true,
+            previewFileIcon: "<iclass='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+            uploadExtraData: function (previewId, index) {           //传参
+                var data = {
+                    "id": id,      //此处自定义传参
+                };
+                return data;
+            },
+
+        }).on("fileuploaded", function (event, data, previewId, index) {
+
+
+        });
+    }
+
+    function initFileInputDetail(id, url) {
+        console.log('a');
+        $("#imageUploadDetail").fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: "upLoadImageDetail", //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+            initialPreview: [
+                "<img src='" + url + "' class='file-preview-image'>"
+            ],
+            //uploadExtraData:{"id": 1, "fileName":'123.mp3'},
+            uploadAsync: true, //默认异步上传
+            showUpload: true, //是否显示上传按钮
+            showRemove: true, //显示移除按钮
+            showPreview: true, //是否显示预览
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式    
+            dropZoneEnabled: true,//是否显示拖拽区域
+            autoReplace: true,
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            //maxImageWidth: 1000,//图片的最大宽度
+            //maxImageHeight: 1000,//图片的最大高度
+            //maxFileSize:0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            maxFileCount: 1, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount: true,
+            previewFileIcon: "<iclass='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+            uploadExtraData: function (previewId, index) {           //传参
+                var data = {
+                    "id": id,      //此处自定义传参
+                };
+                return data;
+            },
+
+        }).on("fileuploaded", function (event, data, previewId, index) {
+
+
+        });
+    }
+
+    function getProductDetail(fid) {
+        $.ajax({
+            type: 'POST',
+            // contentType: "application/json; charset=utf-8",
+            contentType: "application/x-www-form-urlencoded",
+            url: '../wxGetProductDetail',
+            dataType: "json",
+            data: {"fproductid": fid},
+            success: function (data) {
+                console.log(data);
+                var dataObj = eval("(" + data.massage + ")");
+                $("#id").val(dataObj.fProductId);
+                $("#name").val(dataObj.fName);
+
+                $("#desc").val(dataObj.fDesc);
+                // $("#image").attr('src', dataObj.fImgUrl);
+                // $("#image").html("<img src=\"" + dataObj.fImgUrl + "\" />");
+                $("#descdetail").val(dataObj.fDescDetail);
+                $("#oldprice").val(dataObj.fOldPrice);
+                $("#price").val(dataObj.fPrice);
+                $("#vipprice").val(dataObj.fVipPrice);
+                $("#unit").val(dataObj.fUnit);
+                var images = dataObj.fproductImgs;
+                var videos = dataObj.fproductVideo;
+                $("#salled").val(dataObj.fsalled);
+                $("#detailimg").html("<img src=\"" + dataObj.fdetailImg + "\" />");
+                $("#tag").val(dataObj.edittag);
+                $("#toptag").val(dataObj.ftoptag);
+                $("#productTypeSelect").html(dataObj.ftype);
+                $("#type").html(dataObj.typename + "<span class=\"caret\"></span>");
+                initFileInput(dataObj.fProductId, dataObj.fImgUrl);
+                initFileInputs(dataObj.fProductId, images);
+                initFileInputDetail(dataObj.fProductId, dataObj.fdetailImg);
+                initFileInpitVideo(dataObj.fProductId, videos);
+            }
+
+        })
+    }</script>

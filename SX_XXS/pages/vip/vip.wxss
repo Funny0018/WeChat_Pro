@@ -1,0 +1,154 @@
+/* pages/vip/vip.wxss */
+
+.background {
+  width: 100%;
+  height: 100%;
+  background-image: url('https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/wxVipBack.png');
+  position: fixed;
+  z-index: -9;
+}
+
+.vip-top {
+  height: 140rpx;
+  width: 90%;
+  margin-left: 5%;
+}
+
+.btnGetuserInfo {
+  color: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 40rpx;
+  /* background-color: #f60; */
+  background: none;
+  border: none;
+  width: 300rpx;
+}
+
+.btnGetuserInfo::after {
+  border: none;
+}
+
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  margin-top: 30rpx;
+  margin-left: 30rpx;
+  border-radius: 50%;
+  float: left;
+}
+
+.userinfo-nickname {
+  height: 100rpx;
+  width: 300rpx;
+  margin-top: 40rpx;
+  margin-left: 30rpx;
+  font-size: 50rpx;
+  color: #fff;
+  font-weight: 500;
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.isVip {
+  float: left;
+  font-size: 25rpx;
+  width: 160rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #ddd;
+  border-radius: 25rpx;
+  border: solid #ddd 1rpx;
+  text-align: center;
+  margin-top: 50rpx;
+  margin-left: 20rpx;
+  font-weight: 700;
+}
+
+.card {
+  height: 750rpx;
+  width: 90%;
+  margin-left: 5%;
+  border-radius: 30rpx;
+  background-color: #fff;
+  border: solid 1rpx #ddd;
+}
+
+.card-top {
+  height: 80rpx;
+  text-align: center;
+  margin-top: 40rpx;
+  font-size: 40rpx;
+  color: #c93;
+}
+
+.card-top text {
+  font-weight: 800;
+  color: #c93;
+  font-size: 60rpx;
+}
+
+.card-images {
+  width: 100%;
+  height: 400rpx;
+  margin-top: 30rpx;
+}
+
+.card-images view {
+  width: 33%;
+  height: 50%;
+  float: left;
+  text-align: center;
+}
+
+.card-images image {
+  width: 100rpx;
+  height: 100rpx;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-images text {
+  width: 100%;
+  height: 30rpx;
+  font-size: 30rpx;
+  float: left;
+}
+
+.card-senced {
+  font-size: 25rpx;
+  color: #c93;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.card-bottom {
+  /* background-color: #c93; */
+  background: url('https://xxs.xixiansheng.cn/WX_JVXXS/wxStatic/images/joinvip/submit.png') no-repeat;
+  background-size: 100% 100%;
+  color: #714f1f;
+  height: 100rpx;
+  line-height: 100rpx;
+  margin-top: 0rpx;
+  width: 90%;
+  margin-left: 5%;
+  border-radius: 60rpx;
+  text-align: center;
+}
+
+.loginImage {
+  width: 19%;
+  height: 100%;
+  float: left;
+  position: relative;
+}
+
+.vipHead {
+  width: 50rpx;
+  height: 50rpx;
+  right: 0;
+  top: 0;
+  position: absolute;
+}

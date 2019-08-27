@@ -1,0 +1,51 @@
+<!--pages/joinvip/joinvip.wxml-->
+<view class='vip-Top'>
+  <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='btnGetuserInfo'> 获取头像昵称 </button>
+  <block wx:else>
+    <view class='loginImage'>
+      <image bindtap="bindViewTap" class="userinfo-avatar userinfo-avatar-vip" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <image wx:if='{{isVip!="普通用户"}}' src='/static/image/vipHead.png' class='vipHead'></image>
+    </view>
+    <view class="userinfo-nickname">{{userInfo.nickName}}</view>
+    <view class='isVip'>
+      <text> {{isVip}}</text>
+    </view>
+  </block>
+</view>
+<view class='checkVip'>
+  <view class='checktitle'>选择会员套餐</view>
+  <scroll-view scroll-x class="scroll-header">
+    <block wx:for='{{vipTypes}}' wx:key='ftypeid'>
+      <view class='vipView {{item.fid==typeid?"active":""}}' id='{{item.fid}}' bindtap='changeType'>
+        <image class='xianshi' wx:if='{{item.fid==8}}' src='https://xxs.xixiansheng.cn/Images/static/xianshixiangou.png'></image>
+        <!-- <view class='yearTop'>
+        <text>{{item.fdiscount}}</text>
+        <text style='text-decoration: line-through;'>￥{{item.foldprice}}</text>
+      </view>
+      <view class='yearTitle'>{{item.ffullname}}</view>
+      <view class='yearPrice'>￥{{item.fprice}}</view> -->
+        <icon type="{{item.fid==typeid?'success':'circle'}}" size="25" class="l-mycheck" color='#d2a648' />
+        <view class='vipname'>{{item.ffullname}}</view>
+        <view class='priceview'>
+          <text class='vipprice'>￥{{item.fprice}}</text>
+          <text class='oldprice'>￥{{item.foldprice}}</text>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+</view>
+<view class='bottom'>
+  <view class='bottomLeft line'>
+    <view class='bottomPrice'>需支付:{{totalprice}}元</view>
+    <!-- <view class='bottomFullname'>{{fullname}}</view> -->
+  </view>
+  <view class='payChoose'>
+    <image src='/static/image/weixin.png'></image>
+    <view class='payChooseInfo'>
+      <view class='payChooseTop'>微信支付</view>
+      <view class='payChooseBottom'>亿万用户的选择，更快更安全</view>
+        <icon type="success" size="25" class="l-mycheck" color='#d2a648' />
+    </view>
+  </view>  
+  <view class='bottomRight' bindtap='buyVip'>{{joinvip}}</view>
+</view>

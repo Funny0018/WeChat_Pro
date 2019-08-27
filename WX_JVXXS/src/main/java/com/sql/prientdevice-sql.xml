@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.prientdeviceDao">
+
+    <parameterMap id="parameterMap" type="com.entity.prientdevice"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.prientdevice">
+        <result property="fid" column="fid"/>
+        <result property="fname" column="fname"/>
+        <result property="fuuid" column="fuuid"/>
+
+
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            fname,
+            fuuid,
+        </trim>
+    </sql>
+    <insert id="add" parameterType="com.entity.prientdevice" useGeneratedKeys="true">
+        insert into t_prientdevice
+	(
+	fuuid,
+	fname
+	)
+	values
+	(
+	#{fuuid},
+	#{fname}
+	);
+    </insert>
+    <select id="selectByNone" resultMap="resultMap" parameterType="int">
+        select
+        <include refid="columnSql"></include>
+        FROM t_prientdevice
+    </select>
+    <select id="selectByFID" resultType="com.entity.prientdevice" parameterType="String">
+        select
+        <include refid="columnSql"></include>
+        FROM t_prientdevice WHERE fid=#{fid}
+    </select>
+    <delete id="deleteIds" parameterType="map">
+        DELETE FROM t_prientdevice
+        WHERE fid in
+        <foreach collection="fids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <update id="update" keyProperty="true" parameterType="map">
+        UPDATE t_prientdevice
+        SET fuuid=#{fuuid},
+        fname=#{fname}
+        WHERE fid = #{fid}
+    </update>
+</mapper>

@@ -1,0 +1,106 @@
+/* pages/billProductInfo/billProductInfo.wxss */
+
+page {
+  background-color: #eee;
+}
+
+.productInfo {
+  margin-top: 20rpx;
+}
+
+.productItem {
+  background-color: #fff;
+  /* border-bottom: #f60 solid 0.1rem; */
+  height: 250rpx;
+  width: 100%;
+}
+
+.productItem::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 250rpx;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(180, 180, 180, 0.3);
+}
+
+.productImgView {
+  float: left;
+  width: 30%;
+}
+
+.productImg {
+  width: 229rpx;
+  height: 229rpx;
+  padding-left: 1rem;
+  padding-top: 0.25rem;
+}
+
+.productInfoView {
+  float: left;
+  padding-left: 1rem;
+  width: 30%;
+  height: 200rpx;
+}
+
+.productName {
+  width: 450rpx;
+  margin-top: 0.5rem;
+  font-size: 30rpx;
+  font-weight: 800;
+  margin-left: 10rpx;
+  float: left;
+  position: absolute;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.productDesc {
+  width: 450rpx;
+  margin-top: 1.8rem;
+  font-size: 30rpx;
+  margin-left: 10rpx;
+  float: left;
+  position: absolute;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.priceView {
+  width: 200rpx;
+  float: left;
+  font-size: 30rpx;
+  margin-top: 150rpx;
+  margin-left: 10rpx;
+}
+
+.priceViewnovip {
+  width: 200rpx;
+  float: left;
+  font-size: 30rpx;
+  margin-left: 10rpx;
+  margin-top: 200rpx;
+}
+
+.productPrice {
+  font-size: 25rpx;
+  color: #f60;
+}
+
+.productVipPrice {
+  color: #fbe11c;
+}
+
+.vipimage {
+  width: 25rpx;
+  height: 25rpx;
+  margin-left: 20rpx;
+}
+.count{
+  float: right;
+  margin-right: 30rpx;
+  margin-top: 180rpx;
+}

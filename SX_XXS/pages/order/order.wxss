@@ -1,0 +1,141 @@
+/* pages/order/order.wxss */
+
+page {
+  background-color: #eee;
+}
+
+.order-top {
+  width: 100%;
+  height: 70rpx;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+
+.order-menu {
+  width: 20%;
+  height: 70rpx;
+  text-align: center;
+  float: left;
+}
+
+.order-menu image {
+  height: 75rpx;
+  width: 75rpx;
+  margin-top: 30rpx;
+}
+
+.order-menu text {
+  text-align: center;
+  width: 100%;
+  float: left;
+  font-size: 0.8rem;
+  margin-top: 15rpx;
+}
+
+.order-list {
+  margin-top: 20rpx;
+}
+
+.order-info {
+  background-color: #fff;
+  width: 100%;
+  margin-top: 15rpx;
+  height: 250rpx;
+}
+
+.order-head {
+  font-size: 35rpx;
+  margin-left: 20rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  width: 90%;
+}
+
+.order-top-left {
+  float: left;
+  font-size: 35rpx;
+  color: #cfcfcf;
+}
+
+.order-top-right {
+  float: right;
+  color: #f60;
+  font-size: 35rpx;
+}
+
+.order-imgs {
+  height: 130rpx;
+}
+
+.product-image {
+  height: 120rpx;
+  width: 120rpx;
+  margin-left: 20rpx;
+}
+
+.order-bottom {
+  height: 50rpx;
+}
+
+.order-bottom-left {
+  float: left;
+  padding-left: 20rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 30rpx;
+  color: #cfcfcf;
+}
+
+.order-bottom-right {
+  float: right;
+  padding-right: 20rpx;
+  color: #f60;
+}
+
+.order-head::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 65rpx;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(180, 180, 180, 0.3);
+  /* background-color:red; */
+}
+
+.order-imgs::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 0rpx;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(180, 180, 180, 0.3);
+}
+
+.isBottom {
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  color: #ddd;
+  text-align: center;
+  padding-bottom: 20rpx;
+}
+
+.active {
+  border-bottom: 1rpx #f60 solid;
+  box-sizing: border-box;
+}
+.order-count{
+  width: 100%;
+  height: 50rpx;
+  line-height: 50rpx;
+  background-color: #fff;
+  margin-top: 90rpx;
+  color: #cfcfcf;
+}
+.order-count view{
+  margin-left: 20rpx;
+  font-size: 30rpx;
+}

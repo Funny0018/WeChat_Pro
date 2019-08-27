@@ -1,0 +1,26 @@
+<!--pages/billProductInfo/billProductInfo.wxml-->
+<view class='productInfo'>
+  <block wx:for="{{productInfo}}" wx:key="fProductId">
+    <view class="productItem">
+      <view class='productImgView'>
+        <image src='{{item.fImgUrl}}' class='productImg'></image>
+      </view>
+      <view class='productInfoView'>
+        <view class='infoView'>
+          <text class='productName'>{{item.fName}}</text>
+          <text class='productDesc'>{{item.fDesc}}</text>
+        </view>
+        <view wx:if='{{item.fVipPrice>0}}' class='priceView'>
+          <text class='productPrice'>￥{{item.fPrice}}
+          </text >
+            <text class='productVipPrice'>￥{{item.fVipPrice}}</text>
+          <image class='vipimage' src='/static/image/product/vip.png'></image>
+        </view>
+        <view wx:else class='priceViewnovip'>
+          <text class='productPrice' style='font-size:30rpx;'>￥{{item.fPrice}}</text >
+          </view>
+        </view>
+        <view class='count'>X{{item.count}}</view>
+    </view>
+  </block>
+</view>

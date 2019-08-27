@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.userDao">
+
+    <parameterMap id="parameterMap" type="com.entity.user"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.user">
+        <result property="fuserid" column="fuserid"/>
+        <result property="fopenid" column="fopenid"/>
+        <result property="funionid" column="funionid"/>
+        <result property="fmoney" column="fmoney"/>
+        <result property="fisvip" column="fisvip"/>
+        <result property="fvipstartdate" column="fvipstartdate"/>
+        <result property="fvipenddate" column="fvipenddate"/>
+        <result property="fawardtime" column="fawardtime"/>
+        <result property="fimageurl" column="fimageurl"/>
+        <result property="fnikename" column="fnikename"/>
+        <result property="fnewcoupon" column="fnewcoupon"/>
+        <result property="falertinfo" column="falertinfo"/>
+        <result property="fjifen" column="fjifen"/>
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fuserid,
+            fopenid,
+            funionid,
+            fmoney,
+            fisvip,
+            fvipstartdate,
+            fvipenddate,
+            fawardtime,
+            fimageurl,
+            fnikename,
+            fnewcoupon,
+            falertinfo,
+            fjifen,
+        </trim>
+    </sql>
+
+    <select id="selectByFopenid" resultMap="resultMap" parameterType="String">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_user
+        WHERE fopenid=#{fopenid}
+    </select>
+    <select id="selectByFuserid" resultMap="resultMap" parameterType="String">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_user
+        WHERE fuserid=#{fuserid}
+    </select>
+    <insert id="insertIntoUser" parameterType="com.entity.user" useGeneratedKeys="true" keyProperty="fuserid">
+       INSERT INTO t_user
+        (
+            fopenid,
+            funionid,
+            fmoney,
+            fisvip,
+            fvipstartdate,
+            fvipenddate,fawardtime,fimageurl,fnikename,fnewcoupon,falertinfo,fjifen)
+        VALUES
+        (#{fopenid},#{funionid},#{fmoney},0,'1900-01-01 00:00:00','1900-01-01 00:00:00',0,'','',0,'',0)
+    </insert>
+    <update id="updateUserInfo" parameterType="com.entity.user" useGeneratedKeys="true">
+        UPDATE t_user
+        SET fopenid=#{fopenid},
+            funionid=#{funionid},
+            fmoney=#{fmoney},
+            fisvip=#{fisvip},
+            fvipstartdate=#{fvipstartdate},
+            fvipenddate=#{fvipenddate},
+            fawardtime=#{fawardtime},
+            fimageurl=#{fimageurl},
+            fnikename=#{fnikename},
+            fnewcoupon=#{fnewcoupon},
+            falertinfo=#{falertinfo},
+            fjifen=#{fjifen}
+        WHERE fuserid=#{fuserid}
+    </update>
+    <select id="selectBack" resultMap="resultMap" parameterType="map">
+        SELECT
+        <include refid="columnSql"></include>
+        FROM t_user
+        WHERE 1=1
+        <if test='ftype!=-1 and ftype!=null'>
+            AND fisvip=#{ftype}
+        </if>
+        <if test='userid!=0 and userid!=null'>
+            AND fuserid=#{userid}
+        </if>
+        limit #{currIndex} , #{pageSize}
+    </select>
+    <select id="selectCountBack" resultType="int" parameterType="int">
+        SELECT count(1) FROM t_user
+        WHERE 1=1
+        <if test='_parameter!=-1 and _parameter!=null'>
+            AND fisvip=#{ftype}
+        </if>
+    </select>
+</mapper>

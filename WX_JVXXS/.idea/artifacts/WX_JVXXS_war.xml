@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="WX_JVXXS:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="WX_JVXXS.war">
+      <element id="artifact" artifact-name="WX_JVXXS:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,394 @@
+.panel-heading {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.panel-body {
+    line-height: 3rem;
+}
+
+.productTypeSelect {
+    width: 10rem;
+}
+
+.my-container {
+    float: left;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.myLabel-content, .myText-content, .myBtn-content {
+    float: left;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.myLabel-content, .myText-content input[type='text'], .myBtn-content .btn {
+    height: 30px;
+    font-size: 12px;
+}
+
+.myBtn-content .btn {
+    margin-bottom: 10px;
+}
+
+.pagination {
+    float: right;
+}
+
+.pageSize {
+    width: 2rem;
+}
+
+.productType {
+    /*background-color: #eee;*/
+    height: 80%;
+    text-align: center;
+}
+
+.product img {
+    width: 10rem;
+    height: 10rem;
+    float: left;
+}
+
+.btn-submit {
+    width: 50%;
+    margin-top: 1rem;
+    border-radius: 0.2rem;
+}
+
+.optionCityInfoBox {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    left: 0;
+    top: 0;
+    text-align: center;
+}
+
+.optionCityInfoBoxInner {
+    /*position: fixed;*/
+    width: 80%;
+    /*height: 100%;*/
+    opacity: 0.3;
+    margin: 20rem auto;
+    opacity: 1;
+}
+
+.price-input {
+    width: 4rem;
+}
+
+.orderhead {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.orderhead div {
+    display: inline;
+}
+
+.ordertype {
+    margin-left: 10rem;
+    font-size: 2.5rem;
+}
+
+.orderAddress {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 2rem;
+}
+
+.orderAddressArea {
+    border: solid #dfdfdf 0.1rem;
+}
+
+.orderAddressArea div {
+    margin-left: 2%;
+}
+
+.orderDetailHead {
+    font-size: 2rem;
+    width: 100%;
+}
+
+.orderProductList {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 2rem;
+}
+
+.orderProductList img {
+    width: 10rem;
+    height: 10rem;
+    float: left;
+}
+
+.orderProductList div {
+    float: left;
+}
+
+.orderPrice {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.orderPriceArea {
+    border: solid #dfdfdf 0.1rem;
+    height: 14.6rem;
+}
+
+.orderPriceArea div {
+    width: 50%;
+    float: left;
+    height: 2rem;
+    border-bottom: solid #dfdfdf 0.1rem;
+}
+
+.finalprice {
+    font-size: 2.5rem;
+    height: 2.5rem;
+}
+
+.orderSubmit {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.send {
+    margin-top: 2rem;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.send div {
+    width: 30%;
+    float: left;
+}
+
+.send input {
+    width: 50%;
+    float: left;
+}
+
+.send button {
+    width: 20%;
+    float: left;
+}
+
+.orderInfoArea {
+    width: 80%;
+    margin-left: 10%;
+    height: 11.1rem;
+}
+
+.orderInfo {
+    border: solid 0.1rem #dfdfdf;
+    height: 10rem;
+}
+
+.orderInfo div {
+    float: left;
+    width: 50%;
+    border-bottom: solid 0.1rem #dfdfdf;
+    height: 2rem;
+    line-height: 2rem;
+}
+
+.my-container {
+    width: 100%;
+}
+
+.my-container ul {
+    list-style: none;
+}
+
+.my-container ul li {
+    float: left;
+    width: 8rem;
+    text-align: center;
+}
+
+.my-container ul li a {
+    color: #0f0f0f;
+}
+
+.active {
+    font-weight: 800;
+    border-bottom: #0f0f0f solid 1px;
+}
+
+.btn-primary {
+    margin-left: 8rem;
+}
+
+.prientBack {
+    background-color: rgba(100, 100, 100, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    position: absolute;
+    display: none;
+}
+
+.prientFront {
+    width: 50%;
+    /*height: 30%;*/
+    margin-top: 25%;
+    margin-left: 25%;
+    background-color: #fdfdfd;
+}
+
+.prientHead {
+    font-weight: 800;
+    text-align: center;
+}
+
+.prientFront ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.prientFront ul li {
+    border: 1px #f0f0f0 solid;
+    height: 3rem;
+    width: 100%;
+    list-style-type: none;
+}
+
+.prientFront ul li span {
+    height: 3rem;
+    line-height: 3rem;
+    width: 50%;
+    display: block;
+    float: left;
+    text-align: center;
+}
+
+.editCoupon {
+    background-color: rgba(100, 100, 100, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    position: absolute;
+    /*display: none;*/
+}
+
+.editCounponFront {
+    width: 75%;
+    margin-top: 10%;
+    margin-left: 12.5%;
+    z-index: 20;
+}
+
+.form-control ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.form-control ul li {
+    float: left;
+    width: 8rem;
+    text-align: center;
+}
+
+.form-control ul li a {
+    color: #0f0f0f;
+}
+
+.choseProduct {
+    width: 75%;
+    height: 50%;
+    margin-top: 10%;
+    margin-left: 12.5%;
+    z-index: 30;
+    background-color: #fff;
+    position: absolute;
+}
+
+.choseProduct input-group {
+    height: 10%;
+}
+
+.productListForCoupon {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.productListForCoupon li {
+    width: 100%;
+    text-align: center;
+    float: left;
+    margin-top: 1rem;
+    border-bottom: 0.1rem #000 solid;
+}
+
+.productListForCoupon li span {
+    display: block;
+    width: 30%;
+    text-align: center;
+    float: left;
+}
+
+.showCouponForAward {
+    height: 90%;
+    overflow: scroll;
+}
+
+.couponListForCoupon {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.couponListForCoupon li {
+    width: 100%;
+    text-align: center;
+    float: left;
+    margin-top: 1rem;
+    border-bottom: 0.1rem #000 solid;
+}
+
+.couponListForCoupon li span {
+    display: block;
+    width: 20%;
+    text-align: center;
+    float: left;
+}
+
+.showCouponForAward {
+    height: 90%;
+    overflow: scroll;
+}
+
+.buttonBox {
+    border: #000 solid 0.1rem;
+    float: left;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.file-preview-video {
+    width: 100%;
+    height: 100%;
+}
+
+.choseType {
+    border: solid #0f0f0f 1px;
+    background-color: #fefefe;
+}
+.choseTypeCancel{
+    border-top: solid #0f0f0f 1px;
+    font-weight: 800;
+    text-align: center;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    height: 2.5rem;
+}

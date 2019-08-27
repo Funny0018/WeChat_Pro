@@ -1,0 +1,107 @@
+/* pages/addDeliveryAddress/addDeliveryAddress.wxss */
+
+page {
+  background-color: #eee;
+}
+
+.addDeliveryAddress {
+  background-color: #fff;
+  margin-top: 30rpx;
+  height: 545rpx;
+  width: 100%;
+}
+
+.info-list {
+  margin-top: 30rpx;
+}
+
+.list-detail {
+  height: 110rpx;
+  font-size: 40rpx;
+  line-height: 110rpx;
+  /* margin-top: 25rpx; *//* padding-top: 25rpx; */
+  width: 100%;
+}
+
+text {
+  margin-left: 40rpx;
+  float: left;
+  width: 180rpx;
+  height: 90rpx;
+}
+
+input {
+  height: 90rpx;
+  float: left;
+  width: 440rpx;
+  margin-top: 5rpx;
+}
+
+image {
+  width: 50rpx;
+  height: 50rpx;
+  float: right;
+  margin-right: 20rpx;
+  margin-top: 35rpx;
+}
+
+.list-detail::after {
+  content: '';
+  position: absolute;
+  display: block;
+  margin-top: 110rpx;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(180, 180, 180, 0.3);
+}
+
+.bottom {
+  margin-top: 30rpx;
+}
+
+.btn {
+  border-radius: 20rpx;
+  width: 90%;
+  font-size: 40rpx;
+  color: #f60;
+  margin-top: 30rpx;
+}
+
+.citypickers {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  background-color: #ff0;
+}
+
+.citybody {
+  position: fixed;
+  bottom: 0px;
+}
+
+.cityheader {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: 5;
+}
+
+.city-cancel {
+  float: left;
+  margin: 20rpx;
+  color: #828282;
+}
+
+.city-true {
+  float: right;
+  margin: 20rpx;
+  color: #10ff10;
+}
+
+.section .picker {
+  background-color: #fff;
+  border-bottom: 2px #ccc solid;
+  border-top: 2px #d9d9d9 solid;
+  padding: 20rpx;
+}

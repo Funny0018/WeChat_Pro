@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.baseCityListDao">
+
+    <parameterMap id="parameterMap" type="com.entity.baseCityList"></parameterMap>
+    <resultMap id="resultMap" type="com.entity.baseCityList">
+        <result property="fid" column="fid"/>
+        <result property="ffullname" column="ffullname"/>
+        <result property="flat" column="flat"/>
+        <result property="flng" column="flng"/>
+        <result property="fname" column="fname"/>
+    </resultMap>
+    <sql id="columnSql">
+        <trim suffixOverrides=",">
+            fid,
+            ffullname,
+            flat,
+            flng,
+            fname,
+        </trim>
+    </sql>
+
+    <select id="selectByFName" resultMap="resultMap" parameterType="String">
+        select
+        <include refid="columnSql"></include>
+        FROM t_basecitylist
+        WHERE (ffullname LIKE #{fname} OR fname LIKE #{fname})
+    </select>
+
+
+</mapper>

@@ -1,0 +1,47 @@
+<!--pages/order/order.wxml-->
+<view class='order-top'>
+  <view class='order-menu {{type==-1?"active":""}}' bindtap='switchTab' id='-1'>
+    <!-- <image src='/static/image/order/order.png'></image> -->
+    <text>全部订单</text>
+  </view>
+  <view class='order-menu {{type==0?"active":""}}' bindtap='switchTab' id='0'>
+    <!-- <image src='/static/image/order/toPay.png'></image> -->
+    <text>待付款</text>
+  </view>
+  <view class='order-menu {{type==1?"active":""}}' bindtap='switchTab' id='1'>
+    <!-- <image src='/static/image/order/toSend.png'></image> -->
+    <text>待发货</text>
+  </view>
+  <view class='order-menu {{type==2?"active":""}}' bindtap='switchTab' id='2'>
+    <!-- <image src='/static/image/order/toRecive.png'></image> -->
+    <text>待收货</text>
+  </view>
+  <view class='order-menu {{type==3?"active":""}}' bindtap='switchTab' id='3'>
+    <!-- <image src='/static/image/order/reciveOrder.png'></image> -->
+    <text>已完成</text>
+  </view>
+</view>
+<view class='order-count'><view>该分类下订单数量：{{maxCount}}</view></view>
+<view class='order-list'>
+  <block wx:for='{{billlist}}' wx:key='fbillno'>
+    <view class='order-info' id='{{item.fbillno}}' bindtap='toBillDetail'>
+      <view class='order-head'>
+        <view class='order-top-left'>{{item.fbillno}}</view>
+        <view class='order-top-right'>{{item.fstatename}}</view>
+      </view>
+      <view class='order-imgs'>
+        <block wx:for='{{item.fproducts}}' wx:for-item='product' wx:key="fProductId">
+          <image src='{{product.fImgUrl}}' class='product-image'></image>
+        </block>
+      </view>
+      <view class='order-bottom'>
+        <view class='order-bottom-left'>{{item.fbilldate}}</view>
+        <view class='order-bottom-right'>￥{{item.totalprice}}</view>
+      </view>
+    </view>
+  </block>
+</view>
+<loading wx:if="{{!loading}}">
+  加载中...
+</loading>
+<view class='isBottom' style='display:{{isbottom?"block":"none"}}'>-----------我是有底线的---------</view>
